@@ -1,0 +1,21 @@
+{
+  "name": "cypress-auto",
+  "version": "1.0.0",
+  "description": "Initiation automatisation cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cypress",
+    "CFPD"
+  ],
+  "author": "Sandro",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^12.10.0"
+  },
+  "devDependencies": {
+    "cypress-xpath": "^2.0.1"
+  }
+}
