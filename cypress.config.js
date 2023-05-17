@@ -5,6 +5,6 @@ module.exports = {
       // implement node event listeners here
 
     },
-    defaultCommandTimeout: 8000
+    defaultCommandTimeout: 20000
   },
 };

@@ -7,7 +7,6 @@ describe('parcours PRO BO', () => {
                 cy.get('input[name="_username"]').type(ParcoursData.intBO.login.username)
                 cy.get('input[name="_password"]').type(ParcoursData.intBO.login.password)
                 cy.get('button[name="_submit"]').click()
-                cy.wait(4000)
                 cy.url().should('eq', ParcoursData.intBO.login.URLcreerDevis)
                 getIframeBody().find('input').first().type(ParcoursData.intBO.login.courtier, { force: true })
                 getIframeBody().find('button').contains('Sélectionner').click()
@@ -37,7 +36,6 @@ describe('parcours PRO BO', () => {
 
 
         it('Parcours Pro', () => {
-                cy.wait(3000)
                 let numeroDevis = "";
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]').click()
                 getIframeBody().find('[class="v-card__title"]').contains('Alsina Professionnel').click()
@@ -45,11 +43,9 @@ describe('parcours PRO BO', () => {
                 getIframeBody().find('input[data-cy="select-country"]').click()
                 getIframeBody().find('[id="list-item-183-1"]').click()
                 getIframeBody().contains('Retrouver toutes les informations légales par nom').parent().find('[class="v-select__selections"]').type(ParcoursData.intBO.parcoursPRO.nomEntreprise)
-                cy.wait(1000)
                 getIframeBody().find('[role="listbox"]').contains('50203544700031').click()
                 getIframeBody().find('button').contains('Valider').click()
                 // Devis réalisé 
-                cy.wait(3000)
                 // Code NAF
                 getIframeBody().find('input[data-cy="42"]').click().type(ParcoursData.intBO.parcoursPRO.codeNAF)
                 getIframeBody().find('[role="listbox"]').contains('20.51Z').click()
@@ -62,7 +58,6 @@ describe('parcours PRO BO', () => {
                 // CALCULER
                 getIframeBody().find('button').contains('Calculer').click()
                 getIframeBody().find('button').contains('Sélectionner').first().click()
-                cy.wait(5000);
                 // Récupération du numéro de devis
                 getIframeBody()
                         .find("#app")
@@ -72,7 +67,6 @@ describe('parcours PRO BO', () => {
                                 numeroDevis = numDevis.text();
                                 cy.wrap(numeroDevis).as("numeroDevis");
                         });
-                cy.wait(5000)
                 // Sélection Civilité      
                 getIframeBody().find('[class="col col-4"]').find('[role="button"]').type(ParcoursData.intBO.parcoursPRO.civilite)
                 // Nom & prénom représentant         
@@ -93,10 +87,9 @@ describe('parcours PRO BO', () => {
                 // Redacteur devis
                 getIframeBody().find('input[id="emisPar"]').type(ParcoursData.intBO.parcoursPRO.emisPar)
                 getIframeBody().find('button').contains('Étape suivante').click()
-                cy.wait(5000)
                 // Emettre le devis
                 getIframeBody().find('button').contains('Emettre le devis').click()
-                cy.wait(10000)
+                cy.wait(8000)
                 // Vérifier que les documents sont présents
                 // getIframeBody().contains('Téléchargement').parent().then(($DL) => {
                 //         if ($DL.find('button').contains('Rafraîchir')) {
@@ -114,7 +107,6 @@ describe('parcours PRO BO', () => {
                 cy.get(
                         'a[href="https://espacepartenaire.int.cfdp.fr/souscription/devis-etablis"]'
                 ).click();
-                cy.wait(4000);
                 getIframeBody()
                         .get("@numeroDevis")
                         .then((numeroDevis) => {
@@ -124,7 +116,6 @@ describe('parcours PRO BO', () => {
                         .find("button")
                         .contains("Rechercher")
                         .click({ force: true });
-                cy.wait(2000);
                 getIframeBody()
                         .find('[class="devis-list__container"]')
                         .should("contain.text", numeroDevis);
@@ -134,28 +125,22 @@ describe('parcours PRO BO', () => {
                         .find('div[class="v-list-item__title"]')
                         .contains("Transformer en contrat")
                         .click();
-                cy.wait(2000);
 
 
 
                 getIframeBody().find('button').contains('Valider').click()
-                cy.wait(2000)
                 getIframeBody().find('input[data-cy="telephone1"]').type(ParcoursData.intBO.parcoursPRO.telephone)
                 getIframeBody().find('input[data-cy="mail"]').type(ParcoursData.intBO.parcoursPRO.mail)
                 getIframeBody().find('button').contains('Étape suivante').click()
-                cy.wait(2000)
                 getIframeBody().find('input[data-cy="fractionnement"]').click().type(ParcoursData.intBO.parcoursPRO.fractionnement, { force: true }).type('{enter}', { force: true })
                 getIframeBody().find('input[data-cy="moyenDePaiement"]').click().type(ParcoursData.intBO.parcoursPRO.moyenPaiement, { force: true }).type('{enter}', { force: true })
                 getIframeBody().find('button').contains('Enregistrer').click()
-                cy.wait(2000)
                 getIframeBody().find('button').contains('Signer électroniquement').click()
                 getIframeBody().find('input[data-cy="prenom"]').type(ParcoursData.intBO.parcoursPRO.prenom)
                 getIframeBody().find('input[data-cy="nom"]').type(ParcoursData.intBO.parcoursPRO.nom)
                 getIframeBody().find('input[data-cy="mail"]').type(ParcoursData.intBO.parcoursPRO.mail)
                 getIframeBody().find('input[data-cy="portable"]').type(ParcoursData.intBO.parcoursPRO.telephone)
-                cy.wait(2000)
                 getIframeBody().find('h1[class="title-helios"]').parent().find('button').contains('Valider').click()
-                cy.wait(25000)
 
         })
 
