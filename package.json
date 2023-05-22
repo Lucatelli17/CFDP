@@ -18,5 +18,13 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "cypress-xpath": "^2.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucatelli17/CFDP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lucatelli17/CFDP/issues"
+  },
+  "homepage": "https://github.com/Lucatelli17/CFDP#readme"
 }
