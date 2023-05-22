@@ -31,21 +31,25 @@ describe("parcours ASSO SYNDICALE RE7 FO", () => {
 
   beforeEach(() => {
     cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.login(
-      ParcoursData.re7FO.login.username,
-      ParcoursData.re7FO.login.password
-    );
+    cy.login(ParcoursData.re7FO.login);
   });
 
   it("Parcours Asso Syndicale", () => {
     let numeroDevis = "";
+    // ---------------------
+    // Sélection du produit
+    // ---------------------
     cy.SelectProduct("Immobilier", "Alsina Association Syndicale Libre");
+    // ---------------------
+    // Devis - Date d'effet souhaitée
+    // ---------------------
+    cy.DateEffet();
     // ---------------------
     // Devis - Informations Tarifantes
     // ---------------------
-
     // Sélection Pays
-    cy.SelectCountry("select-country", "France");
+    cy.SelectCountry1("France");
+
     // Nombre de villas individuelles
     cy.NbVillasIndividuelles(ParcoursData.re7FO.parcoursIMMO.nbVillas);
     // Type de gestion ASL
@@ -64,7 +68,7 @@ describe("parcours ASSO SYNDICALE RE7 FO", () => {
       ParcoursData.re7FO.parcoursIMMO.presidentASL
     );
     // Pays Souscripteur
-    cy.SelectCountry("pays", "France");
+    cy.SelectCountry2("France");
     // Forme juridique
     cy.InputDivTitle(
       "Forme juridique",
@@ -91,7 +95,7 @@ describe("parcours ASSO SYNDICALE RE7 FO", () => {
     // Nom de l'ASL
     cy.InputDataCy("nom", ParcoursData.re7FO.parcoursIMMO.nomASL);
     // Pays Bénéficiaire
-    cy.SelectCountry("paysBeneficiaire", "France");
+    cy.SelectCountry3("France");
     // Adresse Bénéficiaire
     cy.InputId("adresse1", ParcoursData.re7FO.parcoursIMMO.adresse1);
     getIframeBody().find("#adresse1").type(" ").click();

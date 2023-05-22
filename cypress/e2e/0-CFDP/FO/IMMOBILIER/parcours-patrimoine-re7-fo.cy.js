@@ -3,52 +3,17 @@ import ParcoursData from "../../../../fixtures/dataCFDP.json";
 describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
   beforeEach(() => {
     cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]')
-      .type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]')
-      .type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]')
-      .click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.login(ParcoursData.re7FO.login)
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
-  it("Parcours Entreprise", () => {
+  it("Parcours patrimoine immobilier re7", () => {
     let numeroDevis = "";
 
     // ---------------------
     // Sélection de l'offre
     // ---------------------
 
-    getIframeBody().find('a[href="/souscription/produits/Immobilier"]')
-      .click();
+    getIframeBody().find('a[href="/souscription/produits/Immobilier"]').click();
     getIframeBody()
       .find('[class="v-card__title"]')
       .contains("Alsina Patrimoine Immobilier")
@@ -57,47 +22,34 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // ---------------------
     // Devis - Date d'effet souhaitée
     // ---------------------
-    getIframeBody().find("button")
-      .contains("Valider")
-      .click();
+    getIframeBody().find("button").contains("Valider").click();
 
     // ---------------------
     // Devis - Tarification
     // ---------------------
 
     // Selectionner un pays
-    getIframeBody().find('input[data-cy="select-country"]')
-      .click();
+    getIframeBody().find('input[data-cy="select-country"]').click();
     getIframeBody()
       .find('div[role="option"]')
       .contains("France")
       .first()
       .click();
     // Présence d'un lot dans une résidence de tourisme
-    getIframeBody().find('input[data-cy="21"]')
-      .click();
-    getIframeBody().find('div[role="option"]')
-      .contains("Non")
-      .first()
-      .click();
+    getIframeBody().find('input[data-cy="21"]').click();
+    getIframeBody().find('div[role="option"]').contains("Non").first().click();
 
     // Calculer le tarif
-    getIframeBody().find("button")
-      .contains("Calculer")
-      .click();
+    getIframeBody().find("button").contains("Calculer").click();
     // Sélectionner la première offre
-    getIframeBody().find("button")
-      .contains("Sélectionner")
-      .first()
-      .click();
+    getIframeBody().find("button").contains("Sélectionner").first().click();
 
     // ---------------------
     // Devis - Informations complémentaires
     // ---------------------
 
     // Civilité
-    getIframeBody().find('input[data-cy="civilite"]')
-      .click();
+    getIframeBody().find('input[data-cy="civilite"]').click();
     getIframeBody()
       .find('div[role="option"]')
       .contains("Monsieur")
@@ -126,13 +78,9 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .find('input[id="adresse1"]')
       .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
     // Ville
-    getIframeBody().find('input[id="ville"]')
-      .click()
-      .type("Lille");
+    getIframeBody().find('input[id="ville"]').click().type("Lille");
     // Code Postal
-    getIframeBody().find('input[id="codePostal"]')
-      .click()
-      .type("92210");
+    getIframeBody().find('input[id="codePostal"]').click().type("92210");
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
     getIframeBody()
       .find('input[id="nombreProcedures"]')
@@ -163,31 +111,29 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Devis - Récapitulatif du devis en cours
     // ---------------------
 
-    cy.wait(5000)
+    cy.wait(5000);
 
-    getIframeBody().find('button')
-      .contains('Étape suivante')
-      .click()
+    getIframeBody().find("button").contains("Étape suivante").click();
 
     // Variation commission courtier
-    getIframeBody().find('div[class="v-slider__thumb primary"]')
-      .trigger('mousedown', { button: 0 })
-      .trigger('mousemove', { clientX: 0, clientY: 50 })
-      .trigger('mouseup');
+    getIframeBody()
+      .find('div[class="v-slider__thumb primary"]')
+      .trigger("mousedown", { button: 0 })
+      .trigger("mousemove", { clientX: 0, clientY: 50 })
+      .trigger("mouseup");
 
-    getIframeBody().find('button')
-      .contains('Recalculer tarif')
-      .click()
+    getIframeBody().find("button").contains("Recalculer tarif").click();
 
-    // Emettre le devis 
-    getIframeBody().find('button')
-      .contains('Emettre le devis')
-      .click()
-    cy.wait(5000)
+    // Emettre le devis
+    getIframeBody().find("button").contains("Emettre le devis").click();
+    cy.wait(5000);
 
-    // Transformer en contrat 
-    getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
-      .click()
+    // Transformer en contrat
+    getIframeBody()
+      .find(
+        'a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]'
+      )
+      .click();
 
     // ---------------------
     // Vérification de la présence du devis dans la liste des devis
@@ -257,20 +203,18 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .type(ParcoursData.re7FO.parcoursIMMO.mail);
 
     // Etape suivante
-    getIframeBody().find("button")
-      .contains("Étape suivante")
-      .click();
+    getIframeBody().find("button").contains("Étape suivante").click();
 
     // ---------------------
     // Contrat - Paiement
     // ---------------------
 
     // Fractionnement
-    getIframeBody().find('input[data-cy="fractionnement"]')
-      .click()
-    getIframeBody().find('div[class="v-list-item__title"]')
+    getIframeBody().find('input[data-cy="fractionnement"]').click();
+    getIframeBody()
+      .find('div[class="v-list-item__title"]')
       .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
-      .click()
+      .click();
     // Moyen de paiement
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
@@ -280,20 +224,16 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       })
       .type("{enter}", { force: true });
     // Enregistrer
-    getIframeBody().find("button")
-      .contains("Enregistrer")
-      .click();
+    getIframeBody().find("button").contains("Enregistrer").click();
     // Attente pour le chargement des documents
-    cy.wait(30000)
+    cy.wait(30000);
 
     // ---------------------
     // Contrat - Récapitulatif et Signature
     // ---------------------
 
     // Signer électroniquement
-    getIframeBody().find("button")
-      .contains("Signer électroniquement")
-      .click();
+    getIframeBody().find("button").contains("Signer électroniquement").click();
     // Prénom de la signature
     getIframeBody()
       .find('input[data-cy="prenom"]')
@@ -317,9 +257,9 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .find("button")
       .contains("Valider")
       .click();
-    getIframeBody().find('div[role="status"]')
-      .should('be.visible')
-      .and('contain', 'Circuit de signature électronique correctement lancé')
-
+    getIframeBody()
+      .find('div[role="status"]')
+      .should("be.visible")
+      .and("contain", "Circuit de signature électronique correctement lancé");
   });
 });
