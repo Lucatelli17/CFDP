@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours ENTREPRISE ERROR FO', () => {
+describe('parcours PRO ERROR RE7 FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -9,8 +9,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .type(ParcoursData.re7FO.login.password)
                 cy.get('button[id="signin"]')
                         .click()
-                cy.url()
-                        .should('eq', 'https://espacepartenaire.re7.cfdp.fr/souscription')
+                cy.url().should('eq', 'https://espacepartenaire.re7.cfdp.fr/souscription')
         })
 
         const getIframeDocument = () => {
@@ -36,7 +35,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
         }
 
 
-        it('Parcours Entreprise Error', () => {
+        it('Parcours Pro Error', () => {
                 let numeroDevis = "";
 
                 // ---------------------
@@ -46,7 +45,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()
                 getIframeBody().find('[class="v-card__title"]')
-                        .contains('Alsina Entreprise')
+                        .contains('Alsina Professionnel')
                         .click()
 
                 // ---------------------
@@ -133,8 +132,6 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
-
-                // Devis réalisé 
 
                 // ---------------------
                 // Informations tarifantes
@@ -247,11 +244,8 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .click()
                 getIframeBody().find('p[class="error-bloquant"]')
                         .should('be.visible')
-                        .contains('pas disponible pour les professionnels ayant un CA de plus de 50 000 000')
+                        .contains('pas disponible pour les professionnels ayant un CA de plus de 25 000 000')
                         .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Problème lors de la tarification')
                 getIframeBody().find('button')
                         .contains('Afficher les informations')
                         .click()
@@ -262,7 +256,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .contains('Calculer')
                         .click()
 
-                // Sélection Tarification
+                // Sékection Tarification
 
                 getIframeBody().find('button')
                         .contains('Sélectionner')
@@ -643,6 +637,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .click()
                         .type(ParcoursData.re7FO.parcoursASSOCIATION.moyenPaiement, { force: true })
                         .type('{enter}', { force: true })
+
                 getIframeBody().find('button')
                         .contains('Enregistrer')
                         .click()

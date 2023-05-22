@@ -163,7 +163,9 @@
       "lieuNaissance": "Paris",
       "fractionnement": "ANNUEL",
       "moyenPaiement": "virement",
-      "adresse1": "12 chemin du buisset"
+      "adresse1": "12 chemin du buisset",
+      "nombreVehicules": "0",
+      "nombreResidencesSecondaires": "0"
     },
     "parcoursASSOCIATION": {
       "datedEffetValide": "2023-07-21",
@@ -232,6 +234,9 @@
       "nomCopro": "HENDRIX",
       "formeJuridique": "EARL - Exploitation Agricole à Responsabilité Limitée",
       "CA": "100000",
+      "nbSalaries": "2",
+      "nbVehicules": "1",
+      "nbPersonnesExploitation": "2",
       "surfaceExploitation": "3"
     },
     "parcoursIMMO": {
