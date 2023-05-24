@@ -40,7 +40,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     );
   };
 
-  it("Parcours Entreprise", () => {
+  it("Parcours Patrimoine", () => {
     let numeroDevis = "";
 
     // ---------------------

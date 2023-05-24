@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours JURILIB TPE CLIENT EXISTANT FO', () => {
+describe('parcours JURILIB TPE SIRET FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -35,7 +35,7 @@ describe('parcours JURILIB TPE CLIENT EXISTANT FO', () => {
         }
 
 
-        it('Parcours Jurilib TPE Client Existant', () => {
+        it('Parcours Jurilib TPE SIRET', () => {
                 let numeroDevis = "";
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()

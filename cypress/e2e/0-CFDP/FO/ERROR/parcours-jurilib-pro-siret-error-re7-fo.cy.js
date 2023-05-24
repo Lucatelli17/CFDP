@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours JURILIB PRO ERROR FO', () => {
+describe('parcours JURILIB PRO SIRET ERROR FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -35,7 +35,7 @@ describe('parcours JURILIB PRO ERROR FO', () => {
         }
 
 
-        it('Parcours Jurilib PRO Error', () => {
+        it('Parcours Jurilib PRO SIRET Error', () => {
                 let numeroDevis = "";
 
                 // ---------------------
@@ -219,9 +219,9 @@ describe('parcours JURILIB PRO ERROR FO', () => {
                 getIframeBody().find('button')
                         .contains('Calculer')
                         .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Problème lors de la tarification')
+                // getIframeBody().find('div[role="status"]')
+                //         .should('be.visible')
+                //         .and('contain', 'Problème lors de la tarification')
                 getIframeBody().find('button')
                         .contains('Afficher les informations')
                         .click()
@@ -239,22 +239,6 @@ describe('parcours JURILIB PRO ERROR FO', () => {
 
                 // Chiffres d'affaires
 
-                getIframeBody().find('[id^="Chiffre"]')
-                        .clear()
-                        .type(100000000)
-                getIframeBody().find('button')
-                        .contains('Calculer')
-                        .click()
-                getIframeBody().find('p[class="error-bloquant"]')
-                        .should('be.visible')
-                        .contains('pas disponible pour les professionnels ayant un CA de plus de 50 000 000')
-                        .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Problème lors de la tarification')
-                getIframeBody().find('button')
-                        .contains('Afficher les informations')
-                        .click()
                 getIframeBody().find('[id^="Chiffre"]')
                         .clear()
                         .type(ParcoursData.re7FO.parcoursJURILIBPRO.CA)

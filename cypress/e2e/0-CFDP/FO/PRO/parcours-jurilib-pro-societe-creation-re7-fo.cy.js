@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours JURILIB PRO NOUVEAU PROSPECT FO', () => {
+describe('parcours JURILIB PRO SOCIETE EN CREATION FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -35,7 +35,7 @@ describe('parcours JURILIB PRO NOUVEAU PROSPECT FO', () => {
         }
 
 
-        it('Parcours Jurilib PRO Nouveau Prospect', () => {
+        it('Parcours Jurilib PRO Societe en creation', () => {
                 let numeroDevis = "";
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()
@@ -50,17 +50,12 @@ describe('parcours JURILIB PRO NOUVEAU PROSPECT FO', () => {
                         .click()
                 getIframeBody().find('[id="list-item-183-1"]')
                         .click()
-                getIframeBody().contains('Retrouver toutes les informations légales par nom')
-                        .parent()
-                        .find('[class="v-select__selections"]')
-                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nomEntreprise)
-                getIframeBody().find('[role="listbox"]')
-                        .contains(ParcoursData.re7FO.parcoursJURILIBPRO.siret)
+                getIframeBody().find('div[class="v-input--selection-controls__input"]')
                         .click()
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
-                // Devis réalisé 
+
                 // Code NAF
                 getIframeBody().find('input[data-cy="42"]')
                         .click()
@@ -84,10 +79,13 @@ describe('parcours JURILIB PRO NOUVEAU PROSPECT FO', () => {
                 getIframeBody().find('button')
                         .contains('Calculer')
                         .click()
+
+                // Sélection formule
                 getIframeBody().find('button')
                         .contains('Sélectionner')
                         .first()
                         .click()
+
                 // // Récupération du numéro de devis
                 // getIframeBody()
                 //         .find("#app")
@@ -97,6 +95,29 @@ describe('parcours JURILIB PRO NOUVEAU PROSPECT FO', () => {
                 //                 numeroDevis = numDevis.text();
                 //                 cy.wrap(numeroDevis).as("numeroDevis");
                 //         });
+
+                // Raison sociale
+                getIframeBody().find('input[data-cy="raisonSociale"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.qualiteProfessionnelle)
+
+                // Forme juridique
+                getIframeBody().find('input[data-cy="formeJuridique"]')
+                        .click()
+                getIframeBody().find('div[class="v-list-item__title"]')
+                        .contains(ParcoursData.re7FO.parcoursJURILIBPRO.formeJuridique)
+                        .click()
+
+                // Adresse
+                getIframeBody().find('input[id="autoCompletion-addresse"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.adresse1)
+
+                // Ville 
+                getIframeBody().find('input[id="autoCompletion-ville"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.ville)
+
+                // Code postal
+                getIframeBody().find('input[data-cy="codePostal"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.codePostal)
 
                 // En qualité de
                 getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
@@ -198,6 +219,9 @@ describe('parcours JURILIB PRO NOUVEAU PROSPECT FO', () => {
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
+
+                getIframeBody().find('input[data-cy="input-siret"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.siret)
                 getIframeBody().find('input[data-cy="telephone1"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone)
                 getIframeBody().find('input[data-cy="mail"]')
