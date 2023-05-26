@@ -79,15 +79,14 @@ describe('parcours PARTICULIER RE7 FO', () => {
                 getIframeBody().find('input[id="prenom"]')
                         .type(ParcoursData.re7FO.parcoursPARTICULIER.prenom)
                 // Adresse
-                getIframeBody().find('input[id="adresse1"]')
+                getIframeBody().find('div[title="Adresse"]')
                         .type(ParcoursData.re7FO.parcoursPARTICULIER.adresse1)
-                getIframeBody().find('#adresse1')
-                        .type(' ')
-                        .click()
-                getIframeBody().find('div[class="v-menu__content theme--light menuable__content__active v-autocomplete__content"]')
-                        .find('div[role="option"]')
-                        .first()
-                        .click({ force: true })
+                // Ville
+                getIframeBody().find('input[id="ville"]')
+                        .type(ParcoursData.re7FO.parcoursPARTICULIER.ville, { force: true })
+                // Code Postal
+                getIframeBody().find('input[data-cy="codePostal"]')
+                        .type(ParcoursData.re7FO.parcoursPARTICULIER.codePostal)
                 //procédures judiciaires
                 getIframeBody().find('input[id="nombreProcedures"]')
                         .click()

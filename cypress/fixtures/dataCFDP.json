@@ -169,6 +169,8 @@
       "fractionnement": "ANNUEL",
       "moyenPaiement": "virement",
       "adresse1": "12 chemin du buisset",
+      "ville": "Lyon",
+      "codePostal": "69000",
       "nombreVehicules": "0",
       "nombreResidencesSecondaires": "0"
     },
