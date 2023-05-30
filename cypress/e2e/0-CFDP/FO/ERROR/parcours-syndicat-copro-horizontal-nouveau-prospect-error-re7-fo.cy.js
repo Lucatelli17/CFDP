@@ -41,11 +41,62 @@ describe('parcours SYNDICAT COPRO HORIZONTAL NOUVEAU PROSPECT ERROR RE7 FO', () 
                 // ---------------------
                 // Sélection prospect & produit
                 // ---------------------
+
                 getIframeBody().find('a[href="/souscription/produits/Immobilier"]')
                         .click()
                 getIframeBody().find('[class="v-card__title"]')
                         .contains('Alsina Syndicat de Copropriétaires')
                         .click()
+
+                // ---------------------
+                // Saisie date d'effet
+                // ---------------------
+
+                // Date d'effet dans le passé
+
+                getIframeBody().find('input[type="date"]')
+                        .click()
+                        .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee)
+
+                getIframeBody().find('button')
+                        .contains('Valider')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .and('contain', 'Le format de la date')
+                        .and('contain', 'est pas correct')
+                        .should('be.visible')
+
+                getIframeBody().find('div[class^="v-messages__message"]')
+                        .and('contain', 'Veuillez saisir une date supérieure à la date du')
+                        .should('be.visible')
+
+
+
+                // Date d'effet dans le futur (+ d'un an)
+
+                getIframeBody().find('input[type="date"]')
+                        .click()
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture)
+                getIframeBody().find('button')
+                        .contains('Valider')
+                        .click()
+                getIframeBody().find('div[class^="v-messages__message"]')
+                        .and('contain', 'Veuillez saisir une date antérieure ou égale à la date du')
+                        .should('be.visible')
+
+                getIframeBody().find('div[role="status"]')
+                        .and('contain', 'Le format de la date')
+                        .and('contain', 'est pas correct')
+                        .should('be.visible')
+
+                // Date d'effet valide
+
+                getIframeBody().find('input[type="date"]')
+                        .click()
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
