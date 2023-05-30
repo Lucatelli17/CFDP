@@ -334,16 +334,19 @@ describe('parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO', () =>
                 getIframeBody().find('div[class^="v-messages__message"]')
                         .should('not.contain', 'Le champ Forme juridique est obligatoire')
 
-                // Adresse Souscripteur
+                // Adresse Souscripteur + adresse Bénéficiaire
                 getIframeBody().find('div[title="Adresse"]')
                         .first()
                         .type(ParcoursData.re7FO.parcoursIMMO.adresse1)
 
-                // Ville Souscripteur
+                getIframeBody().find('input[id="adresse1"]')
+                        .type(ParcoursData.re7FO.parcoursIMMO.adresse1, { force: true })
+
+                // Ville Souscripteur + Ville bénéficiaire
                 getIframeBody().find('input[id="autoCompletion-ville"]')
                         .type(ParcoursData.re7FO.parcoursIMMO.ville)
 
-                // Code Postal Souscripteur
+                // Code Postal Souscripteur + Code postal bénéficiaire
                 getIframeBody().find('input[data-cy="codePostal"]')
                         .type(ParcoursData.re7FO.parcoursIMMO.codePostal)
 
@@ -355,22 +358,16 @@ describe('parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO', () =>
                         .should('not.contain', 'Veuillez valider tous les champs')
 
                 cy.wait(3000)
-                getIframeBody().find('div[title="Adresse"]')
-                        .first()
-                        .find('div[class^="v-messages__message"]')
+                getIframeBody().find('div[class^="v-messages__message"]')
                         .should('not.contain', 'Le champ Adresse est obligatoire')
 
                 cy.wait(3000)
 
                 getIframeBody().find('div[class^="v-messages__message"]')
-                        .and('contain', 'Le champ Ville est obligatoire')
-                        .first()
-                        .should('not.be.visible')
+                        .should('not.contain', 'Le champ Ville est obligatoire')
 
                 getIframeBody().find('div[class^="v-messages__message"]')
-                        .and('contain', 'Le champ Code postal est obligatoire')
-                        .first()
-                        .should('not.be.visible')
+                        .should('not.contain', 'Le champ Code postal est obligatoire')
 
                 // Sélection Civilité     
                 getIframeBody().find('input[data-cy="civilite"]')
@@ -411,7 +408,7 @@ describe('parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO', () =>
 
                 // En qualité de
                 getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle)
+                        .type(ParcoursData.re7FO.parcoursIMMO.qualiteProfessionnelle)
                 cy.wait(10000)
 
                 getIframeBody().find('button')
