@@ -13,7 +13,11 @@
   "author": "Sandro",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "cypress": "^12.12.0"
+=======
+    "cypress": "^12.13.0"
+>>>>>>> master
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

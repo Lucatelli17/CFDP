@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours ENTREPRISE ERROR FO', () => {
+describe('parcours JURILIB PRO SOCIETE EN CREATION ERROR FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -9,8 +9,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .type(ParcoursData.re7FO.login.password)
                 cy.get('button[id="signin"]')
                         .click()
-                cy.url()
-                        .should('eq', 'https://espacepartenaire.re7.cfdp.fr/souscription')
+                cy.url().should('eq', 'https://espacepartenaire.re7.cfdp.fr/souscription')
         })
 
         const getIframeDocument = () => {
@@ -36,7 +35,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
         }
 
 
-        it('Parcours Entreprise Error', () => {
+        it('Parcours Jurilib PRO Societe en creation Error', () => {
                 let numeroDevis = "";
 
                 // ---------------------
@@ -46,7 +45,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()
                 getIframeBody().find('[class="v-card__title"]')
-                        .contains('Alsina Entreprise')
+                        .contains('Jurilib PRO')
                         .click()
 
                 // ---------------------
@@ -57,7 +56,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
 
                 getIframeBody().find('input[type="date"]')
                         .click()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetPassee)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetPassee)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
@@ -74,7 +73,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('input[type="date"]')
                         .click()
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetFuture)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetFuture)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
@@ -91,50 +90,22 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('input[type="date"]')
                         .click()
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetValide)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetValide)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
 
-                // ---------------------
-                // Vérification numéro de SIRET
-                // ---------------------
-
-                // SIRET erroné
 
                 getIframeBody().find('input[data-cy="select-country"]')
                         .click()
-                getIframeBody()
-                        .find('div[role="option"]')
+                getIframeBody().find('div[role="option"]')
                         .first()
-                        .click();
-                getIframeBody().find('input[data-cy="input-siret"]')
                         .click()
-                        .type('111111111111111')
-                getIframeBody().find('button')
-                        .contains('Valider')
-                        .click()
-                getIframeBody().find('div[class="v-messages__message"]')
-                        .should('be.visible')
-                        .and('contain', 'SIRET is not valid')
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Veuillez valider tous les champs')
-
-                // SIRET ok
-
-                getIframeBody().contains('Retrouver toutes les informations légales par nom')
-                        .parent()
-                        .find('[class="v-select__selections"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nomEntreprise)
-                getIframeBody().find('[role="listbox"]')
-                        .contains(ParcoursData.re7FO.parcoursENTREPRISE.siret)
+                getIframeBody().find('div[class="v-input--selection-controls__input"]')
                         .click()
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
-
-                // Devis réalisé 
 
                 // ---------------------
                 // Informations tarifantes
@@ -212,16 +183,16 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('input[data-cy="42"]')
                         .click()
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.codeNAF)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.codeNAF)
                 getIframeBody().find('[role="listbox"]')
-                        .contains(ParcoursData.re7FO.parcoursENTREPRISE.codeNAF)
+                        .contains(ParcoursData.re7FO.parcoursJURILIBPRO.codeNAF)
                         .click()
                 getIframeBody().find('button')
                         .contains('Calculer')
                         .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Problème lors de la tarification')
+                // getIframeBody().find('div[role="status"]')
+                //         .should('be.visible')
+                //         .and('contain', 'Problème lors de la tarification')
                 getIframeBody().find('button')
                         .contains('Afficher les informations')
                         .click()
@@ -229,96 +200,290 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 //Nombre de salariés
                 getIframeBody().find('[id="Nombre de salariés"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbSalaries)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbSalaries)
 
                 //Nombre de véhicules terrestres à moteur
 
                 getIframeBody().find('[id="Nombre de véhicules terrestres à moteur"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbVTM)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbVTM)
 
                 // Chiffres d'affaires
 
                 getIframeBody().find('[id^="Chiffre"]')
                         .clear()
-                        .type(100000000)
-                getIframeBody().find('button')
-                        .contains('Calculer')
-                        .click()
-                getIframeBody().find('p[class="error-bloquant"]')
-                        .should('be.visible')
-                        .contains('pas disponible pour les professionnels ayant un CA de plus de 50 000 000')
-                        .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Problème lors de la tarification')
-                getIframeBody().find('button')
-                        .contains('Afficher les informations')
-                        .click()
-                getIframeBody().find('[id^="Chiffre"]')
-                        .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.CA)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.CA)
                 getIframeBody().find('button')
                         .contains('Calculer')
                         .click()
 
-                // Sélection Tarification
 
+                // Sélection formule
                 getIframeBody().find('button')
                         .contains('Sélectionner')
                         .first()
                         .click()
 
-                // // Récupération du numéro de devis
-                // getIframeBody()
-                //         .find("#app")
-                //         .contains("Numéro de devis")
-                //         .contains("HD")
-                //         .then((numDevis) => {
-                //                 numeroDevis = numDevis.text();
-                //                 cy.wrap(numeroDevis).as("numeroDevis");
-                //         });
+                // // // Récupération du numéro de devis
+                // // getIframeBody()
+                // //         .find("#app")
+                // //         .contains("Numéro de devis")
+                // //         .contains("HD")
+                // //         .then((numDevis) => {
+                // //                 numeroDevis = numDevis.text();
+                // //                 cy.wrap(numeroDevis).as("numeroDevis");
+                // //         });
 
-                // Etape suivante sans remplir les champs obligatoires
+
+                // Sans remplir les champs
+
+                getIframeBody().find('input[data-cy="nombreEtablissementsSecondaires"]')
+                        .clear()
 
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
-                getIframeBody().find('div[role="status"]')
+
+                getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
-                        .and('contain', 'Veuillez valider tous les champs')
-                //Erreur Civilité
+                        .and('contain', 'Le champ Raison sociale est obligatoire')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Forme juridique est obligatoire')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Adresse est obligatoire')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Ville est obligatoire')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Code postal est obligatoire')
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ Civilité est obligatoire')
-                // Erreur Nom
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ Nom est obligatoire')
-                // Erreur En qualité de
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ En qualité de est obligatoire')
-                // Erreur Activité précise
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ Activité précise est obligatoire')
-                // Erreur Locaux servant à l'exploitation de l'activité
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Nombre d’établissements secondaires est obligatoire')
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'activité appartiennent-ils à une SCI dont le souscripteur détient des parts ? est obligatoire')
-                // Erreur Procédures judiciaires
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ? est obligatoire')
-                // Erreur Assurance protection juridique
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ Avez-vous déjà souscrit à une assurance de protection juridique ? est obligatoire')
-                // Erreur Redressement judiciaire dans les 36 derniers mois
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
-                        .and('contain', 'redressement judiciaire depuis les 36 derniers mois ? est obligatoire')
+                        .and('contain', 'un redressement judiciaire depuis les 36 derniers mois ? est obligatoire')
+
+                // Raison sociale
+                getIframeBody().find('input[data-cy="raisonSociale"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.qualiteProfessionnelle)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Raison sociale est obligatoire')
+                        .should('not.exist')
+
+                // Forme juridique
+                getIframeBody().find('input[data-cy="formeJuridique"]')
+                        .click()
+                getIframeBody().find('div[class="v-list-item__title"]')
+                        .contains(ParcoursData.re7FO.parcoursJURILIBPRO.formeJuridique)
+                        .click()
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Forme juridique est obligatoire')
+                        .should('not.exist')
+
+                // Adresse
+                getIframeBody().find('input[id="autoCompletion-addresse"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.adresse1)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                // getIframeBody().find('div[role="status"]')
+                //         .should('be.visible')
+                //         .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Adresse est obligatoire')
+                        .should('not.exist')
+
+                // Ville 
+                getIframeBody().find('input[id="autoCompletion-ville"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.ville)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Ville est obligatoire')
+                        .should('not.exist')
+
+                // Code postal
+                getIframeBody().find('input[data-cy="codePostal"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.codePostal)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Code postal est obligatoire')
+                        .should('not.exist')
+
+                // En qualité de
+                getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.qualiteProfessionnelle)
+                cy.wait(3000)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ En qualité de est obligatoire')
+                        .should('not.exist')
+
+                // Sélection Civilité      
+                getIframeBody().find('[class="col col-4"]')
+                        .find('[role="button"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.civilite)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Civilité est obligatoire')
+                        .should('not.exist')
+
+                // Nom & prénom représentant         
+                getIframeBody().find('[id="nomRepresentant"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nom)
+                getIframeBody().find('[id="prenom"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.prenom)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Nom est obligatoire')
+                        .should('not.exist')
+
+                // Activité précise
+                getIframeBody().find('input[data-cy="activite"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.activite)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Activité précise est obligatoire')
+                        .should('not.exist')
+
+                // Nombre d'établissements secondaires 
+
+                getIframeBody().find('input[data-cy="nombreEtablissementsSecondaires"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbEtablissementSecondaire)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Activité précise est obligatoire')
+                        .should('not.exist')
+
+                //procédures judiciaires
+                getIframeBody().find('[id="nombreProcedures"]')
+                        .click()
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbProcedures)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ? est obligatoire')
+                        .should('not.exist')
 
                 // Bouton radio locaux exploitation activité
                 getIframeBody().find('div[id="locauxSciAvecPartsSouscripteur"]')
@@ -338,12 +503,11 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .contains('activité appartiennent-ils à une SCI dont le souscripteur détient des parts ? est obligatoire')
                         .should('not.exist')
 
-                // Bouton radio assurance protection juridique
+                // Assurance protection juridique
                 getIframeBody().find('div[id="assuranceDejaSouscrite"]')
                         .find('input[type="radio"]')
                         .last()
                         .click({ force: true })
-
 
                 getIframeBody().find('button')
                         .contains('Étape suivante')
@@ -357,105 +521,21 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .contains('Le champ Avez-vous déjà souscrit à une assurance de protection juridique ? est obligatoire')
                         .should('not.exist')
 
-                // Bouton radio redressement judiciaire
+                // Redressement judiciaire
                 getIframeBody().find('div[id="redressementJudiciaire"]')
                         .find('input[type="radio"]')
                         .last()
                         .click({ force: true })
 
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
-
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Veuillez valider tous les champs')
-
-                getIframeBody().find('div[class="v-messages__message"]')
-                        .contains('redressement judiciaire depuis les 36 derniers mois ? est obligatoire')
-                        .should('not.exist')
-
-                // Sélection Civilité      
-                getIframeBody().find('[class="col col-4"]')
-                        .find('[role="button"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.civilite)
-                // Prénom représentant         
-                getIframeBody().find('[id="nomRepresentant"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
-                getIframeBody().find('[id="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom)
-                // En qualité de
-                getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.qualiteProfessionnelle)
-                //procédures judiciaires
-                getIframeBody().find('[id="nombreProcedures"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbProcedures)
-                // Activité précise
-                getIframeBody().find('input[data-cy="activite"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.activite)
                 // Redacteur devis
                 getIframeBody().find('input[id="emisPar"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.emisPar)
-
-                // Sans Nom
-                getIframeBody().find('[id="nomRepresentant"]')
-                        .clear()
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Veuillez valider tous les champs')
-                getIframeBody().find('div[class="v-messages__message"]')
-                        .should('be.visible')
-                        .and('contain', 'Le champ Nom est obligatoire')
-                getIframeBody().find('[id="nomRepresentant"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
-
-                // Sans activité précise
-                getIframeBody().find('input[data-cy="activite"]')
-                        .clear()
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Veuillez valider tous les champs')
-                getIframeBody().find('div[class="v-messages__message"]')
-                        .should('be.visible')
-                        .and('contain', 'Le champ Activité précise est obligatoire')
-                getIframeBody().find('input[data-cy="activite"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.activite)
-
-                // Sans procédures judiciaires
-                getIframeBody().find('[id="nombreProcedures"]')
-                        .clear()
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Veuillez valider tous les champs')
-                getIframeBody().find('div[class="v-messages__message"]')
-                        .should('be.visible')
-                        .and('contain', 'Le champ Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ? est obligatoire')
-                getIframeBody().find('[id="nombreProcedures"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbProcedures)
-
-                // // Champs obligatoires remplis 
-                // getIframeBody().find('div[role="status"]')
-                //         .should('be.visible')
-                //         .and('contain', 'Le devis a été initialisé')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.emisPar)
 
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
-                //  Devis mis à jour 
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Devis mis à jour')
+
+                cy.wait(5000)
 
                 // Variation commission courtier
                 getIframeBody().find('div[class="v-slider__thumb primary"]')
@@ -467,16 +547,10 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .contains('Recalculer tarif')
                         .click()
 
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Recalcul tarif effectué')
-
-                // Emettre le devis
-                getIframeBody().find('button').contains('Emettre le devis').click()
-
-                getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
-                        .and('contain', 'Le devis a bien été émis')
+                // Emettre le devis 
+                getIframeBody().find('button')
+                        .contains('Emettre le devis')
+                        .click()
                 cy.wait(5000)
 
                 // Transformer en contrat 
@@ -484,7 +558,8 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .click()
 
                 // // Checker que le devis existe dans la liste des devis
-                // cy.get('a[id="dropdown-subscribe"]').click();
+                // cy.get('a[id="dropdown-subscribe"]')
+                //         .click();
                 // cy.get(
                 //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
                 // ).click();
@@ -492,8 +567,8 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 //         .get("@numeroDevis")
                 //         .then((numeroDevis) => {
                 //                 getIframeBody().find('input[id="input-26"]')
-                //                 .click()
-                //                 .type(numeroDevis);
+                //                         .click()
+                //                         .type(numeroDevis);
                 //                 cy.wait(2000)
                 //         });
                 // getIframeBody()
@@ -504,9 +579,10 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 //         .find('[class="devis-list__container"]')
                 //         .should("contain.text", numeroDevis);
                 // cy.wait(2000)
+
                 // // Cliquer sur la liste des actions du devis emis
                 // getIframeBody().find('button[data-cy="listActions"]')
-                // .click();
+                //         .click();
                 // getIframeBody()
                 //         .find('div[class="v-list-item__title"]')
                 //         .contains("Transformer en contrat")
@@ -516,7 +592,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
 
                 getIframeBody().find('input[type="date"]')
                         .click()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetPassee)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetPassee)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
@@ -533,7 +609,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('input[type="date"]')
                         .click()
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetFuture)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetFuture)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
@@ -550,7 +626,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('input[type="date"]')
                         .click()
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetValide)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetValide)
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
@@ -569,6 +645,10 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .should('be.visible')
                         .and('contain', 'Le champ Mail est obligatoire')
 
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ SIRET est obligatoire')
+
                 // Saisie du numéro de téléphone en laissant le champ mail vierge
                 getIframeBody().find('input[data-cy="telephone1"]')
                         .type(1111)
@@ -577,7 +657,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .and('contain', 'Le champ Téléphone 1 est invalide')
                 getIframeBody().find('input[data-cy="telephone1"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone)
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
@@ -600,7 +680,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .and('contain', 'Le champ Mail est invalide')
                 getIframeBody().find('input[data-cy="mail"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.mail)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.mail)
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
@@ -614,9 +694,13 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .contains('Le champ Mail est obligatoire')
                         .should('not.exist')
 
-                // Ajout du numéro de téléphone
+                // Ajout du numéro de téléphone et du SIRET
                 getIframeBody().find('input[data-cy="telephone1"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone)
+
+                getIframeBody().find('input[data-cy="input-siret"]')
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.siret)
+
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
@@ -656,9 +740,9 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .contains('Signer électroniquement')
                         .click()
                 getIframeBody().find('input[data-cy="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.prenom)
                 getIframeBody().find('input[data-cy="nom"]')
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.nom)
                 getIframeBody().find('input[data-cy="mail"]')
                         .type('1111')
                 getIframeBody().find('input[data-cy="portable"]')
@@ -676,10 +760,10 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                         .and('contain', 'Le champ Mail est invalide')
                 getIframeBody().find('input[data-cy="mail"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.mail)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.mail)
                 getIframeBody().find('input[data-cy="portable"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
+                        .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone)
                 getIframeBody().find('h1[class="title-helios"]')
                         .parent()
                         .find('button')
@@ -688,6 +772,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
                 getIframeBody().find('div[role="status"]')
                         .should('be.visible')
                         .and('contain', 'Circuit de signature électronique correctement lancé')
+
 
         })
 

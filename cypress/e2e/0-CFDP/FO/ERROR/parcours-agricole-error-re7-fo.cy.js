@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 
 
 
-describe('parcours AGRICOLE RE7 FO', () => {
+describe('parcours AGRICOLE ERROR RE7 FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -38,7 +38,7 @@ describe('parcours AGRICOLE RE7 FO', () => {
         }
 
 
-        it('Agricole', () => {
+        it('Agricole error', () => {
                 let numeroDevis = "";
                 getIframeBody().find('a[href="/souscription/produits/Agricole"]')
                         .click()
@@ -312,10 +312,10 @@ describe('parcours AGRICOLE RE7 FO', () => {
                         .should('be.visible')
                         .and('contain', 'Le champ Ville est obligatoire')
 
-                // Erreur Ville souscripteur
+                // Erreur Code postal souscripteur
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
-                        .and('contain', 'Le champ Ville est obligatoire')
+                        .and('contain', 'Le champ Code postal est obligatoire')
 
                 // Erreur Civilité représentant
                 getIframeBody().find('div[class="v-messages__message"]')
@@ -327,7 +327,7 @@ describe('parcours AGRICOLE RE7 FO', () => {
                         .should('be.visible')
                         .and('contain', 'Le champ Nom est obligatoire')
 
-                // Erreur En qualité 
+                // Erreur En qualité de
                 getIframeBody().find('div[class="v-messages__message"]')
                         .should('be.visible')
                         .and('contain', 'Le champ En qualité de est obligatoire')
@@ -363,185 +363,476 @@ describe('parcours AGRICOLE RE7 FO', () => {
                         .should('be.visible')
                         .and('contain', 'Le champ Dont salariés permanents est obligatoire')
 
-                // // Raison sociale     
-                // getIframeBody().find('input[data-cy="raisonSociale"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.raisonSociale)
+                // Raison sociale     
+                getIframeBody().find('input[data-cy="raisonSociale"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.raisonSociale)
 
-                // // Pays Souscripteur
-                // getIframeBody().find('input[data-cy="pays"]')
-                //         .click();
-                // getIframeBody()
-                //         .find('div[role="option"]')
-                //         .contains("France")
-                //         .first()
-                //         .click();
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
 
-                // // Adresse Souscripteur
-                // getIframeBody().find('div[title="Adresse"]')
-                //         .first()
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.adresse1)
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
 
-                // // Ville Souscripteur
-                // getIframeBody().find('input[id="autoCompletion-ville"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.ville)
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Raison sociale est obligatoire')
+                        .should('not.exist')
 
-                // // Code Postal Souscripteur
-                // getIframeBody().find('input[data-cy="codePostal"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.codePostal)
+                // Pays Souscripteur
+                getIframeBody().find('input[data-cy="pays"]')
+                        .click();
+                getIframeBody()
+                        .find('div[role="option"]')
+                        .contains("France")
+                        .first()
+                        .click();
 
-                // // Sélection Civilité     
-                // getIframeBody().find('input[data-cy="civilite"]')
-                //         .click();
-                // getIframeBody()
-                //         .find('div[role="option"]')
-                //         .contains("Monsieur")
-                //         .first()
-                //         .click();
 
-                // // Nom & prénom représentant         
-                // // getIframeBody().find('input[data-cy="nomRepresentant"]').type(ParcoursData.re7FO.parcoursAGRICOLE.nom)
-                // // getIframeBody().find('input[data-cy="prenom"]').type(ParcoursData.re7FO.parcoursAGRICOLE.prenom)
+                // Adresse Souscripteur
+                getIframeBody().find('div[title="Adresse"]')
+                        .first()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.adresse1)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Adresse est obligatoire')
+                        .should('not.exist')
+
+
+                // Ville Souscripteur
+                getIframeBody().find('input[id="autoCompletion-ville"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.ville)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Ville est obligatoire')
+                        .should('not.exist')
+
+                // Code Postal Souscripteur
+                getIframeBody().find('input[data-cy="codePostal"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.codePostal)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Code postal est obligatoire')
+                        .should('not.exist')
+
+                // En qualité de
+                getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.qualiteProfessionnelle)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ En qualité de est obligatoire')
+                        .should('not.exist')
+
+                // Sélection Civilité     
+                getIframeBody().find('input[data-cy="civilite"]')
+                        .click();
+                getIframeBody()
+                        .find('div[role="option"]')
+                        .contains("Monsieur")
+                        .first()
+                        .click();
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Civilité est obligatoire')
+                        .should('not.exist')
+
+
+                // Nom & prénom représentant         
+                getIframeBody().find('input[data-cy="nomRepresentant"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nom)
+                getIframeBody().find('input[data-cy="prenom"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.prenom)
+
                 // getIframeBody().find('input[data-cy="nomRepresentant"]')
                 //         .type(faker.name.lastName())
                 // getIframeBody().find('input[data-cy="prenom"]')
                 //         .type(faker.name.firstName())
 
-                // // En qualité de
-                // getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
-                //         .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle)
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
 
-                // //procédures judiciaires
-                // getIframeBody().find('input[id="nombreProcedures"]')
-                //         .click()
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.nbProcedures)
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
 
-                // // Assurance protection juridique
-                // getIframeBody().find('div[id="assuranceDejaSouscrite"]')
-                //         .find('[class="v-input--selection-controls__ripple"]')
-                //         .last()
-                //         .click()
-
-                // // Redressement judiciaire 
-                // getIframeBody().find('div[id="redressementJudiciaire"]')
-                //         .find('[class="v-input--selection-controls__ripple"]')
-                //         .last()
-                //         .click()
-
-                // // Redacteur devis
-                // getIframeBody().find('input[id="emisPar"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.emisPar)
-
-                // // Etape suivante
-                // getIframeBody().find('button')
-                //         .contains('Étape suivante')
-                //         .click()
-
-                // // Variation commission courtier
-                // getIframeBody().find('div[class="v-slider__thumb primary"]')
-                //         .trigger('mousedown', { button: 0 })
-                //         .trigger('mousemove', { clientX: 0, clientY: 50 })
-                //         .trigger('mouseup');
-
-                // getIframeBody().find('button')
-                //         .contains('Recalculer tarif')
-                //         .click()
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Nom est obligatoire')
+                        .should('not.exist')
 
 
-                // // Emettre le devis
-                // getIframeBody().find('button')
-                //         .contains('Emettre le devis')
-                //         .click()
-                // cy.wait(5000)
+                //procédures judiciaires
+                getIframeBody().find('input[id="nombreProcedures"]')
+                        .click()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nbProcedures)
 
-                // // Transformer en contrat 
-                // getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
-                //         .click()
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
 
-                // // // Checker que le devis existe dans la liste des devis
-                // // cy.get('a[id="dropdown-subscribe"]')
-                // //         .click();
-                // // cy.get(
-                // //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
-                // // ).click();
-                // // getIframeBody()
-                // //         .get("@numeroDevis")
-                // //         .then((numeroDevis) => {
-                // //                 getIframeBody().find('input[id="input-26"]')
-                // //                         .click()
-                // //                         .type(numeroDevis);
-                // //         });
-                // // cy.wait(2000)
-                // // getIframeBody()
-                // //         .find("button")
-                // //         .contains("Rechercher")
-                // //         .click({ force: true });
-                // // getIframeBody()
-                // //         .find('[class="devis-list__container"]')
-                // //         .should("contain.text", numeroDevis);
-                // // cy.wait(2000)
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
 
-                // // // Cliquer sur la liste des actions du devis emis
-                // // getIframeBody().find('button[data-cy="listActions"]')
-                // //         .click();
-                // // getIframeBody()
-                // //         .find('div[class="v-list-item__title"]')
-                // //         .contains("Transformer en contrat")
-                // //         .click();
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ? est obligatoire')
+                        .should('not.exist')
 
-                // getIframeBody().find('button')
-                //         .contains('Valider')
-                //         .click()
+                // Assurance protection juridique
+                getIframeBody().find('div[id="assuranceDejaSouscrite"]')
+                        .find('div[class="v-input--selection-controls__input"]')
+                        .last()
+                        .click()
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Avez-vous déjà souscrit à une assurance de protection juridique ? est obligatoire')
+                        .should('not.exist')
+
+                // Redressement judiciaire 
+                getIframeBody().find('div[id="redressementJudiciaire"]')
+                        .find('div[class="v-input--selection-controls__input"]')
+                        .last()
+                        .click()
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('un redressement judiciaire depuis les 36 derniers mois ? est obligatoire')
+                        .should('not.exist')
+
+                // Nombre véhicules
+                getIframeBody().find('input[data-cy="nombreVehicules"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nbVehicules)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Nombre de véhicules et engins agricoles est obligatoire')
+                        .should('not.exist')
+
+                // Nombre salariés
+                getIframeBody().find('input[data-cy="nombreSalaries"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nbSalaries)
+
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Dont salariés permanents est obligatoire')
+                        .should('not.exist')
+
+                // Nombre personnes travaillant sur l'exploitation
+                getIframeBody().find('input[data-cy="nombreTravailleursExploitation"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nbPersonnesExploitation)
 
 
-                // getIframeBody().find('input[data-cy="telephone1"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
-                // getIframeBody().find('input[data-cy="mail"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.mail)
-                // getIframeBody().find('button')
-                //         .contains('Étape suivante')
-                //         .click()
+                // Redacteur devis
+                getIframeBody().find('input[id="emisPar"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.emisPar)
 
-                // // ---------------------
-                // // Informations de paiement
-                // // ---------------------
+                // Champs obligatoires remplis
 
-                // getIframeBody().find('input[data-cy="fractionnement"]')
-                //         .click()
-                // getIframeBody().find('div[class="v-list-item__title"]')
-                //         .contains(ParcoursData.re7FO.parcoursAGRICOLE.fractionnement)
-                //         .click()
-                // getIframeBody().find('input[data-cy="moyenDePaiement"]')
-                //         .click()
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.moyenPaiement, { force: true })
-                //         .type('{enter}', { force: true })
-                // getIframeBody().find('button')
-                //         .contains('Enregistrer')
-                //         .click()
-                // cy.wait(25000)
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Le devis a été initialisé')
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
 
-                // // ---------------------
-                // // Envoi de la signature électronique
-                // // ---------------------
+                //  Devis mis à jour 
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Devis mis à jour')
 
-                // getIframeBody().find('button')
-                //         .contains('Signer électroniquement')
-                //         .click()
-                // getIframeBody().find('input[data-cy="prenom"]')
-                //         .type(faker.name.firstName())
-                // getIframeBody().find('input[data-cy="nom"]')
-                //         .type(faker.name.lastName())
-                // getIframeBody().find('input[data-cy="mail"]')
-                //         .type(faker.internet.email())
-                // getIframeBody().find('input[data-cy="portable"]')
-                //         .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
-                // getIframeBody().find('h1[class="title-helios"]')
-                //         .parent()
-                //         .find('button')
-                //         .contains('Valider')
-                //         .click()
-                // getIframeBody().find('div[role="status"]')
-                //         .should('be.visible')
-                //         .and('contain', 'Circuit de signature électronique correctement lancé')
+                // Variation commission courtier
+                getIframeBody().find('div[class="v-slider__thumb primary"]')
+                        .trigger('mousedown', { button: 0 })
+                        .trigger('mousemove', { clientX: 0, clientY: 50 })
+                        .trigger('mouseup');
+
+                getIframeBody().find('button')
+                        .contains('Recalculer tarif')
+                        .click()
+
+                // Emettre le devis
+                getIframeBody().find('button')
+                        .contains('Emettre le devis')
+                        .click()
+                cy.wait(5000)
+
+                // Transformer en contrat 
+                getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
+                        .click()
+
+                // // Checker que le devis existe dans la liste des devis
+                // cy.get('a[id="dropdown-subscribe"]')
+                //         .click();
+                // cy.get(
+                //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
+                // ).click();
+                // getIframeBody()
+                //         .get("@numeroDevis")
+                //         .then((numeroDevis) => {
+                //                 getIframeBody().find('input[id="input-26"]')
+                //                         .click()
+                //                         .type(numeroDevis);
+                //         });
+                // cy.wait(2000)
+                // getIframeBody()
+                //         .find("button")
+                //         .contains("Rechercher")
+                //         .click({ force: true });
+                // getIframeBody()
+                //         .find('[class="devis-list__container"]')
+                //         .should("contain.text", numeroDevis);
+                // cy.wait(2000)
+
+                // // Cliquer sur la liste des actions du devis emis
+                // getIframeBody().find('button[data-cy="listActions"]')
+                //         .click();
+                // getIframeBody()
+                //         .find('div[class="v-list-item__title"]')
+                //         .contains("Transformer en contrat")
+                //         .click();
+
+                // Saisie de la date
+
+                getIframeBody().find('input[type="date"]')
+                        .click()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.datedEffetPassee)
+                getIframeBody().find('button')
+                        .contains('Valider')
+                        .click()
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez saisir une date supérieure à la date du')
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Le format de la date')
+                        .and('contain', 'est pas correct')
+
+                // Date d'effet dans le futur (+ d'un an)
+
+                getIframeBody().find('input[type="date"]')
+                        .click()
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.datedEffetFuture)
+                getIframeBody().find('button')
+                        .contains('Valider')
+                        .click()
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez saisir une date antérieure ou égale à la date du')
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Le format de la date')
+                        .and('contain', 'est pas correct')
+
+                // Date d'effet valide
+                cy.wait(2000)
+                getIframeBody().find('input[type="date"]')
+                        .click()
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.datedEffetValide)
+                getIframeBody().find('button')
+                        .contains('Valider')
+                        .click()
+
+                // Valider sans les champs obligatoires
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Téléphone 1 est obligatoire')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Mail est obligatoire')
+
+                // Saisie du numéro de téléphone en laissant le champ mail vierge
+                getIframeBody().find('input[data-cy="telephone1"]')
+                        .type(1111)
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Téléphone 1 est invalide')
+                getIframeBody().find('input[data-cy="telephone1"]')
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Mail est obligatoire')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Téléphone 1 est obligatoire')
+                        .should('not.exist')
+
+                // Saisie du mail en laissant le champ téléphone vierge
+                getIframeBody().find('input[data-cy="telephone1"]').clear()
+                getIframeBody().find('input[data-cy="mail"]')
+                        .type(1111)
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Mail est invalide')
+                getIframeBody().find('input[data-cy="mail"]')
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.mail)
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Veuillez valider tous les champs')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Téléphone 1 est obligatoire')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .contains('Le champ Mail est obligatoire')
+                        .should('not.exist')
+
+                // Ajout du numéro de téléphone
+                getIframeBody().find('input[data-cy="telephone1"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
+                getIframeBody().find('button')
+                        .contains('Étape suivante')
+                        .click()
+
+                // Paiement
+
+                getIframeBody().find('button')
+                        .contains('Enregistrer')
+                        .click()
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Fractionnement est obligatoire')
+
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Moyen de paiement est obligatoire')
+
+                getIframeBody().find('input[data-cy="fractionnement"]').click()
+                getIframeBody().find('div[class="v-list-item__title"]')
+                        .contains(ParcoursData.re7FO.parcoursASSOCIATION.fractionnement)
+                        .click()
+                getIframeBody().find('input[data-cy="moyenDePaiement"]')
+                        .click()
+                        .type(ParcoursData.re7FO.parcoursASSOCIATION.moyenPaiement, { force: true })
+                        .type('{enter}', { force: true })
+                getIframeBody().find('button')
+                        .contains('Enregistrer')
+                        .click()
+                cy.wait(30000)
+
+                // ---------------------
+                // Envoi de la signature électronique
+                // ---------------------
+
+                getIframeBody().find('button')
+                        .contains('Signer électroniquement')
+                        .click()
+                getIframeBody().find('input[data-cy="prenom"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.prenom)
+                getIframeBody().find('input[data-cy="nom"]')
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nom)
+                getIframeBody().find('input[data-cy="mail"]')
+                        .type('1111')
+                getIframeBody().find('input[data-cy="portable"]')
+                        .type('AAAA')
+                getIframeBody().find('h1[class="title-helios"]')
+                        .parent()
+                        .find('button')
+                        .contains('Valider')
+                        .click()
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Téléphone  est invalide')
+                getIframeBody().find('div[class="v-messages__message"]')
+                        .should('be.visible')
+                        .and('contain', 'Le champ Mail est invalide')
+                getIframeBody().find('input[data-cy="mail"]')
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.mail)
+                getIframeBody().find('input[data-cy="portable"]')
+                        .clear()
+                        .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
+                getIframeBody().find('h1[class="title-helios"]')
+                        .parent()
+                        .find('button')
+                        .contains('Valider')
+                        .click()
+                getIframeBody().find('div[role="status"]')
+                        .should('be.visible')
+                        .and('contain', 'Circuit de signature électronique correctement lancé')
+
 
 
         })

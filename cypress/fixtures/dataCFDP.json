@@ -137,6 +137,7 @@
       "nbVTM": "2",
       "CA": "100000",
       "civilite": "Monsieur",
+      "formeJuridique": "EI - Entreprise individuelle",
       "nom": "Hendrix",
       "prenom": "Jimi",
       "qualiteProfessionnelle": "Gérant",
@@ -145,8 +146,12 @@
       "emisPar": "Los Pollos Hermanos",
       "telephone": "0123456789",
       "mail": "slucatelli@alteca.fr",
+      "nbEtablissementSecondaire": "0",
       "fractionnement": "ANNUEL",
-      "moyenPaiement": "virement"
+      "moyenPaiement": "virement",
+      "adresse1": "12 chemin du buisset",
+      "ville": "Paris",
+      "codePostal": "91210"
     },
     "parcoursPARTICULIER": {
       "datedEffetValide": "2023-07-21",
@@ -163,7 +168,11 @@
       "lieuNaissance": "Paris",
       "fractionnement": "ANNUEL",
       "moyenPaiement": "virement",
-      "adresse1": "12 chemin du buisset"
+      "adresse1": "12 chemin du buisset",
+      "ville": "Lyon",
+      "codePostal": "69000",
+      "nombreVehicules": "0",
+      "nombreResidencesSecondaires": "0"
     },
     "parcoursASSOCIATION": {
       "datedEffetValide": "2023-07-21",
@@ -232,6 +241,9 @@
       "nomCopro": "HENDRIX",
       "formeJuridique": "EARL - Exploitation Agricole à Responsabilité Limitée",
       "CA": "100000",
+      "nbSalaries": "2",
+      "nbVehicules": "1",
+      "nbPersonnesExploitation": "2",
       "surfaceExploitation": "3"
     },
     "parcoursIMMO": {
@@ -269,6 +281,16 @@
       "formeJuridique": "EI",
       "siret": "50203544700031",
       "nbVillas": "1",
+      "nbCopro": "0",
+      "nbLotsUsageCo": "0",
+      "nbLotsUsageRu": "0",
+      "nbTotalLots": "0",
+      "nbLotsUsageHa": "0",
+      "nbLotsUsageLo": "0",
+      "nbLotsUsageTe": "0",
+      "nbLotsUsagePro": "0",
+      "nbLotsUsageGa": "0",
+      "nbLotsUsageSaison": "0",
       "typeASL": "Président ASL",
       "presidentASL": "Dupont",
       "nomSyndic": "Syndicat du Nord",
