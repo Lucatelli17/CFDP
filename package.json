@@ -4,7 +4,10 @@
   "description": "Initiation automatisation cypress",
   "main": "index.js",
   "scripts": {
-    "cy:run": "npx cypress run --spec 'cypress/e2e/0-CFDP/FO/AGRICOLE/'"
+    "cy:runAgricole": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/AGRICOLE/'",
+    "cy:runImmo": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER/'",
+    "cy:runFO": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/'",
+    "cy:runSpecificTest": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER/parcours-syndicat-copro-vertical-nouveau-prospect-re7-fo.cy.js'"
   },
   "keywords": [
     "cypress",
@@ -13,11 +16,7 @@
   "author": "Sandro",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "cypress": "^12.12.0"
-=======
     "cypress": "^12.13.0"
->>>>>>> master
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

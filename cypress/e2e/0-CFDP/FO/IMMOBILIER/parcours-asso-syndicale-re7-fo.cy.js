@@ -49,7 +49,6 @@ describe("parcours ASSO SYNDICALE RE7 FO", () => {
     // ---------------------
     // Sélection Pays
     cy.SelectCountry1("France");
-
     // Nombre de villas individuelles
     cy.NbVillasIndividuelles(ParcoursData.re7FO.parcoursIMMO.nbVillas);
     // Type de gestion ASL

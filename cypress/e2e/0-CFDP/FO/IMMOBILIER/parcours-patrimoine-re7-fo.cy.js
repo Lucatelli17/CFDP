@@ -3,7 +3,7 @@ import ParcoursData from "../../../../fixtures/dataCFDP.json";
 describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
   beforeEach(() => {
     cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.login(ParcoursData.re7FO.login)
+    cy.login(ParcoursData.re7FO.login);
   });
 
   const getIframeDocument = () => {
