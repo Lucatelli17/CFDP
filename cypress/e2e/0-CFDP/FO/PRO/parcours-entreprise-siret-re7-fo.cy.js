@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours PRO RE7 FO', () => {
+describe('parcours ENTREPRISE SIRET FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -35,16 +35,17 @@ describe('parcours PRO RE7 FO', () => {
         }
 
 
-        it('Parcours Pro', () => {
+        it('Parcours Entreprise Siret', () => {
                 let numeroDevis = "";
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()
                 getIframeBody().find('[class="v-card__title"]')
-                        .contains('Alsina Professionnel')
+                        .contains('Alsina Entreprise')
                         .click()
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
+
                 getIframeBody().find('input[data-cy="select-country"]')
                         .click()
                 getIframeBody().find('[id="list-item-183-1"]')
@@ -52,9 +53,9 @@ describe('parcours PRO RE7 FO', () => {
                 getIframeBody().contains('Retrouver toutes les informations légales par nom')
                         .parent()
                         .find('[class="v-select__selections"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.nomEntreprise)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nomEntreprise)
                 getIframeBody().find('[role="listbox"]')
-                        .contains(ParcoursData.re7FO.parcoursPRO.siret)
+                        .contains(ParcoursData.re7FO.parcoursENTREPRISE.siret)
                         .click()
                 getIframeBody().find('button')
                         .contains('Valider')
@@ -63,22 +64,22 @@ describe('parcours PRO RE7 FO', () => {
                 // Code NAF
                 getIframeBody().find('input[data-cy="42"]')
                         .click()
-                        .type(ParcoursData.re7FO.parcoursPRO.codeNAF)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.codeNAF)
                 getIframeBody().find('[role="listbox"]')
-                        .contains(ParcoursData.re7FO.parcoursPRO.codeNAF)
+                        .contains('20.51Z')
                         .click()
                 //Nombre de salariés
                 getIframeBody().find('[id="Nombre de salariés"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursPRO.nbSalaries)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbSalaries)
                 //Nombre de véhicules terrestres à moteur
                 getIframeBody().find('[id="Nombre de véhicules terrestres à moteur"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursPRO.nbVTM)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbVTM)
                 // Chiffres d'affaires => ^ = commence par ...
                 getIframeBody().find('[id^="Chiffre"]')
                         .clear()
-                        .type(ParcoursData.re7FO.parcoursPRO.CA)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.CA)
                 // CALCULER
                 getIframeBody().find('button')
                         .contains('Calculer')
@@ -87,34 +88,39 @@ describe('parcours PRO RE7 FO', () => {
                         .contains('Sélectionner')
                         .first()
                         .click()
-                // Récupération du numéro de devis
-                getIframeBody()
-                        .find("#app")
-                        .contains("Numéro de devis")
-                        .contains("HD")
-                        .then((numDevis) => {
-                                numeroDevis = numDevis.text();
-                                cy.wrap(numeroDevis).as("numeroDevis");
-                        });
-                // Sélection Civilité      
-                getIframeBody().find('[class="col col-4"]')
-                        .find('[role="button"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.civilite)
-                // Nom & prénom représentant         
-                getIframeBody().find('[id="nomRepresentant"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.nom)
-                getIframeBody().find('[id="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.prenom)
+                // // Récupération du numéro de devis
+                // getIframeBody()
+                //         .find("#app")
+                //         .contains("Numéro de devis")
+                //         .contains("HD")
+                //         .then((numDevis) => {
+                //                 numeroDevis = numDevis.text();
+                //                 cy.wrap(numeroDevis).as("numeroDevis");
+                //         });
+
+
                 // En qualité de
                 getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.qualiteProfessionnelle)
+                cy.wait(3000)
+                // Sélection Civilité      
+                getIframeBody().find('input[data-cy="civilite"]')
+                        .click()
+                getIframeBody().contains('Madame, Monsieur')
+                        .click()
+                // Nom & prénom représentant         
+                getIframeBody().find('[data-cy="nomRepresentant"]')
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
+                getIframeBody().find('[id="prenom"]')
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom)
+
                 //procédures judiciaires
                 getIframeBody().find('[id="nombreProcedures"]')
                         .click()
-                        .type(ParcoursData.re7FO.parcoursPRO.nbProcedures)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nbProcedures)
                 // Activité précise
                 getIframeBody().find('input[data-cy="activite"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.activite)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.activite)
                 // Bouton radio locaux exploitation activité
                 getIframeBody().find('div[id="locauxSciAvecPartsSouscripteur"]')
                         .find('[class="v-input--selection-controls__ripple"]')
@@ -132,7 +138,7 @@ describe('parcours PRO RE7 FO', () => {
                         .click()
                 // Redacteur devis
                 getIframeBody().find('input[id="emisPar"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.emisPar)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.emisPar)
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
@@ -158,6 +164,7 @@ describe('parcours PRO RE7 FO', () => {
                 // Transformer en contrat 
                 getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
                         .click()
+
 
                 // // Checker que le devis existe dans la liste des devis
                 // cy.get('a[id="dropdown-subscribe"]')
@@ -189,52 +196,45 @@ describe('parcours PRO RE7 FO', () => {
                 //         .contains("Transformer en contrat")
                 //         .click();
 
-
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
-
-                // Informations complémentaires
-
                 getIframeBody().find('input[data-cy="telephone1"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.telephone)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
                 getIframeBody().find('input[data-cy="mail"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.mail)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.mail)
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
-
-                // Moyens de paiement
-
                 getIframeBody().find('input[data-cy="fractionnement"]')
                         .click()
                 getIframeBody().find('div[class="v-list-item__title"]')
-                        .contains(ParcoursData.re7FO.parcoursPRO.fractionnement)
+                        .contains(ParcoursData.re7FO.parcoursENTREPRISE.fractionnement)
                         .click()
                 getIframeBody().find('input[data-cy="moyenDePaiement"]')
                         .click()
-                        .type(ParcoursData.re7FO.parcoursPRO.moyenPaiement, { force: true })
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.moyenPaiement, { force: true })
                         .type('{enter}', { force: true })
                 getIframeBody().find('button')
                         .contains('Enregistrer')
                         .click()
-                cy.wait(25000)
+                cy.wait(30000)
 
                 // ---------------------
-                // Envoi signature électronique
+                // Envoi de la signature électronique
                 // ---------------------
 
                 getIframeBody().find('button')
                         .contains('Signer électroniquement')
                         .click()
                 getIframeBody().find('input[data-cy="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.prenom)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom)
                 getIframeBody().find('input[data-cy="nom"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.nom)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
                 getIframeBody().find('input[data-cy="mail"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.mail)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.mail)
                 getIframeBody().find('input[data-cy="portable"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.telephone)
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
                 getIframeBody().find('h1[class="title-helios"]')
                         .parent()
                         .find('button')
@@ -243,6 +243,8 @@ describe('parcours PRO RE7 FO', () => {
                 getIframeBody().find('div[role="status"]')
                         .should('be.visible')
                         .and('contain', 'Circuit de signature électronique correctement lancé')
+
+
         })
 
 

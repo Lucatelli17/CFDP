@@ -73,6 +73,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .contains("France")
       .first()
       .click();
+
     // Présence d'un lot dans une résidence de tourisme
     getIframeBody().find('input[data-cy="21"]')
       .click();
@@ -81,10 +82,16 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .first()
       .click();
 
+    // Nombre total de lots 
+    getIframeBody().find('input[id="Nombre total de lots"]')
+      .clear()
+      .type(ParcoursData.re7FO.parcoursIMMO.nbTotalLots)
+
     // Calculer le tarif
     getIframeBody().find("button")
       .contains("Calculer")
       .click();
+
     // Sélectionner la première offre
     getIframeBody().find("button")
       .contains("Sélectionner")
@@ -103,14 +110,17 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .contains("Monsieur")
       .first()
       .click();
+
     // Nom
     getIframeBody()
       .find('input[data-cy="nom"]')
       .type(ParcoursData.re7FO.parcoursIMMO.nom);
+
     // Prénom
     getIframeBody()
       .find('input[data-cy="prenom"]')
       .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+
     // Date de naissance
     getIframeBody()
       .find("input[type=date]")
@@ -121,29 +131,35 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     getIframeBody()
       .find('input[data-cy="lieuNaissance"]')
       .type(ParcoursData.re7FO.parcoursIMMO.lieuNaissance);
+
     // Adresse
     getIframeBody()
       .find('input[id="adresse1"]')
       .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
+
     // Ville
     getIframeBody().find('input[id="ville"]')
       .click()
       .type("Lille");
+
     // Code Postal
     getIframeBody().find('input[id="codePostal"]')
       .click()
       .type("92210");
+
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
     getIframeBody()
       .find('input[id="nombreProcedures"]')
       .click()
       .type(ParcoursData.re7FO.parcoursIMMO.nbProcedures);
+
     // Avez-vous déjà souscrit à une assurance de protection juridique ?
     getIframeBody()
       .find('div[id="assuranceDejaSouscrite"]')
       .find('[class="v-input--selection-controls__ripple"]')
       .last()
       .click();
+
     // Redacteur devis
     getIframeBody()
       .find('input[id="emisPar"]')
@@ -241,16 +257,19 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .find('input[data-cy="lieuNaissance"]')
       .clear()
       .type(ParcoursData.re7FO.parcoursIMMO.lieuNaissance);
+
     // Date de naissance
     getIframeBody()
       .find("input[type=date]")
       .last()
       .click()
       .type(ParcoursData.re7FO.parcoursIMMO.dateNaissance);
+
     // Téléphone
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+
     // Mail
     getIframeBody()
       .find('input[data-cy="mail"]')
@@ -271,6 +290,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     getIframeBody().find('div[class="v-list-item__title"]')
       .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
       .click()
+
     // Moyen de paiement
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
@@ -279,6 +299,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
         force: true,
       })
       .type("{enter}", { force: true });
+
     // Enregistrer
     getIframeBody().find("button")
       .contains("Enregistrer")

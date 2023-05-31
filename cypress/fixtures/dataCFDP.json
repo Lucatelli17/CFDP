@@ -102,7 +102,11 @@
       "telephone": "0123456789",
       "mail": "slucatelli@alteca.fr",
       "fractionnement": "ANNUEL",
-      "moyenPaiement": "virement"
+      "moyenPaiement": "virement",
+      "formeJuridique": "EI - Entreprise individuelle",
+      "adresse1": "12 chemin du buisset",
+      "ville": "Lyon",
+      "codePostal": "69000"
     },
     "parcoursJURILIBTPE": {
       "datedEffetValide": "2023-07-21",
@@ -284,7 +288,7 @@
       "nbCopro": "0",
       "nbLotsUsageCo": "0",
       "nbLotsUsageRu": "0",
-      "nbTotalLots": "0",
+      "nbTotalLots": "1",
       "nbLotsUsageHa": "0",
       "nbLotsUsageLo": "0",
       "nbLotsUsageTe": "0",

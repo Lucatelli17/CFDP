@@ -96,6 +96,10 @@ describe('parcours JURILIB PRO SOCIETE EN CREATION FO', () => {
                 //                 cy.wrap(numeroDevis).as("numeroDevis");
                 //         });
 
+                // ---------------------
+                // Informations complémentaires
+                // ---------------------
+
                 // Raison sociale
                 getIframeBody().find('input[data-cy="raisonSociale"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBPRO.qualiteProfessionnelle)
