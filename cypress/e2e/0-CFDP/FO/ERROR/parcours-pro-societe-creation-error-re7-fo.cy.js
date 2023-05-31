@@ -1,6 +1,6 @@
 import ParcoursData from '../../../../fixtures/dataCFDP.json'
 
-describe('parcours PRO SOCIETE EN CREATION RE7 FO', () => {
+describe('parcours PRO SOCIETE EN CREATION ERROR RE7 FO', () => {
         beforeEach(() => {
                 cy.visit(ParcoursData.re7FO.login.URLsouscription)
                 cy.get('input[id="username"]')
@@ -35,7 +35,7 @@ describe('parcours PRO SOCIETE EN CREATION RE7 FO', () => {
         }
 
 
-        it('Parcours Pro Societe en creation', () => {
+        it('Parcours Pro Societe en creation error', () => {
                 let numeroDevis = "";
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()

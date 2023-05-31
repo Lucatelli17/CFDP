@@ -123,12 +123,14 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION FO', () => {
                 // En qualité de
                 getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.qualiteProfessionnelle)
-                cy.wait(3000)
+                cy.wait(5000)
+
                 // Sélection Civilité      
                 getIframeBody().find('input[data-cy="civilite"]')
                         .click()
                 getIframeBody().contains('Madame, Monsieur')
                         .click()
+
                 // Nom & prénom représentant         
                 getIframeBody().find('[data-cy="nomRepresentant"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
@@ -139,24 +141,29 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION FO', () => {
                 getIframeBody().find('[id="nombreProcedures"]')
                         .click()
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.nbProcedures)
+
                 // Activité précise
                 getIframeBody().find('input[data-cy="activite"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.activite)
+
                 // Bouton radio locaux exploitation activité
                 getIframeBody().find('div[id="locauxSciAvecPartsSouscripteur"]')
                         .find('[class="v-input--selection-controls__ripple"]')
                         .last()
                         .click()
+
                 // Assurance protection juridique
                 getIframeBody().find('div[id="assuranceDejaSouscrite"]')
                         .find('[class="v-input--selection-controls__ripple"]')
                         .last()
                         .click()
+
                 // Redressement judiciaire
                 getIframeBody().find('div[id="redressementJudiciaire"]')
                         .find('[class="v-input--selection-controls__ripple"]')
                         .last()
                         .click()
+
                 // Redacteur devis
                 getIframeBody().find('input[id="emisPar"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.emisPar)
@@ -224,6 +231,8 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION FO', () => {
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
                 getIframeBody().find('input[data-cy="mail"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.mail)
+                getIframeBody().find('input[data-cy="input-siret"]')
+                        .type(ParcoursData.re7FO.parcoursENTREPRISE.siret)
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
