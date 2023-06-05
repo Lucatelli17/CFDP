@@ -7,6 +7,6 @@ module.exports = {
     experimentalRunAllSpecs: true,
     defaultCommandTimeout: 20000,
   },
-  retries: { openMode: 1 },
+  retries: { openMode: 0 },
   watchForFileChanges: true,
 };

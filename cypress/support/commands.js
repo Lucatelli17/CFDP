@@ -51,6 +51,27 @@ const getIframeDocument = () => {
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+Cypress.Commands.add("testBoutonRafraichir", () => {
+  getIframeBody()
+    .find("button")
+    .then(($buttons) => {
+      if ($buttons.text().includes("Rafraîchir") === true) {
+        // Si le bouton rafraichir est affiché, on clique dessus, on attend et on reteste
+        getIframeBody().find("button").contains("Rafraîchir").click();
+        cy.wait(10000);
+        cy.testBoutonRafraichir();
+      } else if ($buttons.text().includes("Dossier complet") === true) {
+        return;
+        // Dans ce cas les documents sont affichés, on peut passer à la suite
+      } else {
+        // Si ni le bouton rafraichir ni le bouton dossier complet ne sont affichés
+        // On attend un peu que les documents chargent et on relance le test
+        cy.wait(10000);
+        cy.testBoutonRafraichir();
+      }
+    });
+});
+
 // -------------------------------------------------------------------------
 // --------------------- COMMANDES BASIQUES---------------------------------
 // -------------------------------------------------------------------------

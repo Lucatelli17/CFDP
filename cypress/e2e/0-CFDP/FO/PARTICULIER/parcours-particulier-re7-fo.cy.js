@@ -43,15 +43,7 @@ describe("parcours PARTICULIER RE7 FO", () => {
     // ---------------------
     // Sélection prospect & produit
     // ---------------------
-    getIframeBody()
-      .find("#app")
-      .then((app) => {
-        if (app.find("#AAAA892674678")) {
-          console.log("success");
-        } else {
-          console.log("failed");
-        }
-      });
+
     getIframeBody()
       .find('a[href="/souscription/produits/Particulier"]')
       .click();
@@ -138,11 +130,12 @@ describe("parcours PARTICULIER RE7 FO", () => {
     cy.wait(5000);
 
     // Transformer en contrat
-    getIframeBody()
-      .find(
-        'a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]'
-      )
-      .click();
+    //     getIframeBody()
+    //       .find(
+    //         'a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]'
+    //       )
+    //       .click();
+    getIframeBody().contains("Transformer en contrat").click();
 
     // // Checker que le devis existe dans la liste des devis
     // cy.get('a[id="dropdown-subscribe"]')
@@ -210,6 +203,8 @@ describe("parcours PARTICULIER RE7 FO", () => {
       .type("{enter}", { force: true });
     getIframeBody().find("button").contains("Enregistrer").click();
     cy.wait(30000);
+
+    cy.testBoutonRafraichir();
 
     // ---------------------
     // Envoi de la signature électronique
