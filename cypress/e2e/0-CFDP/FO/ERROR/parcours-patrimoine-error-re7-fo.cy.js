@@ -49,6 +49,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody().find('a[href="/souscription/produits/Immobilier"]')
       .click();
+
     getIframeBody()
       .find('[class="v-card__title"]')
       .contains("Alsina Patrimoine Immobilier")
@@ -63,16 +64,19 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody().find('input[type="date"]')
       .click()
       .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee)
+
     getIframeBody().find('button')
       .contains('Valider')
       .click()
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Veuillez saisir une date supérieure à la date du')
-    getIframeBody().find('div[role="status"]')
       .should('be.visible')
+
+    getIframeBody().find('div[role="status"]')
       .and('contain', 'Le format de la date')
       .and('contain', 'est pas correct')
+      .should('be.visible')
 
     // Date d'effet dans le futur (+ d'un an)
 
@@ -80,23 +84,29 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
       .clear()
       .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture)
+
     getIframeBody().find('button')
       .contains('Valider')
       .click()
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Veuillez saisir une date antérieure ou égale à la date du')
-    getIframeBody().find('div[role="status"]')
       .should('be.visible')
+
+    getIframeBody().find('div[role="status"]')
       .and('contain', 'Le format de la date')
       .and('contain', 'est pas correct')
+      .should('be.visible')
 
     // Date d'effet valide
+
     cy.wait(2000)
+
     getIframeBody().find('input[type="date"]')
       .click()
       .clear()
       .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide)
+
     getIframeBody().find('button')
       .contains('Valider')
       .click()
@@ -139,56 +149,58 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Sélectionner un pays est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'dans une résidence de tourisme est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage commercial est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage rural est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre total de lots est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'habitation est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage de location meublée est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage de terrain nu est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage professionnel est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage de garage /cave est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nombre de lots à usage de location saisonnière occasionnelle est obligatoire')
+      .should('be.visible')
 
     // Selectionner un pays
+
     getIframeBody().find('input[data-cy="select-country"]')
       .click();
+
     getIframeBody()
       .find('div[role="option"]')
       .contains("France")
@@ -200,16 +212,18 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Sélectionner un pays est obligatoire')
       .should('not.exist')
 
     // Présence d'un lot dans une résidence de tourisme
+
     getIframeBody().find('input[data-cy="21"]')
       .click();
+
     getIframeBody().find('div[role="option"]')
       .contains("Non")
       .first()
@@ -220,8 +234,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('dans une résidence de tourisme est obligatoire')
@@ -237,8 +251,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre de lots à usage commercial est obligatoire')
@@ -254,8 +268,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre de lots à usage rural est obligatoire')
@@ -271,8 +285,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre total de lots est obligatoire')
@@ -288,8 +302,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('habitation est obligatoire')
@@ -305,8 +319,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre de lots à usage de location meublée est obligatoire')
@@ -322,8 +336,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre de lots à usage de terrain nu est obligatoire')
@@ -339,8 +353,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre de lots à usage professionnel est obligatoire')
@@ -356,8 +370,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nombre de lots à usage de garage /cave est obligatoire')
@@ -369,11 +383,13 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageSaison);
 
     // Calculer le tarif
+
     getIframeBody().find("button")
       .contains("Calculer")
       .click();
 
     // Sélectionner la première offre
+
     getIframeBody().find("button")
       .contains("Sélectionner")
       .first()
@@ -390,44 +406,46 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Civilité est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Nom est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Prénom est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Adresse est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Ville est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Code postal est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ? est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Avez-vous déjà souscrit à une assurance de protection juridique ? est obligatoire')
+      .should('be.visible')
 
     // Civilité
+
     getIframeBody().find('input[data-cy="civilite"]')
       .click();
+
     getIframeBody()
       .find('div[role="option"]')
       .contains("Monsieur")
@@ -439,14 +457,15 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Civilité est obligatoire')
       .should('not.exist')
 
     // Nom
+
     getIframeBody()
       .find('input[data-cy="nom"]')
       .type(ParcoursData.re7FO.parcoursIMMO.nom);
@@ -456,14 +475,15 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Nom est obligatoire')
       .should('not.exist')
 
     // Prénom
+
     getIframeBody()
       .find('input[data-cy="prenom"]')
       .type(ParcoursData.re7FO.parcoursIMMO.prenom);
@@ -473,14 +493,15 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Prénom est obligatoire')
       .should('not.exist')
 
     // Date de naissance
+
     getIframeBody()
       .find("input[type=date]")
       .last()
@@ -488,21 +509,25 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .type(ParcoursData.re7FO.parcoursIMMO.dateNaissance);
 
     // Lieu de Naissance
+
     getIframeBody()
       .find('input[data-cy="lieuNaissance"]')
       .type(ParcoursData.re7FO.parcoursIMMO.lieuNaissance);
 
     // Adresse
+
     getIframeBody()
       .find('input[id="adresse1"]')
       .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
 
     // Ville
+
     getIframeBody().find('input[id="ville"]')
       .click()
       .type("Lille");
 
     // Code Postal
+
     getIframeBody().find('input[id="codePostal"]')
       .click()
       .type("92210");
@@ -512,8 +537,8 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Adresse est obligatoire')
@@ -528,6 +553,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .should('not.exist')
 
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
+
     getIframeBody()
       .find('input[id="nombreProcedures"]')
       .click()
@@ -539,25 +565,28 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ? est obligatoire')
       .should('not.exist')
 
     // Avez-vous déjà souscrit à une assurance de protection juridique ?
+
     getIframeBody().find('div[id="assuranceDejaSouscrite"]')
       .find('input[type="radio"]')
       .last()
       .click({ force: true })
 
     // Redacteur devis
+
     getIframeBody()
       .find('input[id="emisPar"]')
       .type(ParcoursData.re7FO.parcoursIMMO.emisPar);
 
     // // Récupération du numéro de devis
+
     // getIframeBody()
     //   .find("#app")
     //   .contains("Numéro de devis")
@@ -578,6 +607,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     // Variation commission courtier
+
     getIframeBody().find('div[class="v-slider__thumb primary"]')
       .trigger('mousedown', { button: 0 })
       .trigger('mousemove', { clientX: 0, clientY: 50 })
@@ -588,101 +618,119 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Recalcul tarif effectué')
+      .should('be.visible')
 
     // Emettre le devis
+
     getIframeBody().find('button')
       .contains('Emettre le devis')
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Le devis a bien été émis')
+      .should('be.visible')
+
     cy.wait(5000)
 
     // Transformer en contrat 
-    getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
+
+    getIframeBody().contains('Transformer en contrat')
       .click()
 
-
     // // Checker que le devis existe dans la liste des devis
+
     // cy.get('a[id="dropdown-subscribe"]')
     //         .click();
+
     // cy.get(
     //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
     // ).click();
+
     // getIframeBody()
     //         .get("@numeroDevis")
     //         .then((numeroDevis) => {
     //                 getIframeBody().find('input[id="input-26"]')
     //                         .click()
     //                         .type(numeroDevis);
+
     //                 cy.wait(2000)
     //         });
+
     // getIframeBody()
     //         .find("button")
     //         .contains("Rechercher")
     //         .click({ force: true });
+
     // getIframeBody()
     //         .find('[class="devis-list__container"]')
     //         .should("contain.text", numeroDevis);
+
     // cy.wait(2000)
+
     // // Cliquer sur la liste des actions du devis emis
+
     // getIframeBody().find('button[data-cy="listActions"]')
     //         .first()
     //         .click();
+
     // getIframeBody()
     //         .find('div[class="v-list-item__title"]')
     //         .contains("Transformer en contrat")
     //         .click();
 
-
-
-
     // ---------------------
-    // Saisie date d'effet du contrat
+    // Saisie date d'effet
     // ---------------------
 
     // Date d'effet dans le passé
 
     getIframeBody().find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.datedEffetPassee)
+      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee)
+
     getIframeBody().find('button')
       .contains('Valider')
       .click()
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Veuillez saisir une date supérieure à la date du')
-    getIframeBody().find('div[role="status"]')
       .should('be.visible')
+
+    getIframeBody().find('div[role="status"]')
       .and('contain', 'Le format de la date')
       .and('contain', 'est pas correct')
+      .should('be.visible')
 
     // Date d'effet dans le futur (+ d'un an)
 
     getIframeBody().find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.datedEffetFuture)
+      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture)
+
     getIframeBody().find('button')
       .contains('Valider')
       .click()
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Veuillez saisir une date antérieure ou égale à la date du')
-    getIframeBody().find('div[role="status"]')
       .should('be.visible')
+
+    getIframeBody().find('div[role="status"]')
       .and('contain', 'Le format de la date')
       .and('contain', 'est pas correct')
+      .should('be.visible')
 
     // Date d'effet valide
+
     cy.wait(2000)
+
     getIframeBody().find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.datedEffetValide)
+      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide)
+
     getIframeBody().find('button')
       .contains('Valider')
       .click()
@@ -700,38 +748,38 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Téléphone 1 est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Mail est obligatoire')
+      .should('be.visible')
 
     // getIframeBody().find('div[class="v-messages__message"]')
-    //   .should('be.visible')
     //   .and('contain', 'Le champ Date de naissance est obligatoire')
+    //   .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Lieu de naissance est obligatoire')
+      .should('be.visible')
 
     // Saisie du numéro de téléphone en laissant le champ mail vierge
 
     getIframeBody().find('input[type="date"]')
       .last()
       .click()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.dateNaissance, { force: true })
+      .type(ParcoursData.re7FO.parcoursIMMO.dateNaissance, { force: true })
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Date de naissance est obligatoire')
       .should('not.exist')
 
     getIframeBody().find('input[data-cy="lieuNaissance"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.lieuNaissance)
+      .type(ParcoursData.re7FO.parcoursIMMO.lieuNaissance)
 
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Lieu de naissance est obligatoire')
@@ -739,51 +787,68 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody().find('input[data-cy="telephone1"]')
       .type(1111)
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Téléphone 1 est invalide')
+      .should('be.visible')
+
     getIframeBody().find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone)
+      .type(ParcoursData.re7FO.parcoursIMMO.telephone)
+
     getIframeBody().find('button')
       .contains('Étape suivante')
       .click()
+
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
-    getIframeBody().find('div[class="v-messages__message"]')
       .should('be.visible')
+
+    getIframeBody().find('div[class="v-messages__message"]')
       .and('contain', 'Le champ Mail est obligatoire')
+      .should('be.visible')
+
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Téléphone 1 est obligatoire')
       .should('not.exist')
 
     // Saisie du mail en laissant le champ téléphone vierge
-    getIframeBody().find('input[data-cy="telephone1"]').clear()
+
+    getIframeBody().find('input[data-cy="telephone1"]')
+      .clear()
+
     getIframeBody().find('input[data-cy="mail"]')
       .type(1111)
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Mail est invalide')
+      .should('be.visible')
+
     getIframeBody().find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.mail)
+      .type(ParcoursData.re7FO.parcoursIMMO.mail)
+
     getIframeBody().find('button')
       .contains('Étape suivante')
       .click()
+
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Veuillez valider tous les champs')
-    getIframeBody().find('div[class="v-messages__message"]')
       .should('be.visible')
+
+    getIframeBody().find('div[class="v-messages__message"]')
       .and('contain', 'Le champ Téléphone 1 est obligatoire')
+      .should('be.visible')
+
     getIframeBody().find('div[class="v-messages__message"]')
       .contains('Le champ Mail est obligatoire')
       .should('not.exist')
 
     // Ajout du numéro de téléphone
+
     getIframeBody().find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone)
+      .type(ParcoursData.re7FO.parcoursIMMO.telephone)
+
     getIframeBody().find('button')
       .contains('Étape suivante')
       .click()
@@ -795,20 +860,23 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .click()
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Fractionnement est obligatoire')
+      .should('be.visible')
 
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Moyen de paiement est obligatoire')
+      .should('be.visible')
 
-    getIframeBody().find('input[data-cy="fractionnement"]').click()
-    getIframeBody().find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursPARTICULIER.fractionnement)
+    getIframeBody().find('input[data-cy="fractionnement"]')
       .click()
+
+    getIframeBody().find('div[class="v-list-item__title"]')
+      .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
+      .click()
+
     getIframeBody().find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.moyenPaiement, { force: true })
+      .type(ParcoursData.re7FO.parcoursIMMO.moyenPaiement, { force: true })
       .type('{enter}', { force: true })
 
     // getIframeBody().find('div[class="v-messages__message"]')
@@ -822,6 +890,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody().find('button')
       .contains('Enregistrer')
       .click()
+
     cy.wait(30000)
 
     // ---------------------
@@ -831,39 +900,50 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody().find('button')
       .contains('Signer électroniquement')
       .click()
+
     getIframeBody().find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.prenom)
+      .type(ParcoursData.re7FO.parcoursIMMO.prenom)
+
     getIframeBody().find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.nom)
+      .type(ParcoursData.re7FO.parcoursIMMO.nom)
+
     getIframeBody().find('input[data-cy="mail"]')
       .type('1111')
+
     getIframeBody().find('input[data-cy="portable"]')
       .type('AAAA')
+
     getIframeBody().find('h1[class="title-helios"]')
       .parent()
       .find('button')
       .contains('Valider')
       .click()
+
     getIframeBody().find('div[class="v-messages__message"]')
-      .should('be.visible')
       .and('contain', 'Le champ Téléphone  est invalide')
-    getIframeBody().find('div[class="v-messages__message"]')
       .should('be.visible')
+
+    getIframeBody().find('div[class="v-messages__message"]')
       .and('contain', 'Le champ Mail est invalide')
+      .should('be.visible')
+
     getIframeBody().find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.mail)
+      .type(ParcoursData.re7FO.parcoursIMMO.mail)
+
     getIframeBody().find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone)
+      .type(ParcoursData.re7FO.parcoursIMMO.telephone)
+
     getIframeBody().find('h1[class="title-helios"]')
       .parent()
       .find('button')
       .contains('Valider')
       .click()
+
     getIframeBody().find('div[role="status"]')
-      .should('be.visible')
       .and('contain', 'Circuit de signature électronique correctement lancé')
+      .should('be.visible')
 
   });
 });

@@ -37,58 +37,84 @@ describe('parcours JURILIB TPE SIRET FO', () => {
 
         it('Parcours Jurilib TPE SIRET', () => {
                 let numeroDevis = "";
+
+                // ---------------------
+                // Sélection prospect & produit
+                // ---------------------
+
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()
+
                 getIframeBody().find('[class="v-card__title"]')
                         .contains('Jurilib TPE')
                         .click()
+
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
 
                 getIframeBody().find('input[data-cy="select-country"]')
                         .click()
+
                 getIframeBody().find('[id="list-item-183-1"]')
                         .click()
+
                 getIframeBody().contains('Retrouver toutes les informations légales par nom')
                         .parent()
                         .find('[class="v-select__selections"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.nomEntreprise)
+
                 getIframeBody().find('[role="listbox"]')
                         .contains(ParcoursData.re7FO.parcoursJURILIBTPE.siret)
                         .click()
+
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
+
                 // Devis réalisé 
+
                 // Code NAF
+
                 getIframeBody().find('input[data-cy="42"]')
                         .click()
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.codeNAF)
+
                 getIframeBody().find('[role="listbox"]')
                         .contains(ParcoursData.re7FO.parcoursJURILIBTPE.codeNAF)
                         .click()
+
                 //Nombre de salariés
+
                 getIframeBody().find('[id="Nombre de salariés"]')
                         .clear()
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.nbSalaries)
+
                 //Nombre de véhicules terrestres à moteur
+
                 getIframeBody().find('[id="Nombre de véhicules terrestres à moteur"]')
                         .clear()
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.nbVTM)
+
                 // Chiffres d'affaires => ^ = commence par ...
+
                 getIframeBody().find('[id^="Chiffre"]')
                         .clear()
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.CA)
+
                 // CALCULER
+
                 getIframeBody().find('button')
                         .contains('Calculer')
                         .click()
+
                 getIframeBody().find('button')
                         .contains('Sélectionner')
                         .first()
                         .click()
+
                 // // Récupération du numéro de devis
+
                 // getIframeBody()
                 //         .find("#app")
                 //         .contains("Numéro de devis")
@@ -99,45 +125,68 @@ describe('parcours JURILIB TPE SIRET FO', () => {
                 //         });
 
                 // En qualité de
+
                 getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.qualiteProfessionnelle)
+
                 cy.wait(3000)
 
-                // Sélection Civilité      
-                getIframeBody().find('[class="col col-4"]')
-                        .find('[role="button"]')
-                        .type(ParcoursData.re7FO.parcoursJURILIBTPE.civilite)
-                // Nom & prénom représentant         
+                // Sélection Civilité  
+
+                getIframeBody().find('input[data-cy="civilite"]')
+                        .click()
+
+                cy.wait(3000)
+
+                getIframeBody().contains('Madame, Monsieur')
+                        .click()
+
+                // Nom & prénom représentant
+
                 getIframeBody().find('[id="nomRepresentant"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.nom)
+
                 getIframeBody().find('[id="prenom"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.prenom)
 
-                //procédures judiciaires
+
+                // Procédures judiciaires
+
                 getIframeBody().find('[id="nombreProcedures"]')
                         .click()
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.nbProcedures)
+
                 // Activité précise
+
                 getIframeBody().find('input[data-cy="activite"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.activite)
+
                 // Bouton radio locaux exploitation activité
+
                 getIframeBody().find('div[id="locauxSciAvecPartsSouscripteur"]')
                         .find('[class="v-input--selection-controls__ripple"]')
                         .last()
                         .click()
+
                 // Assurance protection juridique
+
                 getIframeBody().find('div[id="assuranceDejaSouscrite"]')
                         .find('[class="v-input--selection-controls__ripple"]')
                         .last()
                         .click()
+
                 // Redressement judiciaire
+
                 getIframeBody().find('div[id="redressementJudiciaire"]')
                         .find('[class="v-input--selection-controls__ripple"]')
                         .last()
                         .click()
+
                 // Redacteur devis
+
                 getIframeBody().find('input[id="emisPar"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.emisPar)
+
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
@@ -145,6 +194,7 @@ describe('parcours JURILIB TPE SIRET FO', () => {
                 cy.wait(5000)
 
                 // Variation commission courtier
+
                 getIframeBody().find('div[class="v-slider__thumb primary"]')
                         .trigger('mousedown', { button: 0 })
                         .trigger('mousemove', { clientX: 0, clientY: 50 })
@@ -155,70 +205,89 @@ describe('parcours JURILIB TPE SIRET FO', () => {
                         .click()
 
                 // Emettre le devis 
+
                 getIframeBody().find('button')
                         .contains('Emettre le devis')
                         .click()
+
                 cy.wait(5000)
 
                 // Transformer en contrat 
-                getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
+
+                getIframeBody().contains('Transformer en contrat')
                         .click()
 
                 // // Checker que le devis existe dans la liste des devis
+
                 // cy.get('a[id="dropdown-subscribe"]')
                 //         .click();
+
                 // cy.get(
                 //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
                 // ).click();
+
                 // getIframeBody()
                 //         .get("@numeroDevis")
                 //         .then((numeroDevis) => {
                 //                 getIframeBody().find('input[id="input-26"]')
                 //                         .click()
                 //                         .type(numeroDevis);
+
                 //                 cy.wait(2000)
                 //         });
+
                 // getIframeBody()
                 //         .find("button")
                 //         .contains("Rechercher")
                 //         .click({ force: true });
+
                 // getIframeBody()
                 //         .find('[class="devis-list__container"]')
                 //         .should("contain.text", numeroDevis);
+
                 // cy.wait(2000);
+
                 // // Cliquer sur la liste des actions du devis emis
+
                 // getIframeBody().find('button[data-cy="listActions"]')
                 //         .click();
+
                 // getIframeBody()
                 //         .find('div[class="v-list-item__title"]')
                 //         .contains("Transformer en contrat")
                 //         .click();
 
-
-
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
+
                 getIframeBody().find('input[data-cy="telephone1"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.telephone)
+
                 getIframeBody().find('input[data-cy="mail"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.mail)
+
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
+
                 getIframeBody().find('input[data-cy="fractionnement"]')
                         .click()
+
                 getIframeBody().find('div[class="v-list-item__title"]')
                         .contains(ParcoursData.re7FO.parcoursJURILIBTPE.fractionnement)
                         .click()
+
                 getIframeBody().find('input[data-cy="moyenDePaiement"]')
                         .click()
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.moyenPaiement, { force: true })
                         .type('{enter}', { force: true })
+
                 getIframeBody().find('button')
                         .contains('Enregistrer')
                         .click()
-                cy.wait(25000)
+
+                cy.wait(35000)
 
                 // ---------------------
                 // Envoi signature électronique
@@ -227,24 +296,28 @@ describe('parcours JURILIB TPE SIRET FO', () => {
                 getIframeBody().find('button')
                         .contains('Signer électroniquement')
                         .click()
+
                 getIframeBody().find('input[data-cy="prenom"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.prenom)
+
                 getIframeBody().find('input[data-cy="nom"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.nom)
+
                 getIframeBody().find('input[data-cy="mail"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.mail)
+
                 getIframeBody().find('input[data-cy="portable"]')
                         .type(ParcoursData.re7FO.parcoursJURILIBTPE.telephone)
+
                 getIframeBody().find('h1[class="title-helios"]')
                         .parent()
                         .find('button')
                         .contains('Valider')
                         .click()
+
                 getIframeBody().find('div[role="status"]')
-                        .should('be.visible')
                         .and('contain', 'Circuit de signature électronique correctement lancé')
-
-
+                        .should('be.visible')
         })
 
 
