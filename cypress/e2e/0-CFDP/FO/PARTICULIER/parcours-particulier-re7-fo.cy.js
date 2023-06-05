@@ -202,8 +202,6 @@ describe("parcours PARTICULIER RE7 FO", () => {
       })
       .type("{enter}", { force: true });
     getIframeBody().find("button").contains("Enregistrer").click();
-    cy.wait(30000);
-
     cy.testBoutonRafraichir();
 
     // ---------------------
