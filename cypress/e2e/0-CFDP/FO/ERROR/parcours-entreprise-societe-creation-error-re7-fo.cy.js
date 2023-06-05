@@ -37,8 +37,14 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
 
         it('Parcours Entreprise Societe en creation Error', () => {
                 let numeroDevis = "";
+
+                // ---------------------
+                // Sélection produit + prospect
+                // ---------------------
+
                 getIframeBody().find('a[href="/souscription/produits/Professionnel"]')
                         .click()
+
                 getIframeBody().find('[class="v-card__title"]')
                         .contains('Alsina Entreprise')
                         .click()
@@ -264,8 +270,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .and('contain', 'Le champ Raison sociale est obligatoire')
                         .should('be.visible')
 
-                getIframeBody().find('div[class="v-messages__message"]')
-                        .and('contain', 'Le champ Forme juridique est obligatoire')
+                getIframeBody().contains('Le champ Forme juridique est obligatoire')
                         .should('be.visible')
 
                 getIframeBody().find('div[class="v-messages__message"]')
@@ -407,6 +412,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // En qualité de
+
                 getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.qualiteProfessionnelle)
                 cy.wait(3000)
@@ -423,7 +429,8 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .contains('Le champ En qualité de est obligatoire')
                         .should('not.exist')
 
-                // Sélection Civilité      
+                // Sélection Civilité    
+
                 getIframeBody().find('[class="col col-4"]')
                         .find('[role="button"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.civilite)
@@ -440,9 +447,11 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .contains('Le champ Civilité est obligatoire')
                         .should('not.exist')
 
-                // Nom & prénom représentant         
+                // Nom & prénom représentant  
+
                 getIframeBody().find('[id="nomRepresentant"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.nom)
+
                 getIframeBody().find('[id="prenom"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom)
 
@@ -459,6 +468,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // Activité précise
+
                 getIframeBody().find('input[data-cy="activite"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.activite)
 
@@ -491,7 +501,8 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .contains('Le champ Activité précise est obligatoire')
                         .should('not.exist')
 
-                //procédures judiciaires
+                // Procédures judiciaires
+
                 getIframeBody().find('[id="nombreProcedures"]')
                         .click()
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.nbProcedures)
@@ -509,6 +520,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // Bouton radio locaux exploitation activité
+
                 getIframeBody().find('div[id="locauxSciAvecPartsSouscripteur"]')
                         .find('input[type="radio"]')
                         .last()
@@ -527,6 +539,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // Assurance protection juridique
+
                 getIframeBody().find('div[id="assuranceDejaSouscrite"]')
                         .find('input[type="radio"]')
                         .last()
@@ -545,12 +558,14 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // Redressement judiciaire
+
                 getIframeBody().find('div[id="redressementJudiciaire"]')
                         .find('input[type="radio"]')
                         .last()
                         .click({ force: true })
 
                 // Redacteur devis
+
                 getIframeBody().find('input[id="emisPar"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.emisPar)
 
@@ -561,6 +576,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                 cy.wait(5000)
 
                 // Variation commission courtier
+
                 getIframeBody().find('div[class="v-slider__thumb primary"]')
                         .trigger('mousedown', { button: 0 })
                         .trigger('mousemove', { clientX: 0, clientY: 50 })
@@ -571,12 +587,14 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .click()
 
                 // Emettre le devis 
+
                 getIframeBody().find('button')
                         .contains('Emettre le devis')
                         .click()
                 cy.wait(5000)
 
                 // Transformer en contrat 
+
                 getIframeBody().find('a[class="button-visu v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
                         .click()
 
@@ -634,9 +652,11 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .click()
                         .clear()
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetFuture)
+
                 getIframeBody().find('button')
                         .contains('Valider')
                         .click()
+
                 getIframeBody().find('div[class="v-messages__message"]')
                         .and('contain', 'Veuillez saisir une date antérieure ou égale à la date du')
                         .should('be.visible')
@@ -647,7 +667,9 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('be.visible')
 
                 // Date d'effet valide
+
                 cy.wait(2000)
+
                 getIframeBody().find('input[type="date"]')
                         .click()
                         .clear()
@@ -658,6 +680,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .click()
 
                 // Valider sans les champs obligatoires
+
                 getIframeBody().find('button')
                         .contains('Étape suivante')
                         .click()
@@ -708,7 +731,10 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // Saisie du mail en laissant le champ téléphone vierge
-                getIframeBody().find('input[data-cy="telephone1"]').clear()
+
+                getIframeBody().find('input[data-cy="telephone1"]')
+                        .clear()
+
                 getIframeBody().find('input[data-cy="mail"]')
                         .type(1111)
 
@@ -737,6 +763,7 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                         .should('not.exist')
 
                 // Ajout du numéro de téléphone et du SIRET
+
                 getIframeBody().find('input[data-cy="telephone1"]')
                         .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone)
 
@@ -830,8 +857,6 @@ describe('parcours ENTREPRISE SOCIETE EN CREATION ERROR FO', () => {
                 getIframeBody().find('div[role="status"]')
                         .contains('Circuit de signature électronique correctement lancé')
                         .should('be.visible')
-
-
 
         })
 

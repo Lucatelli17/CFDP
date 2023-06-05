@@ -568,7 +568,7 @@ describe('parcours ENTREPRISE ERROR FO', () => {
 
                 // Transformer en contrat 
 
-                getIframeBody().find('a[class="v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--default primary"]')
+                getIframeBody().contains('Transformer en contrat')
                         .click()
 
                 // // Checker que le devis existe dans la liste des devis
