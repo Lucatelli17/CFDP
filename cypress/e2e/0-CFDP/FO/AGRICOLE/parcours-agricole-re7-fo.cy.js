@@ -1,362 +1,346 @@
-import ParcoursData from '../../../../fixtures/dataCFDP.json'
-import { faker } from '@faker-js/faker';
+import ParcoursData from "../../../../fixtures/dataCFDP.json";
+import { faker } from "@faker-js/faker";
 
+describe("parcours AGRICOLE RE7 FO", () => {
+  beforeEach(() => {
+    cy.visit(ParcoursData.re7FO.login.URLsouscription);
+    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
+    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
+    cy.get('button[id="signin"]').click();
+    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+  });
 
+  const getIframeDocument = () => {
+    return (
+      cy
+        .get('iframe[data-cy="iframe-souscription"]')
+        // Cypress yields jQuery element, which has the real
+        // DOM element under property "0".
+        // From the real DOM iframe element we can get
+        // the "document" element, it is stored in "contentDocument" property
+        // Cypress "its" command can access deep properties using dot notation
+        // https://on.cypress.io/its
+        .its("0.contentDocument")
+        .should("exist")
+    );
+  };
 
-describe('parcours AGRICOLE RE7 FO', () => {
-        beforeEach(() => {
-                cy.visit(ParcoursData.re7FO.login.URLsouscription)
-                cy.get('input[id="username"]')
-                        .type(ParcoursData.re7FO.login.username)
-                cy.get('input[id="password"]')
-                        .type(ParcoursData.re7FO.login.password)
-                cy.get('button[id="signin"]')
-                        .click()
-                cy.url().should('eq', 'https://espacepartenaire.re7.cfdp.fr/souscription')
-        })
+  const getIframeBody = () => {
+    // get the document
+    return (
+      getIframeDocument()
+        // automatically retries until body is loaded
+        .its("body")
+        .should("not.be.undefined")
+        // wraps "body" DOM element to allow
+        // chaining more Cypress commands, like ".find(...)"
+        .then(cy.wrap)
+    );
+  };
 
-        const getIframeDocument = () => {
-                return cy
-                        .get('iframe[data-cy="iframe-souscription"]')
-                        // Cypress yields jQuery element, which has the real
-                        // DOM element under property "0".
-                        // From the real DOM iframe element we can get
-                        // the "document" element, it is stored in "contentDocument" property
-                        // Cypress "its" command can access deep properties using dot notation
-                        // https://on.cypress.io/its
-                        .its('0.contentDocument').should('exist')
-        }
+  it("Agricole", () => {
+    let numeroDevis = "";
 
-        const getIframeBody = () => {
-                // get the document
-                return getIframeDocument()
-                        // automatically retries until body is loaded
-                        .its('body').should('not.be.undefined')
-                        // wraps "body" DOM element to allow
-                        // chaining more Cypress commands, like ".find(...)"
-                        .then(cy.wrap)
-        }
+    // ---------------------
+    // Sélection prospect + produit
+    // ---------------------
 
+    getIframeBody().find('a[href="/souscription/produits/Agricole"]').click();
 
-        it('Agricole', () => {
-                let numeroDevis = "";
+    getIframeBody()
+      .find('[class="v-card__title"]')
+      .contains("Alsina Agricole")
+      .click();
 
-                // ---------------------
-                // Sélection prospect + produit
-                // ---------------------
+    getIframeBody().find("button").contains("Valider").click();
 
-                getIframeBody().find('a[href="/souscription/produits/Agricole"]')
-                        .click()
+    // ---------------------
+    // Devis - Informations tarifantes
+    // ---------------------
 
-                getIframeBody().find('[class="v-card__title"]')
-                        .contains('Alsina Agricole')
-                        .click()
+    // Sélection pays
 
-                getIframeBody().find('button')
-                        .contains('Valider')
-                        .click()
+    getIframeBody().find('input[data-cy="select-country"]').click();
 
-                // ---------------------
-                // Devis - Informations tarifantes
-                // ---------------------
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("France")
+      .first()
+      .click();
 
-                // Sélection pays
+    // Activité avec commercialisation directe
 
-                getIframeBody().find('input[data-cy="select-country"]')
-                        .click()
+    getIframeBody()
+      .find('input[id="Activité avec commercialisation directe"]')
+      .click();
 
-                getIframeBody().find('div[role="option"]')
-                        .contains('France')
-                        .first()
-                        .click()
+    getIframeBody().find('div[role="listbox"]').contains("Non").click();
 
-                // Activité avec commercialisation directe
+    // Activité accessoire de diversification agricole
 
-                getIframeBody().find('input[id="Activité avec commercialisation directe"]')
-                        .click()
+    getIframeBody().find('input[data-cy="8"]').click();
 
-                getIframeBody().find('div[role="listbox"]')
-                        .contains('Non')
-                        .click()
+    getIframeBody().find('div[role="option"]:visible').first().click();
 
-                // Activité accessoire de diversification agricole
+    // Activité principale
 
-                getIframeBody().find('input[data-cy="8"]')
-                        .click()
+    getIframeBody().find('input[id="Activité principale"]').click();
 
-                getIframeBody().find('div[role="option"]:visible')
-                        .first()
-                        .click()
+    getIframeBody().find('div[role="listbox"]').contains("Elevage").click();
 
-                // Activité principale
+    // Chiffre d'affaires
 
-                getIframeBody().find('input[id="Activité principale"]')
-                        .click()
+    getIframeBody()
+      .find('input[data-cy="10"]')
+      .clear()
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.CA);
 
-                getIframeBody().find('div[role="listbox"]')
-                        .contains('Elevage')
-                        .click()
+    // Forme juridique de l'exploitation
 
-                // Chiffre d'affaires
+    getIframeBody().find('input[data-cy="39"]').click();
 
-                getIframeBody().find('input[data-cy="10"]')
-                        .clear()
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.CA)
+    getIframeBody()
+      .find('div[role="listbox"]')
+      .contains(ParcoursData.re7FO.parcoursAGRICOLE.formeJuridique)
+      .click();
 
-                // Forme juridique de l'exploitation
+    // Surface d'exploitation (Ha)
 
-                getIframeBody().find('input[data-cy="39"]')
-                        .click()
+    getIframeBody()
+      .find('input[data-cy="11"]')
+      .clear()
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.surfaceExploitation);
 
-                getIframeBody().find('div[role="listbox"]')
-                        .contains(ParcoursData.re7FO.parcoursAGRICOLE.formeJuridique)
-                        .click()
+    // CALCULER
 
-                // Surface d'exploitation (Ha)
+    getIframeBody().find("button").contains("Calculer").click();
 
-                getIframeBody().find('input[data-cy="11"]')
-                        .clear()
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.surfaceExploitation)
+    getIframeBody().find("button").contains("Sélectionner").first().click();
 
-                // CALCULER
+    // ---------------------
+    // Devis - Informations complémentaires
+    // ---------------------
 
-                getIframeBody().find('button')
-                        .contains('Calculer')
-                        .click()
+    // Raison sociale
 
-                getIframeBody().find('button')
-                        .contains('Sélectionner')
-                        .first()
-                        .click()
+    getIframeBody()
+      .find('input[data-cy="raisonSociale"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.raisonSociale);
 
-                // ---------------------
-                // Devis - Informations complémentaires
-                // ---------------------
+    // Pays Souscripteur
 
-                // Raison sociale  
+    getIframeBody().find('input[data-cy="pays"]').click();
 
-                getIframeBody().find('input[data-cy="raisonSociale"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.raisonSociale)
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("France")
+      .first()
+      .click();
 
-                // Pays Souscripteur
+    // Adresse Souscripteur
 
-                getIframeBody().find('input[data-cy="pays"]')
-                        .click();
+    getIframeBody()
+      .find('div[title="Adresse"]')
+      .first()
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.adresse1);
 
-                getIframeBody()
-                        .find('div[role="option"]')
-                        .contains("France")
-                        .first()
-                        .click();
+    // Ville
 
-                // Adresse Souscripteur
+    getIframeBody()
+      .find('input[id="autoCompletion-ville"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.ville);
 
-                getIframeBody().find('div[title="Adresse"]')
-                        .first()
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.adresse1)
+    // Code Postal
 
-                // Ville
+    getIframeBody()
+      .find('input[data-cy="codePostal"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.codePostal);
 
-                getIframeBody().find('input[id="autoCompletion-ville"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.ville)
+    // Sélection Civilité
 
-                // Code Postal
+    getIframeBody().find('input[data-cy="civilite"]').click();
 
-                getIframeBody().find('input[data-cy="codePostal"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.codePostal)
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("Monsieur")
+      .first()
+      .click();
 
-                // Sélection Civilité  
+    // Nom & prénom représentant
 
-                getIframeBody().find('input[data-cy="civilite"]')
-                        .click();
+    getIframeBody()
+      .find('input[data-cy="nomRepresentant"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.nom);
 
-                getIframeBody()
-                        .find('div[role="option"]')
-                        .contains("Monsieur")
-                        .first()
-                        .click();
+    getIframeBody()
+      .find('input[data-cy="prenom"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.prenom);
 
-                // Nom & prénom représentant   
+    // getIframeBody().find('input[data-cy="nomRepresentant"]')
+    //         .type(faker.name.lastName())
+    // getIframeBody().find('input[data-cy="prenom"]')
+    //         .type(faker.name.firstName())
 
-                getIframeBody().find('input[data-cy="nomRepresentant"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nom)
+    // En qualité de
 
-                getIframeBody().find('input[data-cy="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.prenom)
+    getIframeBody()
+      .find('input[data-cy="qualiteProfessionnelle"]')
+      .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle);
 
-                // getIframeBody().find('input[data-cy="nomRepresentant"]')
-                //         .type(faker.name.lastName())
-                // getIframeBody().find('input[data-cy="prenom"]')
-                //         .type(faker.name.firstName())
+    //procédures judiciaires
 
-                // En qualité de
+    getIframeBody()
+      .find('input[id="nombreProcedures"]')
+      .click()
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.nbProcedures);
 
-                getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle)
+    // Assurance protection juridique
 
-                //procédures judiciaires
+    getIframeBody()
+      .find('div[id="assuranceDejaSouscrite"]')
+      .find('[class="v-input--selection-controls__ripple"]')
+      .last()
+      .click();
 
-                getIframeBody().find('input[id="nombreProcedures"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.nbProcedures)
+    // Redressement judiciaire
 
-                // Assurance protection juridique
+    getIframeBody()
+      .find('div[id="redressementJudiciaire"]')
+      .find('[class="v-input--selection-controls__ripple"]')
+      .last()
+      .click();
 
-                getIframeBody().find('div[id="assuranceDejaSouscrite"]')
-                        .find('[class="v-input--selection-controls__ripple"]')
-                        .last()
-                        .click()
+    // Redacteur devis
 
-                // Redressement judiciaire 
+    getIframeBody()
+      .find('input[id="emisPar"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.emisPar);
 
-                getIframeBody().find('div[id="redressementJudiciaire"]')
-                        .find('[class="v-input--selection-controls__ripple"]')
-                        .last()
-                        .click()
+    // Récupération du numéro de devis
+    // getIframeBody()
+    //         .find("#app")
+    //         .contains("Numéro de devis")
+    //         .contains("HD")
+    //         .then((numDevis) => {
+    //                 numeroDevis = numDevis.text();
+    //                 cy.wrap(numeroDevis).as("numeroDevis");
+    //         });
 
-                // Redacteur devis
+    cy.wait(5000);
 
-                getIframeBody().find('input[id="emisPar"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.emisPar)
+    getIframeBody().find("button").contains("Étape suivante").click();
 
-                // Récupération du numéro de devis
-                // getIframeBody()
-                //         .find("#app")
-                //         .contains("Numéro de devis")
-                //         .contains("HD")
-                //         .then((numDevis) => {
-                //                 numeroDevis = numDevis.text();
-                //                 cy.wrap(numeroDevis).as("numeroDevis");
-                //         });
+    // Variation commission courtier
 
-                cy.wait(5000)
+    getIframeBody()
+      .find('div[class="v-slider__thumb primary"]')
+      .trigger("mousedown", { button: 0 })
+      .trigger("mousemove", { clientX: 0, clientY: 50 })
+      .trigger("mouseup");
 
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
+    getIframeBody().find("button").contains("Recalculer tarif").click();
 
-                // Variation commission courtier
+    // Emettre le devis
+    getIframeBody().find("button").contains("Emettre le devis").click();
 
-                getIframeBody().find('div[class="v-slider__thumb primary"]')
-                        .trigger('mousedown', { button: 0 })
-                        .trigger('mousemove', { clientX: 0, clientY: 50 })
-                        .trigger('mouseup');
+    cy.wait(5000);
 
-                getIframeBody().find('button')
-                        .contains('Recalculer tarif')
-                        .click()
+    // Transformer en contrat
 
-                // Emettre le devis
-                getIframeBody().find('button')
-                        .contains('Emettre le devis')
-                        .click()
+    getIframeBody().contains("Transformer en contrat").click();
 
-                cy.wait(5000)
+    // // Checker que le devis existe dans la liste des devis
+    // cy.get('a[id="dropdown-subscribe"]')
+    //         .click();
+    // cy.get(
+    //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
+    // ).click();
+    // getIframeBody()
+    //         .get("@numeroDevis")
+    //         .then((numeroDevis) => {
+    //                 getIframeBody().find('input[id="input-26"]')
+    //                         .click()
+    //                         .type(numeroDevis);
+    //         });
+    // cy.wait(2000)
+    // getIframeBody()
+    //         .find("button")
+    //         .contains("Rechercher")
+    //         .click({ force: true });
+    // getIframeBody()
+    //         .find('[class="devis-list__container"]')
+    //         .should("contain.text", numeroDevis);
+    // cy.wait(2000)
 
-                // Transformer en contrat 
+    // // Cliquer sur la liste des actions du devis emis
+    // getIframeBody().find('button[data-cy="listActions"]')
+    //         .click();
+    // getIframeBody()
+    //         .find('div[class="v-list-item__title"]')
+    //         .contains("Transformer en contrat")
+    //         .click();
 
-                getIframeBody().contains('Transformer en contrat')
-                        .click()
+    getIframeBody().find("button").contains("Valider").click();
 
-                // // Checker que le devis existe dans la liste des devis
-                // cy.get('a[id="dropdown-subscribe"]')
-                //         .click();
-                // cy.get(
-                //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
-                // ).click();
-                // getIframeBody()
-                //         .get("@numeroDevis")
-                //         .then((numeroDevis) => {
-                //                 getIframeBody().find('input[id="input-26"]')
-                //                         .click()
-                //                         .type(numeroDevis);
-                //         });
-                // cy.wait(2000)
-                // getIframeBody()
-                //         .find("button")
-                //         .contains("Rechercher")
-                //         .click({ force: true });
-                // getIframeBody()
-                //         .find('[class="devis-list__container"]')
-                //         .should("contain.text", numeroDevis);
-                // cy.wait(2000)
+    getIframeBody()
+      .find('input[data-cy="telephone1"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone);
 
-                // // Cliquer sur la liste des actions du devis emis
-                // getIframeBody().find('button[data-cy="listActions"]')
-                //         .click();
-                // getIframeBody()
-                //         .find('div[class="v-list-item__title"]')
-                //         .contains("Transformer en contrat")
-                //         .click();
+    getIframeBody()
+      .find('input[data-cy="mail"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.mail);
 
-                getIframeBody().find('button')
-                        .contains('Valider')
-                        .click()
+    getIframeBody().find("button").contains("Étape suivante").click();
 
-                getIframeBody().find('input[data-cy="telephone1"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
+    // ---------------------
+    // Informations de paiement
+    // ---------------------
 
-                getIframeBody().find('input[data-cy="mail"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.mail)
+    getIframeBody().find('input[data-cy="fractionnement"]').click();
 
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
+    getIframeBody()
+      .find('div[class="v-list-item__title"]')
+      .contains(ParcoursData.re7FO.parcoursAGRICOLE.fractionnement)
+      .click();
 
-                // ---------------------
-                // Informations de paiement
-                // ---------------------
+    getIframeBody()
+      .find('input[data-cy="moyenDePaiement"]')
+      .click()
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.moyenPaiement, { force: true })
+      .type("{enter}", { force: true });
 
-                getIframeBody().find('input[data-cy="fractionnement"]')
-                        .click()
+    getIframeBody().find("button").contains("Enregistrer").click();
 
-                getIframeBody().find('div[class="v-list-item__title"]')
-                        .contains(ParcoursData.re7FO.parcoursAGRICOLE.fractionnement)
-                        .click()
+    cy.wait(30000);
 
-                getIframeBody().find('input[data-cy="moyenDePaiement"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.moyenPaiement, { force: true })
-                        .type('{enter}', { force: true })
+    // ---------------------
+    // Envoi de la signature électronique
+    // ---------------------
 
-                getIframeBody().find('button')
-                        .contains('Enregistrer')
-                        .click()
+    getIframeBody().find("button").contains("Signer électroniquement").click();
 
-                cy.wait(30000)
+    getIframeBody()
+      .find('input[data-cy="prenom"]')
+      .type(faker.name.firstName());
 
-                // ---------------------
-                // Envoi de la signature électronique
-                // ---------------------
+    getIframeBody().find('input[data-cy="nom"]').type(faker.name.lastName());
 
-                getIframeBody().find('button')
-                        .contains('Signer électroniquement')
-                        .click()
+    getIframeBody().find('input[data-cy="mail"]').type(faker.internet.email());
 
-                getIframeBody().find('input[data-cy="prenom"]')
-                        .type(faker.name.firstName())
+    getIframeBody()
+      .find('input[data-cy="portable"]')
+      .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone);
 
-                getIframeBody().find('input[data-cy="nom"]')
-                        .type(faker.name.lastName())
+    getIframeBody()
+      .find('h1[class="title-helios"]')
+      .parent()
+      .find("button")
+      .contains("Valider")
+      .click();
 
-                getIframeBody().find('input[data-cy="mail"]')
-                        .type(faker.internet.email())
-
-                getIframeBody().find('input[data-cy="portable"]')
-                        .type(ParcoursData.re7FO.parcoursAGRICOLE.telephone)
-
-                getIframeBody().find('h1[class="title-helios"]')
-                        .parent()
-                        .find('button')
-                        .contains('Valider')
-                        .click()
-
-                getIframeBody().find('div[role="status"]')
-                        .and('contain', 'Circuit de signature électronique correctement lancé')
-                        .should('be.visible')
-
-
-        })
-
-
-})
+    getIframeBody()
+      .find('div[role="status"]')
+      .and("contain", "Circuit de signature électronique correctement lancé")
+      .should("be.visible");
+  });
+});
