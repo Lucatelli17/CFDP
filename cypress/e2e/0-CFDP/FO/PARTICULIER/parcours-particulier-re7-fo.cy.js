@@ -44,88 +44,89 @@ describe("parcours PARTICULIER RE7 FO", () => {
     // Sélection prospect & produit
     // ---------------------
 
-    getIframeBody().find('a[href="/souscription/produits/Particulier"]')
-      .click()
+    getIframeBody()
+      .find('a[href="/souscription/produits/Particulier"]')
+      .click();
 
-    getIframeBody().find('[class="v-card__title"]')
-      .contains('Alsina Particulier')
-      .click()
+    getIframeBody()
+      .find('[class="v-card__title"]')
+      .contains("Alsina Particulier")
+      .click();
 
-    getIframeBody().find('button')
-      .contains('Valider')
-      .click()
+    getIframeBody().find("button").contains("Valider").click();
 
     // ---------------------
     // Devis - Informations tarifantes
     // ---------------------
 
-    getIframeBody().find('input[data-cy="select-country"]')
-      .click()
+    getIframeBody().find('input[data-cy="select-country"]').click();
 
-    getIframeBody().find('div[role="option"]')
-      .contains('France')
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("France")
       .first()
-      .click()
+      .click();
 
     // CALCULER
 
-    getIframeBody().find('button')
-      .contains('Calculer')
-      .click()
+    getIframeBody().find("button").contains("Calculer").click();
 
-    getIframeBody().find('button')
-      .contains('Sélectionner')
-      .first()
-      .click()
+    getIframeBody().find("button").contains("Sélectionner").first().click();
 
-    // Sélection Civilité    
+    // Sélection Civilité
 
-    getIframeBody().find('input[data-cy="civilite"]')
-      .click()
+    getIframeBody().find('input[data-cy="civilite"]').click();
 
-    getIframeBody().contains('Madame, Monsieur')
-      .click()
+    getIframeBody().contains("Madame, Monsieur").click();
 
     // Nom & prénom représentant
 
-    getIframeBody().find('input[id="nom"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.nom)
+    getIframeBody()
+      .find('input[id="nom"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.nom);
 
-    getIframeBody().find('input[id="prenom"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.prenom)
+    getIframeBody()
+      .find('input[id="prenom"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.prenom);
 
     // Adresse
 
-    getIframeBody().find('div[title="Adresse"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.adresse1)
+    getIframeBody()
+      .find('div[title="Adresse"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.adresse1);
 
     // Ville
 
-    getIframeBody().find('input[id="ville"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.ville, { force: true })
+    getIframeBody()
+      .find('input[id="ville"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.ville, { force: true });
 
     // Code Postal
 
-    getIframeBody().find('input[data-cy="codePostal"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.codePostal)
+    getIframeBody()
+      .find('input[data-cy="codePostal"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.codePostal);
 
     // Procédures judiciaires
 
-    getIframeBody().find('input[id="nombreProcedures"]')
+    getIframeBody()
+      .find('input[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.nbProcedures)
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.nbProcedures);
 
     // Assurance protection juridique
 
-    getIframeBody().find('div[id="assuranceDejaSouscrite"]')
+    getIframeBody()
+      .find('div[id="assuranceDejaSouscrite"]')
       .find('[class="v-input--selection-controls__ripple"]')
       .last()
-      .click()
+      .click();
 
     // Redacteur devis
 
-    getIframeBody().find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.emisPar)
+    getIframeBody()
+      .find('input[id="emisPar"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.emisPar);
 
     // // Récupération du numéro de devis
 
@@ -138,34 +139,31 @@ describe("parcours PARTICULIER RE7 FO", () => {
     //                 cy.wrap(numeroDevis).as("numeroDevis");
     //         });
 
-    cy.wait(8000)
+    cy.wait(8000);
 
-    getIframeBody().contains('Étape suivante')
-      .click()
+    getIframeBody().contains("Étape suivante").click();
 
-    cy.wait(8000)
+    cy.wait(8000);
 
     // Variation commission courtier
 
-    getIframeBody().find('div[class="v-slider__thumb primary"]')
-      .trigger('mousedown', { button: 0 })
-      .trigger('mousemove', { clientX: 0, clientY: 50 })
-      .trigger('mouseup');
+    getIframeBody()
+      .find('div[class="v-slider__thumb primary"]')
+      .trigger("mousedown", { button: 0 })
+      .trigger("mousemove", { clientX: 0, clientY: 50 })
+      .trigger("mouseup");
 
     getIframeBody().find("button").contains("Recalculer tarif").click();
 
-    // Emettre le devis 
+    // Emettre le devis
 
-    getIframeBody().find('button')
-      .contains('Emettre le devis')
-      .click()
+    getIframeBody().find("button").contains("Emettre le devis").click();
 
-    cy.wait(5000)
+    cy.wait(5000);
 
-    // Transformer en contrat 
+    // Transformer en contrat
 
-    getIframeBody().contains('Transformer en contrat')
-      .click()
+    getIframeBody().contains("Transformer en contrat").click();
 
     // // Checker que le devis existe dans la liste des devis
 
@@ -208,78 +206,82 @@ describe("parcours PARTICULIER RE7 FO", () => {
     //         .contains("Transformer en contrat")
     //         .click();
 
-    getIframeBody().find('button')
-      .contains('Valider')
-      .click()
+    getIframeBody().find("button").contains("Valider").click();
 
     // ---------------------
     // Devis - Informations complémentaires
     // ---------------------
 
-    getIframeBody().find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone)
+    getIframeBody()
+      .find('input[data-cy="telephone1"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone);
 
-    getIframeBody().find('input[data-cy="mail"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.mail)
+    getIframeBody()
+      .find('input[data-cy="mail"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.mail);
 
-    getIframeBody().find('input[data-cy="lieuNaissance"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.lieuNaissance)
+    getIframeBody()
+      .find('input[data-cy="lieuNaissance"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.lieuNaissance);
 
-    getIframeBody().find('input[type=date]')
+    getIframeBody()
+      .find("input[type=date]")
       .last()
       .click()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.dateNaissance)
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.dateNaissance);
 
-    getIframeBody().find('button')
-      .contains('Étape suivante')
-      .click()
+    getIframeBody().find("button").contains("Étape suivante").click();
 
-    getIframeBody().find('input[data-cy="fractionnement"]')
-      .click()
+    getIframeBody().find('input[data-cy="fractionnement"]').click();
 
-    getIframeBody().find('div[class="v-list-item__title"]')
+    getIframeBody()
+      .find('div[class="v-list-item__title"]')
       .contains(ParcoursData.re7FO.parcoursPARTICULIER.fractionnement)
-      .click()
+      .click();
 
-    getIframeBody().find('input[data-cy="moyenDePaiement"]')
+    getIframeBody()
+      .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.moyenPaiement, { force: true })
-      .type('{enter}', { force: true })
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.moyenPaiement, {
+        force: true,
+      })
+      .type("{enter}", { force: true });
 
-    getIframeBody().find('button')
-      .contains('Enregistrer')
-      .click()
+    getIframeBody().find("button").contains("Enregistrer").click();
 
-    cy.testBoutonRafraichir()
+    cy.testBoutonRafraichir();
     // ---------------------
     // Envoi de la signature électronique
     // ---------------------
 
-    getIframeBody().find('button')
-      .contains('Signer électroniquement')
-      .click()
+    getIframeBody().find("button").contains("Signer électroniquement").click();
 
-    getIframeBody().find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.prenom)
+    getIframeBody()
+      .find('input[data-cy="prenom"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.prenom);
 
-    getIframeBody().find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.nom)
+    getIframeBody()
+      .find('input[data-cy="nom"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.nom);
 
-    getIframeBody().find('input[data-cy="mail"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.mail)
+    getIframeBody()
+      .find('input[data-cy="mail"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.mail);
 
-    getIframeBody().find('input[data-cy="portable"]')
-      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone)
+    getIframeBody()
+      .find('input[data-cy="portable"]')
+      .type(ParcoursData.re7FO.parcoursPARTICULIER.telephone);
 
-    getIframeBody().find('h1[class="title-helios"]')
+    getIframeBody()
+      .find('h1[class="title-helios"]')
       .parent()
-      .find('button')
-      .contains('Valider')
-      .click()
+      .find("button")
+      .contains("Valider")
+      .click();
 
-    getIframeBody().find('div[role="status"]')
-      .and('contain', 'Circuit de signature électronique correctement lancé')
-      .should('be.visible')
-
-  })
-})
+    getIframeBody()
+      .find('div[role="status"]')
+      .and("contain", "Circuit de signature électronique correctement lancé")
+      .should("be.visible");
+  });
+});

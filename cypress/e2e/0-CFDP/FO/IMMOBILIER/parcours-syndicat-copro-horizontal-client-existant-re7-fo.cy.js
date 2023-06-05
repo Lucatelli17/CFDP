@@ -1,393 +1,387 @@
-import ParcoursData from '../../../../fixtures/dataCFDP.json'
-
-describe('parcours SYNDICAT COPRO HORIZONTAL RE7 FO', () => {
-        beforeEach(() => {
-                cy.visit(ParcoursData.re7FO.login.URLsouscription)
-                cy.get('input[id="username"]')
-                        .type(ParcoursData.re7FO.login.username)
-                cy.get('input[id="password"]')
-                        .type(ParcoursData.re7FO.login.password)
-                cy.get('button[id="signin"]')
-                        .click()
-                cy.url().should('eq', 'https://espacepartenaire.re7.cfdp.fr/souscription')
-        })
-
-        const getIframeDocument = () => {
-                return cy
-                        .get('iframe[data-cy="iframe-souscription"]')
-                        // Cypress yields jQuery element, which has the real
-                        // DOM element under property "0".
-                        // From the real DOM iframe element we can get
-                        // the "document" element, it is stored in "contentDocument" property
-                        // Cypress "its" command can access deep properties using dot notation
-                        // https://on.cypress.io/its
-                        .its('0.contentDocument').should('exist')
-        }
-
-        const getIframeBody = () => {
-                // get the document
-                return getIframeDocument()
-                        // automatically retries until body is loaded
-                        .its('body').should('not.be.undefined')
-                        // wraps "body" DOM element to allow
-                        // chaining more Cypress commands, like ".find(...)"
-                        .then(cy.wrap)
-        }
-
-
-        it('Parcours Syndicat Copro Horizontal', () => {
-                let numeroDevis = "";
+import ParcoursData from "../../../../fixtures/dataCFDP.json";
+
+describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
+  beforeEach(() => {
+    cy.visit(ParcoursData.re7FO.login.URLsouscription);
+    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
+    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
+    cy.get('button[id="signin"]').click();
+    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+  });
 
-                // ---------------------
-                // Sélection prospect & produit
-                // ---------------------
+  const getIframeDocument = () => {
+    return (
+      cy
+        .get('iframe[data-cy="iframe-souscription"]')
+        // Cypress yields jQuery element, which has the real
+        // DOM element under property "0".
+        // From the real DOM iframe element we can get
+        // the "document" element, it is stored in "contentDocument" property
+        // Cypress "its" command can access deep properties using dot notation
+        // https://on.cypress.io/its
+        .its("0.contentDocument")
+        .should("exist")
+    );
+  };
 
-                getIframeBody().find('a[href="/souscription/produits/Immobilier"]')
-                        .click()
+  const getIframeBody = () => {
+    // get the document
+    return (
+      getIframeDocument()
+        // automatically retries until body is loaded
+        .its("body")
+        .should("not.be.undefined")
+        // wraps "body" DOM element to allow
+        // chaining more Cypress commands, like ".find(...)"
+        .then(cy.wrap)
+    );
+  };
 
-                getIframeBody().find('[class="v-card__title"]')
-                        .contains('Alsina Syndicat de Copropriétaires')
-                        .click()
+  it("Parcours Syndicat Copro Horizontal", () => {
+    let numeroDevis = "";
 
-                getIframeBody().find('button')
-                        .contains('Valider')
-                        .click()
+    // ---------------------
+    // Sélection prospect & produit
+    // ---------------------
 
-                // ---------------------
-                // Informations tarifantes
-                // ---------------------
+    getIframeBody().find('a[href="/souscription/produits/Immobilier"]').click();
 
-                // Sélection pays
+    getIframeBody()
+      .find('[class="v-card__title"]')
+      .contains("Alsina Syndicat de Copropriétaires")
+      .click();
 
-                getIframeBody().find('input[data-cy="select-country"]')
-                        .click()
+    getIframeBody().find("button").contains("Valider").click();
 
-                getIframeBody().find('div[role="option"]')
-                        .contains('France')
-                        .first()
-                        .click()
+    // ---------------------
+    // Informations tarifantes
+    // ---------------------
 
-                // Type de copro
+    // Sélection pays
 
-                getIframeBody().find('div[role="combobox"]')
-                        .first()
-                        .click()
+    getIframeBody().find('input[data-cy="select-country"]').click();
 
-                getIframeBody().find('div[role="listbox"]')
-                        .contains('Horizontale')
-                        .click()
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("France")
+      .first()
+      .click();
 
-                // Type de gestion de la copro
+    // Type de copro
 
-                getIframeBody().find('div[role="combobox"]')
-                        .last()
-                        .click()
+    getIframeBody().find('div[role="combobox"]').first().click();
 
-                getIframeBody().find('div[role="listbox"]')
-                        .contains('Syndic bénévole ou coopératif')
-                        .click()
+    getIframeBody().find('div[role="listbox"]').contains("Horizontale").click();
 
-                // Nb lots
+    // Type de gestion de la copro
 
-                getIframeBody().find('div[title="Nombre de lots (Si copropriété horizontale)"]')
-                        .clear()
-                        .type(ParcoursData.re7FO.parcoursIMMO.nbLots)
+    getIframeBody().find('div[role="combobox"]').last().click();
 
-                // CALCULER
+    getIframeBody()
+      .find('div[role="listbox"]')
+      .contains("Syndic bénévole ou coopératif")
+      .click();
 
-                getIframeBody().find('button')
-                        .contains('Calculer')
-                        .click()
+    // Nb lots
 
-                getIframeBody().find('button')
-                        .contains('Sélectionner')
-                        .first()
-                        .click()
+    getIframeBody()
+      .find('div[title="Nombre de lots (Si copropriété horizontale)"]')
+      .clear()
+      .type(ParcoursData.re7FO.parcoursIMMO.nbLots);
 
-                // ---------------------
-                // Devis - Recherche client
-                // ---------------------
+    // CALCULER
 
-                // Nouveau prospect
+    getIframeBody().find("button").contains("Calculer").click();
 
-                getIframeBody().find('button')
-                        .contains('Nouveau prospect')
-                        .click()
+    getIframeBody().find("button").contains("Sélectionner").first().click();
 
-                // ---------------------
-                // Devis - Informations complémentaires
-                // ---------------------
+    // ---------------------
+    // Devis - Recherche client
+    // ---------------------
 
-                // Raison sociale  
+    // Nouveau prospect
 
-                getIframeBody().find('div[title="Raison sociale"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursIMMO.raisonSociale)
+    getIframeBody().find("button").contains("Nouveau prospect").click();
 
-                // Pays Bénéficiaire
+    // ---------------------
+    // Devis - Informations complémentaires
+    // ---------------------
 
-                getIframeBody().find('input[data-cy="pays"]')
-                        .click();
+    // Raison sociale
 
-                getIframeBody()
-                        .find('div[role="option"]')
-                        .contains("France")
-                        .first()
-                        .click();
+    getIframeBody()
+      .find('div[title="Raison sociale"]')
+      .click()
+      .type(ParcoursData.re7FO.parcoursIMMO.raisonSociale);
 
-                // Forme juridique
+    // Pays Bénéficiaire
 
-                getIframeBody().find('div[title="Forme juridique"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.formeJuridique)
+    getIframeBody().find('input[data-cy="pays"]').click();
 
-                // Adresse Souscripteur
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("France")
+      .first()
+      .click();
 
-                getIframeBody().find('div[title="Adresse"]')
-                        .first()
-                        .type(ParcoursData.re7FO.parcoursIMMO.adresse1)
+    // Forme juridique
 
-                // Ville
+    getIframeBody()
+      .find('div[title="Forme juridique"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.formeJuridique);
 
-                getIframeBody().find('input[id="autoCompletion-ville"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.ville)
+    // Adresse Souscripteur
 
-                // Code Postal
+    getIframeBody()
+      .find('div[title="Adresse"]')
+      .first()
+      .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
 
-                getIframeBody().find('input[data-cy="codePostal"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.codePostal)
+    // Ville
 
-                // Sélection Civilité
+    getIframeBody()
+      .find('input[id="autoCompletion-ville"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.ville);
 
-                getIframeBody().find('input[data-cy="civilite"]')
-                        .click();
+    // Code Postal
 
-                getIframeBody()
-                        .find('div[role="option"]')
-                        .contains("Monsieur")
-                        .first()
-                        .click();
+    getIframeBody()
+      .find('input[data-cy="codePostal"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.codePostal);
 
-                // Nom & prénom représentant  
+    // Sélection Civilité
 
-                getIframeBody().find('input[data-cy="nomRepresentant"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.nom)
+    getIframeBody().find('input[data-cy="civilite"]').click();
 
-                getIframeBody().find('input[data-cy="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.prenom)
+    getIframeBody()
+      .find('div[role="option"]')
+      .contains("Monsieur")
+      .first()
+      .click();
 
-                // En qualité de
+    // Nom & prénom représentant
 
-                getIframeBody().find('input[data-cy="qualiteProfessionnelle"]')
-                        .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle)
+    getIframeBody()
+      .find('input[data-cy="nomRepresentant"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.nom);
 
-                cy.wait(8000)
+    getIframeBody()
+      .find('input[data-cy="prenom"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
 
-                // Nom de la copro
+    // En qualité de
 
-                getIframeBody().find('input[data-cy="nom"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.nomCopro)
+    getIframeBody()
+      .find('input[data-cy="qualiteProfessionnelle"]')
+      .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle);
 
-                // Pays Bénéficiaire
+    cy.wait(8000);
 
-                getIframeBody().find('input[data-cy="paysBeneficiaire"]')
-                        .type('France', { force: true })
+    // Nom de la copro
 
-                getIframeBody()
-                        .find('div[role="option"]:visible')
-                        .contains("France")
-                        .click();
+    getIframeBody()
+      .find('input[data-cy="nom"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.nomCopro);
 
-                // Adresse Bénéficiaire
+    // Pays Bénéficiaire
 
-                getIframeBody().find('input[id="adresse1"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.adresse1, { force: true })
+    getIframeBody()
+      .find('input[data-cy="paysBeneficiaire"]')
+      .type("France", { force: true });
 
-                // Ville Bénéficiaire
+    getIframeBody()
+      .find('div[role="option"]:visible')
+      .contains("France")
+      .click();
 
-                getIframeBody().find('div[title="Ville"]')
-                        .last()
-                        .type(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire)
+    // Adresse Bénéficiaire
 
-                getIframeBody()
-                        .find('div[role="option"]:visible')
-                        .contains(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire)
-                        .first()
-                        .click();
+    getIframeBody()
+      .find('input[id="adresse1"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.adresse1, { force: true });
 
-                //procédures judiciaires
+    // Ville Bénéficiaire
 
-                getIframeBody().find('input[id="nombreProcedures"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursIMMO.nbProcedures)
+    getIframeBody()
+      .find('div[title="Ville"]')
+      .last()
+      .type(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire);
 
-                // Assurance protection juridique
+    getIframeBody()
+      .find('div[role="option"]:visible')
+      .contains(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire)
+      .first()
+      .click();
 
-                getIframeBody().find('div[id="assuranceDejaSouscrite"]')
-                        .find('[class="v-input--selection-controls__ripple"]')
-                        .last()
-                        .click()
+    //procédures judiciaires
 
-                // Redacteur devis
+    getIframeBody()
+      .find('input[id="nombreProcedures"]')
+      .click()
+      .type(ParcoursData.re7FO.parcoursIMMO.nbProcedures);
 
-                getIframeBody().find('input[id="emisPar"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.emisPar)
+    // Assurance protection juridique
 
-                // // Récupération du numéro de devis
+    getIframeBody()
+      .find('div[id="assuranceDejaSouscrite"]')
+      .find('[class="v-input--selection-controls__ripple"]')
+      .last()
+      .click();
 
-                // getIframeBody()
-                //         .find("#app")
-                //         .contains("Numéro de devis")
-                //         .contains("HD")
-                //         .then((numDevis) => {
-                //                 numeroDevis = numDevis.text();
-                //                 cy.wrap(numeroDevis).as("numeroDevis");
-                //         });
+    // Redacteur devis
 
-                cy.wait(5000)
+    getIframeBody()
+      .find('input[id="emisPar"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.emisPar);
 
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
+    // // Récupération du numéro de devis
 
-                // Variation commission courtier
+    // getIframeBody()
+    //         .find("#app")
+    //         .contains("Numéro de devis")
+    //         .contains("HD")
+    //         .then((numDevis) => {
+    //                 numeroDevis = numDevis.text();
+    //                 cy.wrap(numeroDevis).as("numeroDevis");
+    //         });
 
-                getIframeBody().find('div[class="v-slider__thumb primary"]')
-                        .trigger('mousedown', { button: 0 })
-                        .trigger('mousemove', { clientX: 0, clientY: 50 })
-                        .trigger('mouseup');
+    cy.wait(5000);
 
-                getIframeBody().find('button')
-                        .contains('Recalculer tarif')
-                        .click()
+    getIframeBody().find("button").contains("Étape suivante").click();
 
-                // Emettre le devis 
+    // Variation commission courtier
 
-                getIframeBody().find('button')
-                        .contains('Emettre le devis')
-                        .click()
+    getIframeBody()
+      .find('div[class="v-slider__thumb primary"]')
+      .trigger("mousedown", { button: 0 })
+      .trigger("mousemove", { clientX: 0, clientY: 50 })
+      .trigger("mouseup");
 
-                cy.wait(5000)
+    getIframeBody().find("button").contains("Recalculer tarif").click();
 
-                // Transformer en contrat 
-                getIframeBody().contains('Transformer en contrat')
-                        .click()
+    // Emettre le devis
 
-                // Vérifier que les documents sont présents
+    getIframeBody().find("button").contains("Emettre le devis").click();
 
-                // getIframeBody().contains('Téléchargement').parent().then(($DL) => {
-                //         if ($DL.find('button').contains('Rafraîchir')) {
-                //                 getIframeBody().find('button').contains('Rafraîchir').click()
-                //                 cy.wait(10000)
-                //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'CONTRAT')
-                //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'IPID')
-                //         } else {
-                //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'CONTRAT')
-                //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'IPID')
-                //         }
-                // })
+    cy.wait(5000);
 
-                // // Checker que le devis existe dans la liste des devis
-                // cy.get('a[id="dropdown-subscribe"]')
-                //         .click();
+    // Transformer en contrat
+    getIframeBody().contains("Transformer en contrat").click();
 
-                // cy.get(
-                //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
-                // ).click();
+    // Vérifier que les documents sont présents
 
-                // getIframeBody()
-                //         .get("@numeroDevis")
-                //         .then((numeroDevis) => {
-                //                 getIframeBody().find('input[id="input-26"]')
-                //                         .click()
-                //                         .type(numeroDevis);
+    // getIframeBody().contains('Téléchargement').parent().then(($DL) => {
+    //         if ($DL.find('button').contains('Rafraîchir')) {
+    //                 getIframeBody().find('button').contains('Rafraîchir').click()
+    //                 cy.wait(10000)
+    //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'CONTRAT')
+    //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'IPID')
+    //         } else {
+    //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'CONTRAT')
+    //                 getIframeBody().find('[class="sticky top-10"]').should('contain.text', 'IPID')
+    //         }
+    // })
 
-                //                 cy.wait(2000)
-                //         });
+    // // Checker que le devis existe dans la liste des devis
+    // cy.get('a[id="dropdown-subscribe"]')
+    //         .click();
 
-                // getIframeBody()
-                //         .find("button")
-                //         .contains("Rechercher")
-                //         .click({ force: true });
+    // cy.get(
+    //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
+    // ).click();
 
-                // getIframeBody()
-                //         .find('[class="devis-list__container"]')
-                //         .should("contain.text", numeroDevis);
+    // getIframeBody()
+    //         .get("@numeroDevis")
+    //         .then((numeroDevis) => {
+    //                 getIframeBody().find('input[id="input-26"]')
+    //                         .click()
+    //                         .type(numeroDevis);
 
-                // cy.wait(2000)
+    //                 cy.wait(2000)
+    //         });
 
-                // // Cliquer sur la liste des actions du devis emis
+    // getIframeBody()
+    //         .find("button")
+    //         .contains("Rechercher")
+    //         .click({ force: true });
 
-                // getIframeBody().find('button[data-cy="listActions"]')
-                //         .click();
+    // getIframeBody()
+    //         .find('[class="devis-list__container"]')
+    //         .should("contain.text", numeroDevis);
 
-                // getIframeBody()
-                //         .find('div[class="v-list-item__title"]')
-                //         .contains("Transformer en contrat")
-                //         .click();
+    // cy.wait(2000)
 
-                getIframeBody().find('button')
-                        .contains('Valider')
-                        .click()
+    // // Cliquer sur la liste des actions du devis emis
 
-                getIframeBody().find('input[data-cy="telephone1"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.telephone)
+    // getIframeBody().find('button[data-cy="listActions"]')
+    //         .click();
 
-                getIframeBody().find('input[data-cy="mail"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.mail)
+    // getIframeBody()
+    //         .find('div[class="v-list-item__title"]')
+    //         .contains("Transformer en contrat")
+    //         .click();
 
-                getIframeBody().find('button')
-                        .contains('Étape suivante')
-                        .click()
+    getIframeBody().find("button").contains("Valider").click();
 
-                getIframeBody().find('input[data-cy="fractionnement"]')
-                        .click()
+    getIframeBody()
+      .find('input[data-cy="telephone1"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
 
-                getIframeBody().find('div[class="v-list-item__title"]')
-                        .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
-                        .click()
+    getIframeBody()
+      .find('input[data-cy="mail"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.mail);
 
-                getIframeBody().find('input[data-cy="moyenDePaiement"]')
-                        .click()
-                        .type(ParcoursData.re7FO.parcoursIMMO.moyenPaiement, { force: true })
-                        .type('{enter}', { force: true })
+    getIframeBody().find("button").contains("Étape suivante").click();
 
-                getIframeBody().find('button')
-                        .contains('Enregistrer')
-                        .click()
+    getIframeBody().find('input[data-cy="fractionnement"]').click();
 
-                cy.wait(35000)
+    getIframeBody()
+      .find('div[class="v-list-item__title"]')
+      .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
+      .click();
 
-                // ---------------------
-                // Envoi signature électronique
-                // ---------------------
+    getIframeBody()
+      .find('input[data-cy="moyenDePaiement"]')
+      .click()
+      .type(ParcoursData.re7FO.parcoursIMMO.moyenPaiement, { force: true })
+      .type("{enter}", { force: true });
 
-                getIframeBody().find('button')
-                        .contains('Signer électroniquement')
-                        .click()
+    getIframeBody().find("button").contains("Enregistrer").click();
 
-                getIframeBody().find('input[data-cy="prenom"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.prenom)
+    cy.wait(35000);
 
-                getIframeBody().find('input[data-cy="nom"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.nom)
+    // ---------------------
+    // Envoi signature électronique
+    // ---------------------
 
-                getIframeBody().find('input[data-cy="mail"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.mail)
+    getIframeBody().find("button").contains("Signer électroniquement").click();
 
-                getIframeBody().find('input[data-cy="portable"]')
-                        .type(ParcoursData.re7FO.parcoursIMMO.telephone)
+    getIframeBody()
+      .find('input[data-cy="prenom"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
 
-                getIframeBody().find('h1[class="title-helios"]')
-                        .parent()
-                        .find('button')
-                        .contains('Valider')
-                        .click()
+    getIframeBody()
+      .find('input[data-cy="nom"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.nom);
 
-                getIframeBody().find('div[role="status"]')
-                        .and('contain', 'Circuit de signature électronique correctement lancé')
-                        .should('be.visible')
+    getIframeBody()
+      .find('input[data-cy="mail"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.mail);
 
-        })
+    getIframeBody()
+      .find('input[data-cy="portable"]')
+      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
 
+    getIframeBody()
+      .find('h1[class="title-helios"]')
+      .parent()
+      .find("button")
+      .contains("Valider")
+      .click();
 
-})
+    getIframeBody()
+      .find('div[role="status"]')
+      .and("contain", "Circuit de signature électronique correctement lancé")
+      .should("be.visible");
+  });
+});

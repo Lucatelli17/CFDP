@@ -41,8 +41,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Sélection du prospect + produit
     // ---------------------
 
-    getIframeBody().find('a[href="/souscription/produits/Immobilier"]')
-      .click();
+    getIframeBody().find('a[href="/souscription/produits/Immobilier"]').click();
 
     getIframeBody()
       .find('[class="v-card__title"]')
@@ -53,9 +52,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Devis - Date d'effet souhaitée
     // ---------------------
 
-    getIframeBody().find("button")
-      .contains("Valider")
-      .click();
+    getIframeBody().find("button").contains("Valider").click();
 
     // ---------------------
     // Devis - Tarification
@@ -63,8 +60,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Selectionner un pays
 
-    getIframeBody().find('input[data-cy="select-country"]')
-      .click();
+    getIframeBody().find('input[data-cy="select-country"]').click();
 
     getIframeBody()
       .find('div[role="option"]')
@@ -74,32 +70,24 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Présence d'un lot dans une résidence de tourisme
 
-    getIframeBody().find('input[data-cy="21"]')
-      .click();
+    getIframeBody().find('input[data-cy="21"]').click();
 
-    getIframeBody().find('div[role="option"]')
-      .contains("Non")
-      .first()
-      .click();
+    getIframeBody().find('div[role="option"]').contains("Non").first().click();
 
-    // Nombre total de lots 
+    // Nombre total de lots
 
-    getIframeBody().find('input[id="Nombre total de lots"]')
+    getIframeBody()
+      .find('input[id="Nombre total de lots"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.nbTotalLots)
+      .type(ParcoursData.re7FO.parcoursIMMO.nbTotalLots);
 
     // Calculer le tarif
 
-    getIframeBody().find("button")
-      .contains("Calculer")
-      .click();
+    getIframeBody().find("button").contains("Calculer").click();
 
     // Sélectionner la première offre
 
-    getIframeBody().find("button")
-      .contains("Sélectionner")
-      .first()
-      .click();
+    getIframeBody().find("button").contains("Sélectionner").first().click();
 
     // ---------------------
     // Devis - Informations complémentaires
@@ -107,8 +95,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Civilité
 
-    getIframeBody().find('input[data-cy="civilite"]')
-      .click();
+    getIframeBody().find('input[data-cy="civilite"]').click();
 
     getIframeBody()
       .find('div[role="option"]')
@@ -150,15 +137,11 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Ville
 
-    getIframeBody().find('input[id="ville"]')
-      .click()
-      .type("Lille");
+    getIframeBody().find('input[id="ville"]').click().type("Lille");
 
     // Code Postal
 
-    getIframeBody().find('input[id="codePostal"]')
-      .click()
-      .type("92210");
+    getIframeBody().find('input[id="codePostal"]').click().type("92210");
 
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
 
@@ -196,30 +179,28 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Devis - Récapitulatif du devis en cours
     // ---------------------
 
-    cy.wait(8000)
+    cy.wait(8000);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
     // Variation commission courtier
 
-    getIframeBody().find('div[class="v-slider__thumb primary"]')
-      .trigger('mousedown', { button: 0 })
-      .trigger('mousemove', { clientX: 0, clientY: 50 })
-      .trigger('mouseup');
+    getIframeBody()
+      .find('div[class="v-slider__thumb primary"]')
+      .trigger("mousedown", { button: 0 })
+      .trigger("mousemove", { clientX: 0, clientY: 50 })
+      .trigger("mouseup");
 
     getIframeBody().find("button").contains("Recalculer tarif").click();
 
-    // Emettre le devis 
+    // Emettre le devis
 
-    getIframeBody().find('button')
-      .contains('Emettre le devis')
-      .click()
+    getIframeBody().find("button").contains("Emettre le devis").click();
 
-    cy.wait(5000)
+    cy.wait(5000);
 
-    // Transformer en contrat 
-    getIframeBody().contains('Transformer en contrat')
-      .click()
+    // Transformer en contrat
+    getIframeBody().contains("Transformer en contrat").click();
 
     // ---------------------
     // Vérification de la présence du devis dans la liste des devis
@@ -273,9 +254,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Contrat - Date d'effet souhaitée
     // ---------------------
 
-    getIframeBody().find("button")
-      .contains("Valider")
-      .click();
+    getIframeBody().find("button").contains("Valider").click();
 
     // ---------------------
     // Contrat - Informations complémentaires
@@ -310,9 +289,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Etape suivante
 
-    getIframeBody().find("button")
-      .contains("Étape suivante")
-      .click();
+    getIframeBody().find("button").contains("Étape suivante").click();
 
     // ---------------------
     // Contrat - Paiement
@@ -320,12 +297,12 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Fractionnement
 
-    getIframeBody().find('input[data-cy="fractionnement"]')
-      .click()
+    getIframeBody().find('input[data-cy="fractionnement"]').click();
 
-    getIframeBody().find('div[class="v-list-item__title"]')
+    getIframeBody()
+      .find('div[class="v-list-item__title"]')
       .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
-      .click()
+      .click();
 
     // Moyen de paiement
 
@@ -339,13 +316,11 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Enregistrer
 
-    getIframeBody().find("button")
-      .contains("Enregistrer")
-      .click();
+    getIframeBody().find("button").contains("Enregistrer").click();
 
     // Attente pour le chargement des documents
 
-    cy.wait(35000)
+    cy.wait(35000);
 
     // ---------------------
     // Contrat - Récapitulatif et Signature
@@ -353,9 +328,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Signer électroniquement
 
-    getIframeBody().find("button")
-      .contains("Signer électroniquement")
-      .click();
+    getIframeBody().find("button").contains("Signer électroniquement").click();
 
     // Prénom de la signature
 
@@ -390,9 +363,9 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
       .contains("Valider")
       .click();
 
-    getIframeBody().find('div[role="status"]')
-      .and('contain', 'Circuit de signature électronique correctement lancé')
-      .should('be.visible')
-
+    getIframeBody()
+      .find('div[role="status"]')
+      .and("contain", "Circuit de signature électronique correctement lancé")
+      .should("be.visible");
   });
 });
