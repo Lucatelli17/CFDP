@@ -178,7 +178,7 @@ describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
       .find('[id="prenom"]')
       .type(ParcoursData.re7FO.parcoursPRO.prenom);
 
-    //procédures judiciaires
+    // Procédures judiciaires
 
     getIframeBody()
       .find('[id="nombreProcedures"]')
