@@ -24,20 +24,6 @@ describe("parcours ASSO SYNDICALE RE7 FO", () => {
         .should("exist")
     );
   };
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
 
   const getIframeBody = () => {
     // get the document
