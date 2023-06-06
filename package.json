@@ -4,7 +4,11 @@
   "description": "Initiation automatisation cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:runAgricole": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/AGRICOLE/'",
+    "cy:runImmo": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER/'",
+    "cy:runFO": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/'",
+    "cy:runSpecificTest": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER/parcours-syndicat-copro-vertical-nouveau-prospect-re7-fo.cy.js'",
+    "cy:runParticulier": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/PARTICULIER'"
   },
   "keywords": [
     "cypress",
@@ -18,5 +22,13 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "cypress-xpath": "^2.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucatelli17/CFDP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lucatelli17/CFDP/issues"
+  },
+  "homepage": "https://github.com/Lucatelli17/CFDP#readme"
 }

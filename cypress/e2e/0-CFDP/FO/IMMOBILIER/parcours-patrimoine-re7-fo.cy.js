@@ -81,7 +81,10 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre total de lots"]')
+    getIframeBody()
+      .find('input[id="Nombre total de lots"]')
       .clear()
+      .type(ParcoursData.re7FO.parcoursIMMO.nbTotalLots);
       .type(ParcoursData.re7FO.parcoursIMMO.nbTotalLots);
 
     // Calculer le tarif

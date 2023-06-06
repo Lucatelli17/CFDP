@@ -249,8 +249,7 @@ describe("parcours PARTICULIER RE7 FO", () => {
 
     getIframeBody().find("button").contains("Enregistrer").click();
 
-    cy.wait(35000);
-
+    cy.testBoutonRafraichir();
     // ---------------------
     // Envoi de la signature électronique
     // ---------------------
