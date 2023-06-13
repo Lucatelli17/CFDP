@@ -306,14 +306,32 @@ Cypress.Commands.add("TypeCopro2", (data) => {
   getIframeBody().find('div[role="listbox"]').contains(data.typeCopro2).click();
 });
 
-// Type de gestion de la copro
-Cypress.Commands.add("TypeGestionCopro", (data) => {
+// Type de gestion de la copro 1
+Cypress.Commands.add("TypeGestionCopro1", (data) => {
   getIframeBody().find('div[role="combobox"]').last().click();
 
   getIframeBody()
     .find('div[role="listbox"]')
-    .contains(data.typeGestionCopro)
+    .contains(data.typeGestionCopro1)
     .click();
+});
+
+// Type de gestion de la copro 2
+Cypress.Commands.add("TypeGestionCopro2", (data) => {
+  getIframeBody().find('div[role="combobox"]').last().click();
+
+  getIframeBody()
+    .find('div[role="listbox"]')
+    .contains(data.typeGestionCopro2)
+    .click();
+});
+
+// Surface développée totale (Si copropriété verticale)
+Cypress.Commands.add("SurfaceDevTot", (data) => {
+  getIframeBody()
+    .find('input[id="Surface développée totale (Si copropriété verticale)"]')
+    .clear()
+    .type(data.nbMetrescarre);
 });
 
 // Nb lots (si copropriété horizontale)

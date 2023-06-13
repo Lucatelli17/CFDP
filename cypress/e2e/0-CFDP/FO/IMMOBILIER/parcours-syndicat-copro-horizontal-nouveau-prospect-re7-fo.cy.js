@@ -59,7 +59,7 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     cy.TypeCopro1(ParcoursData.re7FO.parcoursIMMO);
 
     // Type de gestion de la copro
-    cy.TypeGestionCopro(ParcoursData.re7FO.parcoursIMMO);
+    cy.TypeGestionCopro1(ParcoursData.re7FO.parcoursIMMO);
 
     // Nb lots
     cy.nbLotsCoproHoriz(ParcoursData.re7FO.parcoursIMMO);
