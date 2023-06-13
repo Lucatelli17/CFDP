@@ -354,18 +354,31 @@ Cypress.Commands.add("nomCopro", (data) => {
 
 // Type d'association
 Cypress.Commands.add("TypeAsso", (data) => {
-  getIframeBody().find('input[data-cy="20"]').click();
+  getIframeBody().find('input[id^="Type d"][id$="association"]').click();
   getIframeBody().find('div[role="option"]').contains(data.typeAsso).click();
 });
 
-// Nb adhérents
-Cypress.Commands.add("NbAdherents", (data) => {
-  getIframeBody().find('input[data-cy="19"]').clear().type(data.nbAdherents);
+// Nombre d'adhérents de l'association
+Cypress.Commands.add("NbAdherents", (env, data) => {
+  switch (env) {
+    case "re7FO":
+      getIframeBody()
+        .find('input[id$="adhérents"]')
+        .clear()
+        .type(data.nbAdherents);
+      break;
+    case "intFO":
+      getIframeBody()
+        .find('input[id^="Nombre d"][id$="association"]')
+        .clear()
+        .type(data.nbAdherents);
+      break;
+  }
 });
 
-// Secteur activité association
+// Secteur d'activité de l'association
 Cypress.Commands.add("SecteurActiviteAsso", (data) => {
-  getIframeBody().find('input[data-cy="18"]').click();
+  getIframeBody().find('input[id^="Secteur d"]').click();
   getIframeBody()
     .find('div[role="option"]')
     .contains(data.secteurActiviteAsso)

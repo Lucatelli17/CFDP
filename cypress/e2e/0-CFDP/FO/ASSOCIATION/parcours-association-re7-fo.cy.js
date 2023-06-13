@@ -23,7 +23,7 @@ describe("parcours ASSOCIATION RE7 FO", () => {
     cy.TypeAsso(ParcoursData.FO.parcoursASSOCIATION);
 
     // Nombre d'adhérents
-    cy.NbAdherents(ParcoursData.FO.parcoursASSOCIATION);
+    cy.NbAdherents(envChoisi, ParcoursData.FO.parcoursASSOCIATION);
 
     // Secteur d'activité de l'association
     cy.SecteurActiviteAsso(ParcoursData.FO.parcoursASSOCIATION);
@@ -56,6 +56,9 @@ describe("parcours ASSOCIATION RE7 FO", () => {
     // Forme juridique
     cy.FormeJuridique(ParcoursData.FO.parcoursASSOCIATION);
 
+    // Attente de la génération du devis
+    cy.wait(5000);
+
     // Sélection Civilité représentant
     cy.SelectCivilite(ParcoursData.FO.parcoursASSOCIATION);
 
@@ -77,8 +80,6 @@ describe("parcours ASSOCIATION RE7 FO", () => {
 
     // Redacteur devis
     cy.RedacteurDevis(ParcoursData.FO.parcoursASSOCIATION);
-
-    cy.wait(5000);
 
     cy.ClickBoutonContenant1("Étape suivante");
 

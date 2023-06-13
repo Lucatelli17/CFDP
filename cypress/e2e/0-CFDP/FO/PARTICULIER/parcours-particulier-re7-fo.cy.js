@@ -43,6 +43,8 @@ describe("parcours PARTICULIER RE7 FO", () => {
     // Code Postal
     cy.CodePostal(ParcoursData.FO.parcoursPARTICULIER);
 
+    cy.wait(5000);
+
     // Procédures judiciaires
     cy.ProceduresJudiciaires(ParcoursData.FO.parcoursPARTICULIER);
 
@@ -52,11 +54,7 @@ describe("parcours PARTICULIER RE7 FO", () => {
     // Redacteur devis
     cy.RedacteurDevis(ParcoursData.FO.parcoursPARTICULIER);
 
-    cy.wait(8000);
-
     cy.ClickBoutonContenant1("Étape suivante");
-
-    cy.wait(8000);
 
     // Variation commission courtier
     cy.VariationCommissionCourtier();
