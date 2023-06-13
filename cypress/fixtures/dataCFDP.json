@@ -1,5 +1,5 @@
 {
-  "environnementChoisi" : "intFO",
+  "environnementChoisi" : "re7FO",
   "intBO": {
     "login1": {
       "URL": "https://espacepartenaire.int.cfdp.fr/gestion/devis",
@@ -237,6 +237,7 @@
       "formeJuridique": "ASS - Association",
       "siret": "50203544700031",
       "nbVillas": "1",
+      "nbVillasIndividuelles": "1",
       "typeASL": "Président ASL",
       "presidentASL": "Dupont",
       "nomSyndic": "Syndicat du Nord",
@@ -316,6 +317,7 @@
       "formeJuridique": "EI",
       "siret": "50203544700031",
       "nbVillas": "1",
+      "nbVillasIndividuelles": "1",
       "nbCopro": "0",
       "nbLotsUsageCo": "0",
       "nbLotsUsageRu": "0",

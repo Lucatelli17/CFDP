@@ -251,12 +251,12 @@ Cypress.Commands.add("TarificationAgricole", (data) => {
 
 // ------------- COMMANDES IMMOBILIER --------------------
 
-// Nombre de villas individuelles
-Cypress.Commands.add("NbVillasIndividuelles", (nbVillas) => {
+// Nombre de villas
+Cypress.Commands.add("NbVillas", (data) => {
   getIframeBody()
-    .find('input[id="Nombre de villas individuelles"]')
+    .find('input[id^="Nombre de villas"]')
     .clear()
-    .type(nbVillas.nbVillas);
+    .type(data.nbVillas);
 });
 
 // Nom du syndic en exercice ou du président de l'ASL raisonSociale
@@ -265,22 +265,35 @@ Cypress.Commands.add("NomSyndic", (data) => {
     .find('input[data-cy="raisonSociale"]')
     .type(data.presidentASL);
 });
-// Type de gestion ASL
-Cypress.Commands.add("TypeGestionASL", (typeASL) => {
-  getIframeBody().find('input[id="Type de gestion ASL"]').click();
-  getIframeBody().find('div[role="option"]').contains(typeASL.typeASL).click();
+// Type de gestion ASL ou Type de gestion de l'ASL
+Cypress.Commands.add("TypeGestionASL", (env, data) => {
+  let id = "null";
+  switch (env) {
+    case "re7FO":
+      id = "Type de gestion ASL";
+      break;
+    case "intFO":
+      id = "Type de gestion de l";
+      break;
+  }
+  getIframeBody()
+    .find('input[id^="' + id + '"]')
+    .click();
+  getIframeBody().find('div[role="option"]').contains(data.typeASL).click();
 });
 // Nombre de copropriétés verticales
-Cypress.Commands.add("NbCoproVerticales", (nbCoproVerticales) => {
+Cypress.Commands.add("NbCoproVerticales", (data) => {
   getIframeBody()
     .find('input[name="Nombre de copropriétés verticales"]')
     .clear()
-    .type(nbCoproVerticales);
+    .type(data.nbCopro);
 });
 
 // Présence d'un lot dans une résidence de tourisme
 Cypress.Commands.add("LotResidenceTourisme", (data) => {
-  getIframeBody().find('input[data-cy="21"]').click();
+  getIframeBody()
+    .find('input[id="Lot situé dans une résidence de tourisme"]')
+    .click();
   getIframeBody()
     .find('div[role="option"]')
     .contains(data.presenceLotResiTou)
@@ -297,36 +310,17 @@ Cypress.Commands.add("NbTotalLots", (data) => {
     .type(data.nbTotalLots);
 });
 
-// Type de copro 1
-Cypress.Commands.add("TypeCopro1", (data) => {
+// Type de copro
+Cypress.Commands.add("TypeCopro", (data) => {
   getIframeBody().find('div[role="combobox"]').first().click();
-  getIframeBody().find('div[role="listbox"]').contains(data.typeCopro1).click();
+  getIframeBody().find('div[role="listbox"]').contains(data).click();
 });
 
-// Type de copro 2
-Cypress.Commands.add("TypeCopro2", (data) => {
-  getIframeBody().find('div[role="combobox"]').first().click();
-  getIframeBody().find('div[role="listbox"]').contains(data.typeCopro2).click();
-});
-
-// Type de gestion de la copro 1
-Cypress.Commands.add("TypeGestionCopro1", (data) => {
+// Type de gestion de la copro
+Cypress.Commands.add("TypeGestionCopro", (data) => {
   getIframeBody().find('div[role="combobox"]').last().click();
 
-  getIframeBody()
-    .find('div[role="listbox"]')
-    .contains(data.typeGestionCopro1)
-    .click();
-});
-
-// Type de gestion de la copro 2
-Cypress.Commands.add("TypeGestionCopro2", (data) => {
-  getIframeBody().find('div[role="combobox"]').last().click();
-
-  getIframeBody()
-    .find('div[role="listbox"]')
-    .contains(data.typeGestionCopro2)
-    .click();
+  getIframeBody().find('div[role="listbox"]').contains(data).click();
 });
 
 // Surface développée totale (Si copropriété verticale)
@@ -345,11 +339,58 @@ Cypress.Commands.add("nbLotsCoproHoriz", (data) => {
     .type(data.nbLots);
 });
 
+// Nb lots
+Cypress.Commands.add("nbLotsCopro", (data) => {
+  getIframeBody()
+    .find('input[id="Nombre de lots de la copropriété"]')
+    .clear()
+    .type(data.nbLots);
+});
+
+// Surface de la copropriété
+Cypress.Commands.add("SurfaceCopro", (data) => {
+  getIframeBody()
+    .find('input[id="Surface de la copropriété"]')
+    .clear()
+    .type(data.nbMetrescarre);
+});
+
 // Nom Copro
 Cypress.Commands.add("nomCopro", (data) => {
   getIframeBody().find('input[data-cy="nom"]').type(data.nomCopro);
 });
 
+// Tarification IMMOBILIER Copro
+Cypress.Commands.add("TarificationCopro", (env, data, type) => {
+  // Sélection pays
+  cy.SelectCountry1(data);
+  switch (type) {
+    case "vertical":
+      // Type de copro
+      cy.TypeCopro(data.typeCopro2);
+      // Type de gestion de la copro
+      cy.TypeGestionCopro(data.typeGestionCopro2);
+      break;
+    case "horizontal":
+      // Type de copro
+      cy.TypeCopro(data.typeCopro1);
+      // Type de gestion de la copro
+      cy.TypeGestionCopro(data.typeGestionCopro1);
+      break;
+  }
+
+  if (env === "re7FO") {
+    // Surface développée totale (Si copropriété verticale)
+    cy.SurfaceDevTot(data);
+    // Nb lots (si copropriété horizontale)
+    cy.nbLotsCoproHoriz(data);
+  } else if (env === "intFO") {
+    // Nombre de lots de la copropriété
+    cy.nbLotsCopro(data);
+    // Surface de la copropriété
+    cy.SurfaceCopro(data);
+  }
+});
 // ------------- COMMANDES ASSOCIATION --------------------
 
 // Type d'association

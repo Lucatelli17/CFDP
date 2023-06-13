@@ -23,14 +23,17 @@ describe("parcours ASSO SYNDICALE RE7 FO", () => {
     // Selectionner un pays
     cy.SelectCountry1(ParcoursData.FO.parcoursIMMO);
 
-    // Nombre de villas individuelles
-    cy.NbVillasIndividuelles(ParcoursData.FO.parcoursIMMO);
+    // Nombre de copropriétés verticales
+    cy.NbCoproVerticales(ParcoursData.FO.parcoursIMMO);
 
     // Type de gestion ASL
-    cy.TypeGestionASL(ParcoursData.FO.parcoursIMMO);
+    cy.TypeGestionASL(envChoisi, ParcoursData.FO.parcoursIMMO);
 
     // Nb salariés
     cy.NbSalaries(ParcoursData.FO.parcoursIMMO);
+
+    // Nb Villas
+    cy.NbVillas(ParcoursData.FO.parcoursIMMO);
 
     // Calculer le tarif
     cy.ClickBoutonContenant1("Calculer");

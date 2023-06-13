@@ -194,7 +194,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     //   .contains(ParcoursData.FO.parcoursIMMO.typeASL)
     //   .click();
 
-    cy.TypeGestionASL(ParcoursData.FO.parcoursIMMO.typeASL);
+    cy.TypeGestionASL(envChoisi, ParcoursData.FO.parcoursIMMO.typeASL);
 
     getIframeBody().find("button").contains("Calculer").click();
 

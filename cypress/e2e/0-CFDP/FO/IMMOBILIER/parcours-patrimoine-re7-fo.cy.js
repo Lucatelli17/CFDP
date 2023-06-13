@@ -20,14 +20,15 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Devis - Tarification
     // ---------------------
 
-    // Selectionner un pays
-    cy.SelectCountry1(ParcoursData.FO.parcoursIMMO);
-
     // Présence d'un lot dans une résidence de tourisme
     cy.LotResidenceTourisme(ParcoursData.FO.parcoursIMMO);
 
-    // Nombre total de lots
-    cy.NbTotalLots(ParcoursData.FO.parcoursIMMO);
+    if (envChoisi === "re7FO") {
+      // Selectionner un pays
+      cy.SelectCountry1(ParcoursData.FO.parcoursIMMO);
+      // Nombre total de lots
+      cy.NbTotalLots(ParcoursData.FO.parcoursIMMO);
+    }
 
     // Calculer le tarif
     cy.ClickBoutonContenant1("Calculer");
@@ -60,6 +61,9 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
     // Code Postal
     cy.CodePostal(ParcoursData.FO.parcoursIMMO);
+
+    // Attente de la génération du devis
+    cy.wait(5000);
 
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
     cy.ProceduresJudiciaires(ParcoursData.FO.parcoursIMMO);

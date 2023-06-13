@@ -20,17 +20,7 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     // Informations tarifantes
     // ---------------------
 
-    // Sélection pays
-    cy.SelectCountry1(ParcoursData.FO.parcoursIMMO);
-
-    // Type de copro
-    cy.TypeCopro1(ParcoursData.FO.parcoursIMMO);
-
-    // Type de gestion de la copro
-    cy.TypeGestionCopro(ParcoursData.FO.parcoursIMMO);
-
-    // Nb lots
-    cy.nbLotsCoproHoriz(ParcoursData.FO.parcoursIMMO);
+    cy.TarificationCopro(envChoisi, ParcoursData.FO.parcoursIMMO, "horizontal");
 
     // CALCULER
     cy.ClickBoutonContenant1("Calculer");
