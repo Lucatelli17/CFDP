@@ -1,46 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
-import { faker } from "@faker-js/faker";
 
 describe("parcours AGRICOLE RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Agricole", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect + produit
     // ---------------------
@@ -55,7 +22,7 @@ describe("parcours AGRICOLE RE7 FO", () => {
     // Devis - Informations tarifantes
     // ---------------------
 
-    cy.TarificationAgricole(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.TarificationAgricole(ParcoursData.FO.parcoursAGRICOLE);
 
     // Sélection tarification
     cy.ClickBoutonContenant1("Sélectionner");
@@ -65,31 +32,31 @@ describe("parcours AGRICOLE RE7 FO", () => {
     // ---------------------
 
     // Raison sociale
-    cy.RaisonSociale2(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.RaisonSociale2(ParcoursData.FO.parcoursAGRICOLE);
 
     // Adresse Souscripteur
-    cy.Adresse(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.Adresse(ParcoursData.FO.parcoursAGRICOLE);
 
     // Ville
-    cy.Ville2(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.Ville2(ParcoursData.FO.parcoursAGRICOLE);
 
     // Code Postal
-    cy.CodePostal(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.CodePostal(ParcoursData.FO.parcoursAGRICOLE);
 
     // Sélection Civilité
-    cy.SelectCivilite(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.SelectCivilite(ParcoursData.FO.parcoursAGRICOLE);
 
     // Nom & prénom représentant
 
-    cy.NomRepresentant(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.NomRepresentant(ParcoursData.FO.parcoursAGRICOLE);
 
-    cy.PrenomRepresentant(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.PrenomRepresentant(ParcoursData.FO.parcoursAGRICOLE);
 
     // En qualité de
-    cy.EnQualiteDe(ParcoursData.re7FO.parcoursPRO);
+    cy.EnQualiteDe(ParcoursData.FO.parcoursPRO);
 
     // Procédures judiciaires
-    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.ProceduresJudiciaires(ParcoursData.FO.parcoursAGRICOLE);
 
     // Assurance protection juridique
     cy.AssuranceProtecJuri();
@@ -98,7 +65,7 @@ describe("parcours AGRICOLE RE7 FO", () => {
     cy.RedressementJuri();
 
     // Redacteur devis
-    cy.RedacteurDevis(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.RedacteurDevis(ParcoursData.FO.parcoursAGRICOLE);
 
     cy.wait(5000);
 
@@ -125,17 +92,17 @@ describe("parcours AGRICOLE RE7 FO", () => {
     // ---------------------
 
     // Téléphone
-    cy.Telephone1(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.Telephone1(ParcoursData.FO.parcoursAGRICOLE);
 
     // Mail
-    cy.Mail1(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.Mail1(ParcoursData.FO.parcoursAGRICOLE);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
     // ---------------------
     // Informations de paiement
     // ---------------------
-    cy.InfosPaiement(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.InfosPaiement(ParcoursData.FO.parcoursAGRICOLE);
 
     // Check génération des documents
     cy.testBoutonRafraichir();
@@ -144,6 +111,6 @@ describe("parcours AGRICOLE RE7 FO", () => {
     // Envoi de la signature électronique
     // ---------------------
 
-    cy.SignatureElec(ParcoursData.re7FO.parcoursAGRICOLE);
+    cy.SignatureElec(ParcoursData.FO.parcoursAGRICOLE);
   });
 });

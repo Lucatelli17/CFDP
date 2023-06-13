@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Syndicat Copro Vertical Nouveau Prospect Error", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect + produit
     // ---------------------
@@ -60,7 +28,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -81,7 +49,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -105,7 +73,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -214,7 +182,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[id="Surface développée totale (Si copropriété verticale)"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.nbMetrescarre);
+      .type(ParcoursData.FO.parcoursIMMO.nbMetrescarre);
 
     // CALCULER
 
@@ -335,7 +303,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('div[title="Raison sociale"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.raisonSociale);
+      .type(ParcoursData.FO.parcoursIMMO.raisonSociale);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -352,7 +320,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('div[title="Forme juridique"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.formeJuridique);
+      .type(ParcoursData.FO.parcoursIMMO.formeJuridique);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -370,38 +338,38 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('div[title="Adresse"]')
       .first()
-      .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
+      .type(ParcoursData.FO.parcoursIMMO.adresse1);
 
     getIframeBody()
       .find('input[id="adresse1"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.adresse1, { force: true });
+      .type(ParcoursData.FO.parcoursIMMO.adresse1, { force: true });
 
     // Ville Souscripteur + Ville bénéficiaire
 
     // getIframeBody().find('input[id="autoCompletion-ville"]')
-    //         .type(ParcoursData.re7FO.parcoursIMMO.ville)
+    //         .type(ParcoursData.FO.parcoursIMMO.ville)
 
     getIframeBody()
       .find('input[id="autoCompletion-ville"]')
       .first()
-      .type(ParcoursData.re7FO.parcoursIMMO.ville);
+      .type(ParcoursData.FO.parcoursIMMO.ville);
 
     getIframeBody()
       .find('div[role="option"]:visible')
-      .contains(ParcoursData.re7FO.parcoursIMMO.ville)
+      .contains(ParcoursData.FO.parcoursIMMO.ville)
       .first()
       .click();
 
     getIframeBody()
       .find('div[title="Ville"]')
       .last()
-      .type(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire);
+      .type(ParcoursData.FO.parcoursIMMO.villeBeneficiaire);
 
     // // Code postal bénéficiaire
 
     getIframeBody()
       .find('input[data-cy="codePostalBeneficaire"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.codePostal);
+      .type(ParcoursData.FO.parcoursIMMO.codePostal);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -446,11 +414,11 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('input[data-cy="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nom);
+      .type(ParcoursData.FO.parcoursIMMO.nom);
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+      .type(ParcoursData.FO.parcoursIMMO.prenom);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -467,7 +435,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('input[data-cy="qualiteProfessionnelle"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.qualiteProfessionnelle);
+      .type(ParcoursData.FO.parcoursIMMO.qualiteProfessionnelle);
 
     cy.wait(10000);
 
@@ -486,7 +454,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nomCopro);
+      .type(ParcoursData.FO.parcoursIMMO.nomCopro);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -547,11 +515,11 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     // getIframeBody().find('div[title="Ville"]')
     //         .last()
-    //         .type(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire)
+    //         .type(ParcoursData.FO.parcoursIMMO.villeBeneficiaire)
 
     // getIframeBody()
     //         .find('div[role="option"]:visible')
-    //         .contains(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire)
+    //         .contains(ParcoursData.FO.parcoursIMMO.villeBeneficiaire)
     //         .first()
     //         .click();
 
@@ -587,7 +555,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.nbProcedures);
+      .type(ParcoursData.FO.parcoursIMMO.nbProcedures);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -615,7 +583,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.emisPar);
+      .type(ParcoursData.FO.parcoursIMMO.emisPar);
 
     // // // Récupération du numéro de devis
 
@@ -703,7 +671,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -724,7 +692,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -748,7 +716,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -788,7 +756,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -821,7 +789,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.mail);
+      .type(ParcoursData.FO.parcoursIMMO.mail);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -844,11 +812,11 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody()
       .find('input[data-cy="input-siret"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.siret);
+      .type(ParcoursData.FO.parcoursIMMO.siret);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -870,13 +838,13 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
+      .contains(ParcoursData.FO.parcoursIMMO.fractionnement)
       .click();
 
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.moyenPaiement, { force: true })
+      .type(ParcoursData.FO.parcoursIMMO.moyenPaiement, { force: true })
       .type("{enter}", { force: true });
 
     getIframeBody().find("button").contains("Enregistrer").click();
@@ -891,11 +859,11 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+      .type(ParcoursData.FO.parcoursIMMO.prenom);
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nom);
+      .type(ParcoursData.FO.parcoursIMMO.nom);
 
     getIframeBody().find('input[data-cy="mail"]').type("1111");
 
@@ -921,12 +889,12 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () =>
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.mail);
+      .type(ParcoursData.FO.parcoursIMMO.mail);
 
     getIframeBody()
       .find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody()
       .find('h1[class="title-helios"]')

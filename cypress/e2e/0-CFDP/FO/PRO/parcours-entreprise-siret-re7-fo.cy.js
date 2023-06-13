@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours ENTREPRISE SIRET FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Entreprise Siret", () => {
-    let numeroDevis = "";
-
     //Sélection prospect + produit
     cy.SelectProduct("Professionnel", "Alsina Entreprise");
 
@@ -47,26 +15,26 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     cy.DateEffet();
 
     // Sélection pays
-    cy.SelectCountry1(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.SelectCountry1(ParcoursData.FO.parcoursENTREPRISE);
 
     // Nom entreprise SIRET
-    cy.NomEntrepriseSiret(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.NomEntrepriseSiret(ParcoursData.FO.parcoursENTREPRISE);
 
     cy.ClickBoutonContenant1("Valider");
 
     // Devis réalisé
 
     // Code NAF
-    cy.CodeNAF(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.CodeNAF(envChoisi, ParcoursData.FO.parcoursENTREPRISE);
 
     //Nombre de salariés
-    cy.NbSalaries(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.NbSalaries(ParcoursData.FO.parcoursENTREPRISE);
 
     //Nombre de véhicules terrestres à moteur
-    cy.nbVTM(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.nbVTM(envChoisi, ParcoursData.FO.parcoursENTREPRISE);
 
     // Chiffres d'affaires => ^ = commence par ...
-    cy.ChiffreAffaires(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.ChiffreAffaires(ParcoursData.FO.parcoursENTREPRISE);
 
     // CALCULER
     cy.ClickBoutonContenant1("Calculer");
@@ -75,10 +43,10 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     cy.ClickBoutonContenant1("Sélectionner");
 
     // Procédures judiciaires
-    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.ProceduresJudiciaires(ParcoursData.FO.parcoursENTREPRISE);
 
     // Activité précise
-    cy.ActivitePrecise(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.ActivitePrecise(ParcoursData.FO.parcoursENTREPRISE);
 
     // Bouton radio locaux exploitation activité
     cy.LocauxExploitationActivite();
@@ -90,19 +58,19 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     cy.RedressementJudiciaire();
 
     // En qualité de
-    cy.EnQualiteDe(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.EnQualiteDe(ParcoursData.FO.parcoursENTREPRISE);
 
     cy.wait(3000);
 
     // Sélection Civilité
-    cy.SelectCivilite(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.SelectCivilite(ParcoursData.FO.parcoursENTREPRISE);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.re7FO.parcoursENTREPRISE);
-    cy.PrenomRepresentant(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.NomRepresentant(ParcoursData.FO.parcoursENTREPRISE);
+    cy.PrenomRepresentant(ParcoursData.FO.parcoursENTREPRISE);
 
     // Redacteur devis
-    cy.RedacteurDevis(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.RedacteurDevis(ParcoursData.FO.parcoursENTREPRISE);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
@@ -125,15 +93,15 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     cy.DateEffet();
 
     // Téléphone
-    cy.Telephone1(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.Telephone1(ParcoursData.FO.parcoursENTREPRISE);
 
     // Mail
-    cy.Mail1(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.Mail1(ParcoursData.FO.parcoursENTREPRISE);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
     // Informations de paiement
-    cy.InfosPaiement(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.InfosPaiement(ParcoursData.FO.parcoursENTREPRISE);
 
     // Check génération des documents
     cy.testBoutonRafraichir();
@@ -142,6 +110,6 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     // Envoi de la signature électronique
     // ---------------------
 
-    cy.SignatureElec(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.SignatureElec(ParcoursData.FO.parcoursENTREPRISE);
   });
 });

@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Patrimoine Error", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect + produit
     // ---------------------
@@ -60,7 +28,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -81,7 +49,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -107,7 +75,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -273,7 +241,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de lots à usage commercial"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageCo);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageCo);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -291,7 +259,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de lots à usage rural"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageRu);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageRu);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -309,7 +277,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre total de lots"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbTotalLots);
+      .type(ParcoursData.FO.parcoursIMMO.nbTotalLots);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -327,7 +295,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[data-cy="22"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageHa);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageHa);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -345,7 +313,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de lots à usage de location meublée"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageLo);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageLo);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -365,7 +333,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de lots à usage de terrain nu"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageTe);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageTe);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -383,7 +351,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de lots à usage professionnel"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsagePro);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsagePro);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -401,7 +369,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de lots à usage de garage /cave"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageGa);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageGa);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -423,7 +391,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find(
         'input[id="Nombre de lots à usage de location saisonnière occasionnelle"]'
       )
-      .type(ParcoursData.re7FO.parcoursIMMO.nbLotsUsageSaison);
+      .type(ParcoursData.FO.parcoursIMMO.nbLotsUsageSaison);
 
     // Calculer le tarif
 
@@ -518,7 +486,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nom);
+      .type(ParcoursData.FO.parcoursIMMO.nom);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -536,7 +504,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+      .type(ParcoursData.FO.parcoursIMMO.prenom);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -556,19 +524,19 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find("input[type=date]")
       .last()
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.dateNaissance);
+      .type(ParcoursData.FO.parcoursIMMO.dateNaissance);
 
     // Lieu de Naissance
 
     getIframeBody()
       .find('input[data-cy="lieuNaissance"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.lieuNaissance);
+      .type(ParcoursData.FO.parcoursIMMO.lieuNaissance);
 
     // Adresse
 
     getIframeBody()
       .find('input[id="adresse1"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
+      .type(ParcoursData.FO.parcoursIMMO.adresse1);
 
     // Ville
 
@@ -605,7 +573,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody()
       .find('input[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.nbProcedures);
+      .type(ParcoursData.FO.parcoursIMMO.nbProcedures);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -633,7 +601,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.emisPar);
+      .type(ParcoursData.FO.parcoursIMMO.emisPar);
 
     // // Récupération du numéro de devis
 
@@ -734,7 +702,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -755,7 +723,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -781,7 +749,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -823,7 +791,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
       .find('input[type="date"]')
       .last()
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.dateNaissance, { force: true });
+      .type(ParcoursData.FO.parcoursIMMO.dateNaissance, { force: true });
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -832,7 +800,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[data-cy="lieuNaissance"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.lieuNaissance);
+      .type(ParcoursData.FO.parcoursIMMO.lieuNaissance);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -849,7 +817,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -882,7 +850,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.mail);
+      .type(ParcoursData.FO.parcoursIMMO.mail);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -905,7 +873,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -927,13 +895,13 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursIMMO.fractionnement)
+      .contains(ParcoursData.FO.parcoursIMMO.fractionnement)
       .click();
 
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.moyenPaiement, { force: true })
+      .type(ParcoursData.FO.parcoursIMMO.moyenPaiement, { force: true })
       .type("{enter}", { force: true });
 
     // getIframeBody().find('div[class="v-messages__message"]')
@@ -956,11 +924,11 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+      .type(ParcoursData.FO.parcoursIMMO.prenom);
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nom);
+      .type(ParcoursData.FO.parcoursIMMO.nom);
 
     getIframeBody().find('input[data-cy="mail"]').type("1111");
 
@@ -986,12 +954,12 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.mail);
+      .type(ParcoursData.FO.parcoursIMMO.mail);
 
     getIframeBody()
       .find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody()
       .find('h1[class="title-helios"]')

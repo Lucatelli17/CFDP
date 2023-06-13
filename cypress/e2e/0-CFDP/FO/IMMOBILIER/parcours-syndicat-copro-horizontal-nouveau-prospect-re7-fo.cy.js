@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Syndicat Copro Horizontal", () => {
-    let numeroDevis = "";
-
     // Sélection prospect + produit
     cy.SelectProduct("Immobilier", "Alsina Syndicat de Copropriétaires");
 
@@ -53,16 +21,16 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     // ---------------------
 
     // Sélection pays
-    cy.SelectCountry1(ParcoursData.re7FO.parcoursIMMO);
+    cy.SelectCountry1(ParcoursData.FO.parcoursIMMO);
 
     // Type de copro
-    cy.TypeCopro1(ParcoursData.re7FO.parcoursIMMO);
+    cy.TypeCopro1(ParcoursData.FO.parcoursIMMO);
 
     // Type de gestion de la copro
-    cy.TypeGestionCopro(ParcoursData.re7FO.parcoursIMMO);
+    cy.TypeGestionCopro(ParcoursData.FO.parcoursIMMO);
 
     // Nb lots
-    cy.nbLotsCoproHoriz(ParcoursData.re7FO.parcoursIMMO);
+    cy.nbLotsCoproHoriz(ParcoursData.FO.parcoursIMMO);
 
     // CALCULER
     cy.ClickBoutonContenant1("Calculer");
@@ -82,56 +50,56 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     // ---------------------
 
     // Raison sociale
-    cy.RaisonSociale1(ParcoursData.re7FO.parcoursIMMO);
+    cy.RaisonSociale1(ParcoursData.FO.parcoursIMMO);
 
     // Pays
-    cy.SelectCountry2(ParcoursData.re7FO.parcoursIMMO);
+    cy.SelectCountry2(ParcoursData.FO.parcoursIMMO);
 
     // Forme juridique
-    cy.FormeJuridique(ParcoursData.re7FO.parcoursIMMO);
+    cy.FormeJuridique(ParcoursData.FO.parcoursIMMO);
 
     // Adresse Souscripteur
-    cy.Adresse(ParcoursData.re7FO.parcoursIMMO);
+    cy.Adresse(ParcoursData.FO.parcoursIMMO);
 
     // Ville
-    cy.Ville2(ParcoursData.re7FO.parcoursIMMO);
+    cy.Ville2(ParcoursData.FO.parcoursIMMO);
 
     // Code Postal
-    cy.CodePostal(ParcoursData.re7FO.parcoursIMMO);
+    cy.CodePostal(ParcoursData.FO.parcoursIMMO);
 
     // Sélection Civilité
-    cy.SelectCivilite(ParcoursData.re7FO.parcoursIMMO);
+    cy.SelectCivilite(ParcoursData.FO.parcoursIMMO);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.re7FO.parcoursIMMO);
+    cy.NomRepresentant(ParcoursData.FO.parcoursIMMO);
 
-    cy.PrenomRepresentant(ParcoursData.re7FO.parcoursIMMO);
+    cy.PrenomRepresentant(ParcoursData.FO.parcoursIMMO);
 
     // En qualité de
-    cy.EnQualiteDe(ParcoursData.re7FO.parcoursIMMO);
+    cy.EnQualiteDe(ParcoursData.FO.parcoursIMMO);
 
     cy.wait(8000);
 
     // Nom de la copro
-    cy.nomCopro(ParcoursData.re7FO.parcoursIMMO);
+    cy.nomCopro(ParcoursData.FO.parcoursIMMO);
 
     // Pays Bénéficiaire
-    cy.SelectCountry3(ParcoursData.re7FO.parcoursIMMO);
+    cy.SelectCountry3(ParcoursData.FO.parcoursIMMO);
 
     // Adresse Bénéficiaire
-    cy.AdresseBenef(ParcoursData.re7FO.parcoursIMMO);
+    cy.AdresseBenef(ParcoursData.FO.parcoursIMMO);
 
     // Ville Bénéficiaire
-    cy.VilleBeneficiaire(ParcoursData.re7FO.parcoursIMMO);
+    cy.VilleBeneficiaire(ParcoursData.FO.parcoursIMMO);
 
     // Procédures judiciaires
-    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursIMMO);
+    cy.ProceduresJudiciaires(ParcoursData.FO.parcoursIMMO);
 
     // Assurance protection juridique
     cy.AssuranceProtecJuri();
 
     // Redacteur devis
-    cy.RedacteurDevis(ParcoursData.re7FO.parcoursIMMO);
+    cy.RedacteurDevis(ParcoursData.FO.parcoursIMMO);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
@@ -156,10 +124,10 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     // ---------------------
 
     // Téléphone
-    cy.Telephone1(ParcoursData.re7FO.parcoursIMMO);
+    cy.Telephone1(ParcoursData.FO.parcoursIMMO);
 
     // Mail
-    cy.Mail1(ParcoursData.re7FO.parcoursIMMO);
+    cy.Mail1(ParcoursData.FO.parcoursIMMO);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
@@ -167,7 +135,7 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     // Contrat - Paiement
     // ---------------------
 
-    cy.InfosPaiement(ParcoursData.re7FO.parcoursIMMO);
+    cy.InfosPaiement(ParcoursData.FO.parcoursIMMO);
 
     // Check génération des documents
     cy.testBoutonRafraichir();
@@ -176,6 +144,6 @@ describe("parcours SYNDICAT COPRO HORIZONTAL RE7 FO", () => {
     // Contrat - Récapitulatif et Signature
     // ---------------------
 
-    cy.SignatureElec(ParcoursData.re7FO.parcoursIMMO);
+    cy.SignatureElec(ParcoursData.FO.parcoursIMMO);
   });
 });

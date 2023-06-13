@@ -1,44 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Pro Societe en creation error", () => {
-    let numeroDevis = "";
     getIframeBody()
       .find('a[href="/souscription/produits/Professionnel"]')
       .click();
@@ -56,7 +25,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPRO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursPRO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -77,7 +46,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursPRO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -103,7 +72,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursPRO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -200,11 +169,11 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
       .find('input[data-cy="42"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.codeNAF);
+      .type(ParcoursData.FO.parcoursPRO.codeNAF);
 
     getIframeBody()
       .find('[role="listbox"]')
-      .contains(ParcoursData.re7FO.parcoursPRO.codeNAF)
+      .contains(ParcoursData.FO.parcoursPRO.codeNAF)
       .click();
 
     getIframeBody().find("button").contains("Calculer").click();
@@ -219,21 +188,21 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('[id="Nombre de salariés"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.nbSalaries);
+      .type(ParcoursData.FO.parcoursPRO.nbSalaries);
 
     //Nombre de véhicules terrestres à moteur
 
     getIframeBody()
       .find('[id="Nombre de véhicules terrestres à moteur"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.nbVTM);
+      .type(ParcoursData.FO.parcoursPRO.nbVTM);
 
     // Chiffres d'affaires => ^ = commence par ...
 
     getIframeBody()
       .find('[id^="Chiffre"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.CA);
+      .type(ParcoursData.FO.parcoursPRO.CA);
 
     // CALCULER
     getIframeBody().find("button").contains("Calculer").click();
@@ -349,7 +318,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="raisonSociale"]')
-      .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle);
+      .type(ParcoursData.FO.parcoursPRO.qualiteProfessionnelle);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -369,7 +338,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursPRO.formeJuridique)
+      .contains(ParcoursData.FO.parcoursPRO.formeJuridique)
       .click();
 
     getIframeBody().find("button").contains("Étape suivante").click();
@@ -388,7 +357,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="autoCompletion-addresse"]')
-      .type(ParcoursData.re7FO.parcoursPRO.adresse1);
+      .type(ParcoursData.FO.parcoursPRO.adresse1);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -406,7 +375,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="autoCompletion-ville"]')
-      .type(ParcoursData.re7FO.parcoursPRO.ville);
+      .type(ParcoursData.FO.parcoursPRO.ville);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -424,7 +393,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="codePostal"]')
-      .type(ParcoursData.re7FO.parcoursPRO.codePostal);
+      .type(ParcoursData.FO.parcoursPRO.codePostal);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -442,7 +411,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="qualiteProfessionnelle"]')
-      .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle);
+      .type(ParcoursData.FO.parcoursPRO.qualiteProfessionnelle);
 
     cy.wait(3000);
 
@@ -463,7 +432,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('[class="col col-4"]')
       .find('[role="button"]')
-      .type(ParcoursData.re7FO.parcoursPRO.civilite);
+      .type(ParcoursData.FO.parcoursPRO.civilite);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -481,11 +450,11 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('[id="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursPRO.nom);
+      .type(ParcoursData.FO.parcoursPRO.nom);
 
     getIframeBody()
       .find('[id="prenom"]')
-      .type(ParcoursData.re7FO.parcoursPRO.prenom);
+      .type(ParcoursData.FO.parcoursPRO.prenom);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -502,7 +471,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="activite"]')
-      .type(ParcoursData.re7FO.parcoursPRO.activite);
+      .type(ParcoursData.FO.parcoursPRO.activite);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -520,7 +489,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="nombreEtablissementsSecondaires"]')
-      .type(ParcoursData.re7FO.parcoursPRO.nbEtablissementSecondaire);
+      .type(ParcoursData.FO.parcoursPRO.nbEtablissementSecondaire);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -539,7 +508,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPRO.nbProcedures);
+      .type(ParcoursData.FO.parcoursPRO.nbProcedures);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -610,7 +579,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     // Redacteur devis
     getIframeBody()
       .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursPRO.emisPar);
+      .type(ParcoursData.FO.parcoursPRO.emisPar);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -684,7 +653,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursPRO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursPRO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -705,7 +674,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursPRO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -731,7 +700,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursPRO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -771,7 +740,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.telephone);
+      .type(ParcoursData.FO.parcoursPRO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -804,7 +773,7 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.mail);
+      .type(ParcoursData.FO.parcoursPRO.mail);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -827,11 +796,11 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursPRO.telephone);
+      .type(ParcoursData.FO.parcoursPRO.telephone);
 
     getIframeBody()
       .find('input[data-cy="input-siret"]')
-      .type(ParcoursData.re7FO.parcoursPRO.siret);
+      .type(ParcoursData.FO.parcoursPRO.siret);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -853,13 +822,13 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursASSOCIATION.fractionnement)
+      .contains(ParcoursData.FO.parcoursASSOCIATION.fractionnement)
       .click();
 
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.moyenPaiement, {
+      .type(ParcoursData.FO.parcoursASSOCIATION.moyenPaiement, {
         force: true,
       })
       .type("{enter}", { force: true });
@@ -876,11 +845,11 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursPRO.prenom);
+      .type(ParcoursData.FO.parcoursPRO.prenom);
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursPRO.nom);
+      .type(ParcoursData.FO.parcoursPRO.nom);
 
     getIframeBody().find('input[data-cy="mail"]').type("1111");
 
@@ -906,12 +875,12 @@ describe("parcours PRO SOCIETE EN CREATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.mail);
+      .type(ParcoursData.FO.parcoursPRO.mail);
 
     getIframeBody()
       .find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursPRO.telephone);
+      .type(ParcoursData.FO.parcoursPRO.telephone);
 
     getIframeBody()
       .find('h1[class="title-helios"]')

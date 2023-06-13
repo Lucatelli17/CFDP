@@ -1,45 +1,15 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
+  // let envChoisi = ParcoursData.environnementChoisi;
+  // Le produit Jurilib Pro n'existe pas sur Int
+  let envChoisi = "re7FO";
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Jurilib PRO Societe en creation", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect & produit
     // ---------------------
@@ -51,22 +21,22 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     cy.DateEffet();
 
     // Sélection pays
-    cy.SelectCountry1(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.SelectCountry1(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Coche société en cours de création + Valider
     cy.EnCoursCreation();
 
     // Code NAF
-    cy.CodeNAF(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.CodeNAF(envChoisi, ParcoursData.FO.parcoursJURILIBPRO);
 
     //Nombre de salariés
-    cy.NbSalaries(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.NbSalaries(ParcoursData.FO.parcoursJURILIBPRO);
 
     //Nombre de véhicules terrestres à moteur
-    cy.nbVTM(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.nbVTM(envChoisi, ParcoursData.FO.parcoursJURILIBPRO);
 
     // Chiffres d'affaires => ^ = commence par ...
-    cy.ChiffreAffaires(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.ChiffreAffaires(ParcoursData.FO.parcoursJURILIBPRO);
 
     // CALCULER
     cy.ClickBoutonContenant1("Calculer");
@@ -79,38 +49,38 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     // ---------------------
 
     // Raison sociale
-    cy.RaisonSociale2(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.RaisonSociale2(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Forme juridique
-    cy.FormeJuridique2(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.FormeJuridique2(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Adresse
-    cy.Adresse3(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.Adresse3(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Ville
-    cy.Ville2(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.Ville2(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Code postal
-    cy.CodePostal(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.CodePostal(ParcoursData.FO.parcoursJURILIBPRO);
 
     // En qualité de
-    cy.EnQualiteDe(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.EnQualiteDe(ParcoursData.FO.parcoursJURILIBPRO);
 
-    cy.wait(3000);
+    cy.wait(5000);
 
     // Sélection Civilité
-    cy.SelectCivilite2(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.SelectCivilite2(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.NomRepresentant(ParcoursData.FO.parcoursJURILIBPRO);
 
-    cy.PrenomRepresentant(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.PrenomRepresentant(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Procédures judiciaires
-    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.ProceduresJudiciaires(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Activité précise
-    cy.ActivitePrecise(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.ActivitePrecise(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Bouton radio locaux exploitation activité
     cy.LocauxExploitationActivite();
@@ -122,7 +92,7 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     cy.RedressementJudiciaire();
 
     // Redacteur devis
-    cy.RedacteurDevis(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.RedacteurDevis(ParcoursData.FO.parcoursJURILIBPRO);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
@@ -145,18 +115,18 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     cy.DateEffet();
 
     // Siret
-    cy.NumeroSIRET(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.NumeroSIRET(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Téléphone
-    cy.Telephone1(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.Telephone1(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Mail
-    cy.Mail1(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.Mail1(ParcoursData.FO.parcoursJURILIBPRO);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
     // Informations de paiement
-    cy.InfosPaiement(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.InfosPaiement(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Check génération des documents
     cy.testBoutonRafraichir();
@@ -164,6 +134,6 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     // ---------------------
     // Envoi signature électronique
     // ---------------------
-    cy.SignatureElec(ParcoursData.re7FO.parcoursJURILIBPRO);
+    cy.SignatureElec(ParcoursData.FO.parcoursJURILIBPRO);
   });
 });

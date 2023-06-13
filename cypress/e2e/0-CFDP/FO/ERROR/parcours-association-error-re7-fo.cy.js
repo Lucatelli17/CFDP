@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours ASSOCIATION ERROR RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Association Error", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect + produit
     // ---------------------
@@ -62,7 +30,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursASSOCIATION.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -83,7 +51,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursASSOCIATION.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -109,7 +77,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.datedEffetValide);
+      .type(ParcoursData.FO.parcoursASSOCIATION.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -158,7 +126,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="19"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.nbAdherents);
+      .type(ParcoursData.FO.parcoursASSOCIATION.nbAdherents);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -176,7 +144,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de salariés"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.nbSalaries);
+      .type(ParcoursData.FO.parcoursASSOCIATION.nbSalaries);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -327,7 +295,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="raisonSociale"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.raisonSociale);
+      .type(ParcoursData.FO.parcoursASSOCIATION.raisonSociale);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -356,7 +324,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('div[title="Adresse"]')
       .first()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.adresse1);
+      .type(ParcoursData.FO.parcoursASSOCIATION.adresse1);
 
     // getIframeBody().find('div[class="v-messages__message"]')
     //         .contains('Le champ Adresse est obligatoire')
@@ -373,7 +341,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="autoCompletion-ville"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.ville);
+      .type(ParcoursData.FO.parcoursASSOCIATION.ville);
 
     // getIframeBody().find('div[class="v-messages__message"]')
     //         .contains('Le champ Ville est obligatoire')
@@ -390,7 +358,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="codePostal"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.codePostal);
+      .type(ParcoursData.FO.parcoursASSOCIATION.codePostal);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -408,7 +376,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('div[title="Forme juridique"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.formeJuridique);
+      .type(ParcoursData.FO.parcoursASSOCIATION.formeJuridique);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -448,11 +416,11 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.nom);
+      .type(ParcoursData.FO.parcoursASSOCIATION.nom);
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.prenom);
+      .type(ParcoursData.FO.parcoursASSOCIATION.prenom);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -470,7 +438,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="qualiteProfessionnelle"]')
-      .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle);
+      .type(ParcoursData.FO.parcoursPRO.qualiteProfessionnelle);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -489,7 +457,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.nbProcedures);
+      .type(ParcoursData.FO.parcoursASSOCIATION.nbProcedures);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -509,7 +477,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="activite"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.activiteStatutaire);
+      .type(ParcoursData.FO.parcoursASSOCIATION.activiteStatutaire);
 
     getIframeBody()
       .find('div[class="v-messages__message"]')
@@ -535,7 +503,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.emisPar);
+      .type(ParcoursData.FO.parcoursASSOCIATION.emisPar);
 
     // // // Récupération du numéro de devis
     // // getIframeBody()
@@ -647,7 +615,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursASSOCIATION.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -668,7 +636,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursASSOCIATION.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -694,7 +662,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.datedEffetValide);
+      .type(ParcoursData.FO.parcoursASSOCIATION.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -729,7 +697,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.telephone);
+      .type(ParcoursData.FO.parcoursASSOCIATION.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -762,7 +730,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.mail);
+      .type(ParcoursData.FO.parcoursASSOCIATION.mail);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -785,7 +753,7 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.telephone);
+      .type(ParcoursData.FO.parcoursASSOCIATION.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -807,13 +775,13 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursASSOCIATION.fractionnement)
+      .contains(ParcoursData.FO.parcoursASSOCIATION.fractionnement)
       .click();
 
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.moyenPaiement, {
+      .type(ParcoursData.FO.parcoursASSOCIATION.moyenPaiement, {
         force: true,
       })
       .type("{enter}", { force: true });
@@ -838,11 +806,11 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.prenom);
+      .type(ParcoursData.FO.parcoursASSOCIATION.prenom);
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.nom);
+      .type(ParcoursData.FO.parcoursASSOCIATION.nom);
 
     getIframeBody().find('input[data-cy="mail"]').type("1111");
 
@@ -868,12 +836,12 @@ describe("parcours ASSOCIATION ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.mail);
+      .type(ParcoursData.FO.parcoursASSOCIATION.mail);
 
     getIframeBody()
       .find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.telephone);
+      .type(ParcoursData.FO.parcoursASSOCIATION.telephone);
 
     getIframeBody()
       .find('h1[class="title-helios"]')

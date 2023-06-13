@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Pro Societe en creation", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect & produit
     // ---------------------
@@ -51,22 +19,22 @@ describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
     cy.DateEffet();
 
     // Sélection pays
-    cy.SelectCountry1(ParcoursData.re7FO.parcoursPRO);
+    cy.SelectCountry1(ParcoursData.FO.parcoursPRO);
 
     // Coche société en cours de création
     cy.EnCoursCreation();
 
     // Code NAF
-    cy.CodeNAF(ParcoursData.re7FO.parcoursPRO);
+    cy.CodeNAF(envChoisi, ParcoursData.FO.parcoursPRO);
 
     //Nombre de salariés
-    cy.NbSalaries(ParcoursData.re7FO.parcoursPRO);
+    cy.NbSalaries(ParcoursData.FO.parcoursPRO);
 
     //Nombre de véhicules terrestres à moteur
-    cy.nbVTM(ParcoursData.re7FO.parcoursPRO);
+    cy.nbVTM(envChoisi, ParcoursData.FO.parcoursPRO);
 
     // Chiffres d'affaires => ^ = commence par ...
-    cy.ChiffreAffaires(ParcoursData.re7FO.parcoursPRO);
+    cy.ChiffreAffaires(ParcoursData.FO.parcoursPRO);
 
     // CALCULER
     cy.ClickBoutonContenant1("Calculer");
@@ -79,37 +47,37 @@ describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
     // ---------------------
 
     // Raison sociale
-    cy.RaisonSociale2(ParcoursData.re7FO.parcoursPRO);
+    cy.RaisonSociale2(ParcoursData.FO.parcoursPRO);
 
     // Forme juridique
-    cy.FormeJuridique2(ParcoursData.re7FO.parcoursPRO);
+    cy.FormeJuridique2(ParcoursData.FO.parcoursPRO);
 
     // Adresse
-    cy.Adresse3(ParcoursData.re7FO.parcoursPRO);
+    cy.Adresse3(ParcoursData.FO.parcoursPRO);
 
     // Ville
-    cy.Ville2(ParcoursData.re7FO.parcoursPRO);
+    cy.Ville2(ParcoursData.FO.parcoursPRO);
 
     // Code postal
-    cy.CodePostal(ParcoursData.re7FO.parcoursPRO);
+    cy.CodePostal(ParcoursData.FO.parcoursPRO);
 
     // En qualité de
-    cy.EnQualiteDe(ParcoursData.re7FO.parcoursPRO);
+    cy.EnQualiteDe(ParcoursData.FO.parcoursPRO);
 
     cy.wait(5000);
 
     // Sélection Civilité
-    cy.SelectCivilite(ParcoursData.re7FO.parcoursPRO);
+    cy.SelectCivilite(ParcoursData.FO.parcoursPRO);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.re7FO.parcoursPRO);
-    cy.PrenomRepresentant(ParcoursData.re7FO.parcoursPRO);
+    cy.NomRepresentant(ParcoursData.FO.parcoursPRO);
+    cy.PrenomRepresentant(ParcoursData.FO.parcoursPRO);
 
     // Procédures judiciaires
-    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursPRO);
+    cy.ProceduresJudiciaires(ParcoursData.FO.parcoursPRO);
 
     // Activité précise
-    cy.ActivitePrecise(ParcoursData.re7FO.parcoursPRO);
+    cy.ActivitePrecise(ParcoursData.FO.parcoursPRO);
 
     // Bouton radio locaux exploitation activité
     cy.LocauxExploitationActivite();
@@ -121,7 +89,7 @@ describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
     cy.RedressementJudiciaire();
 
     // Redacteur devis
-    cy.RedacteurDevis(ParcoursData.re7FO.parcoursPRO);
+    cy.RedacteurDevis(ParcoursData.FO.parcoursPRO);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
@@ -145,18 +113,18 @@ describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
     // Informations complémentaires
 
     // Téléphone
-    cy.Telephone1(ParcoursData.re7FO.parcoursPRO);
+    cy.Telephone1(ParcoursData.FO.parcoursPRO);
 
     // Mail
-    cy.Mail1(ParcoursData.re7FO.parcoursPRO);
+    cy.Mail1(ParcoursData.FO.parcoursPRO);
 
     // Siret
-    cy.NumeroSIRET(ParcoursData.re7FO.parcoursPRO);
+    cy.NumeroSIRET(ParcoursData.FO.parcoursPRO);
 
     cy.ClickBoutonContenant1("Étape suivante");
 
     // Moyens de paiement
-    cy.InfosPaiement(ParcoursData.re7FO.parcoursPRO);
+    cy.InfosPaiement(ParcoursData.FO.parcoursPRO);
 
     // Check génération des documents
     cy.testBoutonRafraichir();
@@ -165,6 +133,6 @@ describe("parcours PRO SOCIETE EN CREATION RE7 FO", () => {
     // Envoi signature électronique
     // ---------------------
 
-    cy.SignatureElec(ParcoursData.re7FO.parcoursPRO);
+    cy.SignatureElec(ParcoursData.FO.parcoursPRO);
   });
 });

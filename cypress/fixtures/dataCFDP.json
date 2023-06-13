@@ -1,32 +1,29 @@
 {
+  "environnementChoisi" : "intFO",
   "intBO": {
     "login1": {
       "URL": "https://espacepartenaire.int.cfdp.fr/gestion/devis",
       "username": "abordes1",
       "password": "Fu2GqP4!QH6@39B",
-      "codeIA": "37205",
-      "URLcreerDevis": "https://espacepartenaire.int.cfdp.fr/gestion/devis/"
+      "codeIA": "37205"
     },
     "login2": {
       "URL": "https://espacepartenaire.int.cfdp.fr/gestion/devis",
       "username": "abordes2",
       "password": "JB@X?sU47KxcQmR",
-      "codeIA": "37205",
-      "URLcreerDevis": "https://espacepartenaire.int.cfdp.fr/gestion/devis/"
+      "codeIA": "37205"    
     },
     "login3": {
       "URL": "https://espacepartenaire.int.cfdp.fr/gestion/devis",
       "username": "abordes3",
       "password": "KG2rJL@#XuBdp:3",
-      "codeIA": "37205",
-      "URLcreerDevis": "https://espacepartenaire.int.cfdp.fr/gestion/devis/"
+      "codeIA": "37205"
     },
     "login4": {
       "URL": "https://espacepartenaire.int.cfdp.fr/gestion/devis",
       "username": "abordes4",
       "password": "rnE!7@uyGs#bkwJ",
-      "codeIA": "37205",
-      "URLcreerDevis": "https://espacepartenaire.int.cfdp.fr/gestion/devis/"
+      "codeIA": "37205"    
     },
     "parcoursPRO": {
       "particulier": "Particulier",
@@ -37,7 +34,8 @@
       "datedEffetFuture": "2026-05-12",
       "nomEntreprise": "Innova Etiquettes",
       "siret": "50203544700031",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "CA": "100000",
@@ -54,11 +52,12 @@
       "moyenPaiement": "virement"
     }
   },
-  "re7FO": {
+  "FO": {
     "login": {
       "username": "test.confie@yopmail.com",
       "password": "Cfdp2023",
-      "URLsouscription": "https://espacepartenaire.re7.cfdp.fr/souscription"
+      "URLre7FO": "https://espacepartenaire.re7.cfdp.fr/souscription",
+      "URLintFO": "https://espacepartenaire.int.cfdp.fr/souscription"
     },
     "parcoursPRO": {
       "datedEffetValide": "2023-07-21",
@@ -66,7 +65,8 @@
       "datedEffetFuture": "2028-07-21",
       "nomEntreprise": "Innova Etiquettes",
       "siret": "50203544700031",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "CA": "100000",
@@ -95,7 +95,8 @@
       "datedEffetFuture": "2028-07-21",
       "nomEntreprise": "Innova Etiquettes",
       "siret": "50203544700031",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "CA": "100000",
@@ -124,7 +125,8 @@
       "datedEffetFuture": "2028-07-21",
       "nomEntreprise": "Innova Etiquettes",
       "siret": "50203544700031",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "CA": "100000",
@@ -153,7 +155,8 @@
       "datedEffetFuture": "2028-07-21",
       "nomEntreprise": "Innova Etiquettes",
       "siret": "50203544700031",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "CA": "100000",
@@ -204,7 +207,8 @@
       "datedEffetFuture": "2028-07-21",
       "nomEntreprise": "Innova Etiquettes",
       "dateNaissance": "1960-05-24",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "civilite": "Monsieur",
@@ -282,7 +286,8 @@
       "datedEffetFuture": "2028-07-21",
       "nomEntreprise": "Innova Etiquettes",
       "dateNaissance": "1960-05-24",
-      "codeNAF": "20.51Z",
+      "codeNAFre7FO": "20.51Z",
+      "codeNAFintFO": "25.72Z",
       "nbSalaries": "2",
       "nbVTM": "2",
       "civilite": "Monsieur",

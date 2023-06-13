@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Asso Syndicale Error", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect + produit
     // ---------------------
@@ -59,7 +27,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursAGRICOLE.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursAGRICOLE.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -80,7 +48,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursAGRICOLE.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursAGRICOLE.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -106,7 +74,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursAGRICOLE.datedEffetValide);
+      .type(ParcoursData.FO.parcoursAGRICOLE.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -185,7 +153,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de villas individuelles"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbVillas);
+      .type(ParcoursData.FO.parcoursIMMO.nbVillas);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -203,7 +171,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de copropriétés verticales"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbCopro);
+      .type(ParcoursData.FO.parcoursIMMO.nbCopro);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -223,10 +191,10 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     // getIframeBody()
     //   .find('div[role="option"]')
-    //   .contains(ParcoursData.re7FO.parcoursIMMO.typeASL)
+    //   .contains(ParcoursData.FO.parcoursIMMO.typeASL)
     //   .click();
-    
-      cy.TypeGestionASL(ParcoursData.re7FO.parcoursIMMO.typeASL)
+
+    cy.TypeGestionASL(ParcoursData.FO.parcoursIMMO.typeASL);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -244,7 +212,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="Nombre de salariés"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nbSalaries);
+      .type(ParcoursData.FO.parcoursIMMO.nbSalaries);
 
     // CALCULER
 
@@ -335,7 +303,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="raisonSociale"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.presidentASL);
+      .type(ParcoursData.FO.parcoursIMMO.presidentASL);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -363,7 +331,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('div[title="Forme juridique"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.formeJuridique);
+      .type(ParcoursData.FO.parcoursIMMO.formeJuridique);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -382,25 +350,25 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     getIframeBody()
       .find('div[title="Adresse"]')
       .first()
-      .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
+      .type(ParcoursData.FO.parcoursIMMO.adresse1);
 
     // Ville Souscripteur
 
     getIframeBody()
       .find('input[id="autoCompletion-ville"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.ville);
+      .type(ParcoursData.FO.parcoursIMMO.ville);
 
     // Code Postal souscripteur
 
     getIframeBody()
       .find('input[data-cy="codePostal"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.codePostal);
+      .type(ParcoursData.FO.parcoursIMMO.codePostal);
 
     // En qualité de
 
     getIframeBody()
       .find('input[data-cy="qualiteProfessionnelle"]')
-      .type(ParcoursData.re7FO.parcoursPRO.qualiteProfessionnelle);
+      .type(ParcoursData.FO.parcoursPRO.qualiteProfessionnelle);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -437,11 +405,11 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nom);
+      .type(ParcoursData.FO.parcoursIMMO.nom);
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+      .type(ParcoursData.FO.parcoursIMMO.prenom);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -462,7 +430,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nomASL);
+      .type(ParcoursData.FO.parcoursIMMO.nomASL);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -491,7 +459,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="adresse1"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.adresse1);
+      .type(ParcoursData.FO.parcoursIMMO.adresse1);
 
     getIframeBody().find("#adresse1").type(" ").click();
 
@@ -499,7 +467,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="codePostalBeneficaire"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.codePostal);
+      .type(ParcoursData.FO.parcoursIMMO.codePostal);
 
     // Ville Bénéficiaire
 
@@ -507,14 +475,14 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
       .find('div[title="Ville"]')
       .last()
       .find("input:visible")
-      .type(ParcoursData.re7FO.parcoursIMMO.villeBeneficiaire);
+      .type(ParcoursData.FO.parcoursIMMO.villeBeneficiaire);
 
     // Procédures judiciaires
 
     getIframeBody()
       .find('input[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.nbProcedures);
+      .type(ParcoursData.FO.parcoursIMMO.nbProcedures);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -542,7 +510,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.emisPar);
+      .type(ParcoursData.FO.parcoursIMMO.emisPar);
 
     // // Récupération du numéro de devis
     // getIframeBody()
@@ -618,7 +586,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -639,7 +607,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -665,7 +633,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursIMMO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -700,7 +668,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -733,7 +701,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.mail);
+      .type(ParcoursData.FO.parcoursIMMO.mail);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -756,7 +724,7 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -778,13 +746,13 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursASSOCIATION.fractionnement)
+      .contains(ParcoursData.FO.parcoursASSOCIATION.fractionnement)
       .click();
 
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.moyenPaiement, {
+      .type(ParcoursData.FO.parcoursASSOCIATION.moyenPaiement, {
         force: true,
       })
       .type("{enter}", { force: true });
@@ -801,11 +769,11 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.prenom);
+      .type(ParcoursData.FO.parcoursIMMO.prenom);
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursIMMO.nom);
+      .type(ParcoursData.FO.parcoursIMMO.nom);
 
     getIframeBody().find('input[data-cy="mail"]').type("1111");
 
@@ -831,12 +799,12 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.mail);
+      .type(ParcoursData.FO.parcoursIMMO.mail);
 
     getIframeBody()
       .find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursIMMO.telephone);
+      .type(ParcoursData.FO.parcoursIMMO.telephone);
 
     getIframeBody()
       .find('h1[class="title-helios"]')

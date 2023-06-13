@@ -104,11 +104,13 @@ Cypress.Commands.add("InputId", (id, inputInfo) => {
 // --------------------- COMMANDES LOGIN -----------------------------------
 // -------------------------------------------------------------------------
 
-Cypress.Commands.add("login", (logindata) => {
-  cy.get('input[id="username"]').type(logindata.username);
-  cy.get('input[id="password"]').type(logindata.password);
+Cypress.Commands.add("loginFO", (env, loginData) => {
+  let URL = "URL" + env;
+  cy.visit(loginData[URL]);
+  cy.get('input[id="username"]').type(loginData.username);
+  cy.get('input[id="password"]').type(loginData.password);
   cy.get('button[id="signin"]').click();
-  cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+  cy.url().should("eq", loginData[URL]);
 });
 
 // -------------------------------------------------------------------------
@@ -382,15 +384,25 @@ Cypress.Commands.add("NomEntrepriseSiret", (data) => {
 });
 
 // Code NAF
-Cypress.Commands.add("CodeNAF", (data) => {
-  getIframeBody().find('input[data-cy="42"]').click().type(data.codeNAF);
-  getIframeBody().find('[role="listbox"]').contains(data.codeNAF).click();
+Cypress.Commands.add("CodeNAF", (env, data) => {
+  let codeNAF = "codeNAF" + env;
+  getIframeBody().find('input[id^="Code NAF"]').click().type(data[codeNAF]);
+  getIframeBody().find('[role="listbox"]').contains(data[codeNAF]).click();
 });
 
 // Nombre véhicules terrestres à moteur
-Cypress.Commands.add("nbVTM", (data) => {
+Cypress.Commands.add("nbVTM", (env, data) => {
+  let id = "null";
+  switch (env) {
+    case "re7FO":
+      id = "Nombre de véhicules terrestres à moteur";
+      break;
+    case "intFO":
+      id = "Nombre de VTM";
+      break;
+  }
   getIframeBody()
-    .find('[id="Nombre de véhicules terrestres à moteur"]')
+    .find('input[id="' + id + '"]')
     .clear()
     .type(data.nbVTM);
 });

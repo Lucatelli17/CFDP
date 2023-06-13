@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours JURILIB PRO SIRET ERROR FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Jurilib PRO SIRET Error", () => {
-    let numeroDevis = "";
-
     // ---------------------
     // Sélection prospect + produit
     // ---------------------
@@ -62,7 +30,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursENTREPRISE.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -83,7 +51,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursENTREPRISE.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -109,7 +77,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.datedEffetValide);
+      .type(ParcoursData.FO.parcoursENTREPRISE.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -146,11 +114,11 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
       .contains("Retrouver toutes les informations légales par nom")
       .parent()
       .find('[class="v-select__selections"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nomEntreprise);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nomEntreprise);
 
     getIframeBody()
       .find('[role="listbox"]')
-      .contains(ParcoursData.re7FO.parcoursJURILIBPRO.siret)
+      .contains(ParcoursData.FO.parcoursJURILIBPRO.siret)
       .click();
 
     getIframeBody().find("button").contains("Valider").click();
@@ -240,11 +208,11 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
       .find('input[data-cy="42"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.codeNAF);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.codeNAF);
 
     getIframeBody()
       .find('[role="listbox"]')
-      .contains(ParcoursData.re7FO.parcoursJURILIBPRO.codeNAF)
+      .contains(ParcoursData.FO.parcoursJURILIBPRO.codeNAF)
       .click();
 
     getIframeBody().find("button").contains("Calculer").click();
@@ -263,21 +231,21 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('[id="Nombre de salariés"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbSalaries);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nbSalaries);
 
     //Nombre de véhicules terrestres à moteur
 
     getIframeBody()
       .find('[id="Nombre de véhicules terrestres à moteur"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbVTM);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nbVTM);
 
     // Chiffres d'affaires
 
     getIframeBody()
       .find('[id^="Chiffre"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.CA);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.CA);
 
     getIframeBody().find("button").contains("Calculer").click();
 
@@ -444,42 +412,42 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('[class="col col-4"]')
       .find('[role="button"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.civilite);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.civilite);
 
     // Prénom représentant
 
     getIframeBody()
       .find('[id="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nom);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nom);
 
     getIframeBody()
       .find('[id="prenom"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.prenom);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.prenom);
 
     // En qualité de
 
     getIframeBody()
       .find('input[data-cy="qualiteProfessionnelle"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.qualiteProfessionnelle);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.qualiteProfessionnelle);
 
     //procédures judiciaires
 
     getIframeBody()
       .find('[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbProcedures);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nbProcedures);
 
     // Activité précise
 
     getIframeBody()
       .find('input[data-cy="activite"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.activite);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.activite);
 
     // Redacteur devis
 
     getIframeBody()
       .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.emisPar);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.emisPar);
 
     // Sans Nom
 
@@ -499,7 +467,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
 
     getIframeBody()
       .find('[id="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nom);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nom);
 
     // Sans activité précise
 
@@ -519,7 +487,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
 
     getIframeBody()
       .find('input[data-cy="activite"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.activite);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.activite);
 
     // Sans procédures judiciaires
 
@@ -543,7 +511,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('[id="nombreProcedures"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nbProcedures);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nbProcedures);
 
     // // Champs obligatoires remplis
     // getIframeBody().find('div[role="status"]')
@@ -632,7 +600,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('input[type="date"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetPassee);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.datedEffetPassee);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -653,7 +621,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetFuture);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.datedEffetFuture);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -679,7 +647,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
       .find('input[type="date"]')
       .click()
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.datedEffetValide);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.datedEffetValide);
 
     getIframeBody().find("button").contains("Valider").click();
 
@@ -714,7 +682,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('input[data-cy="telephone1"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -747,7 +715,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.mail);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.mail);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -770,7 +738,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
 
     getIframeBody()
       .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.telephone);
 
     getIframeBody().find("button").contains("Étape suivante").click();
 
@@ -792,13 +760,13 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
 
     getIframeBody()
       .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursASSOCIATION.fractionnement)
+      .contains(ParcoursData.FO.parcoursASSOCIATION.fractionnement)
       .click();
 
     getIframeBody()
       .find('input[data-cy="moyenDePaiement"]')
       .click()
-      .type(ParcoursData.re7FO.parcoursASSOCIATION.moyenPaiement, {
+      .type(ParcoursData.FO.parcoursASSOCIATION.moyenPaiement, {
         force: true,
       })
       .type("{enter}", { force: true });
@@ -815,11 +783,11 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
 
     getIframeBody()
       .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.prenom);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.prenom);
 
     getIframeBody()
       .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.nom);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.nom);
 
     getIframeBody().find('input[data-cy="mail"]').type("1111");
 
@@ -845,12 +813,12 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
     getIframeBody()
       .find('input[data-cy="mail"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.mail);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.mail);
 
     getIframeBody()
       .find('input[data-cy="portable"]')
       .clear()
-      .type(ParcoursData.re7FO.parcoursJURILIBPRO.telephone);
+      .type(ParcoursData.FO.parcoursJURILIBPRO.telephone);
 
     getIframeBody()
       .find('h1[class="title-helios"]')

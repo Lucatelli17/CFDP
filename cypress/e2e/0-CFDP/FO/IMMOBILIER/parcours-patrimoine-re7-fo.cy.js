@@ -1,45 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
+  let envChoisi = ParcoursData.environnementChoisi;
+
   beforeEach(() => {
-    cy.visit(ParcoursData.re7FO.login.URLsouscription);
-    cy.get('input[id="username"]').type(ParcoursData.re7FO.login.username);
-    cy.get('input[id="password"]').type(ParcoursData.re7FO.login.password);
-    cy.get('button[id="signin"]').click();
-    cy.url().should("eq", "https://espacepartenaire.re7.cfdp.fr/souscription");
+    cy.loginFO(envChoisi, ParcoursData.FO.login);
   });
 
-  const getIframeDocument = () => {
-    return (
-      cy
-        .get('iframe[data-cy="iframe-souscription"]')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
-        .its("0.contentDocument")
-        .should("exist")
-    );
-  };
-
-  const getIframeBody = () => {
-    // get the document
-    return (
-      getIframeDocument()
-        // automatically retries until body is loaded
-        .its("body")
-        .should("not.be.undefined")
-        // wraps "body" DOM element to allow
-        // chaining more Cypress commands, like ".find(...)"
-        .then(cy.wrap)
-    );
-  };
-
   it("Parcours Patrimoine", () => {
-    let numeroDevis = "";
-
     // Sélection prospect + produit
     cy.SelectProduct("Immobilier", "Alsina Patrimoine Immobilier");
 
@@ -53,13 +21,13 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // ---------------------
 
     // Selectionner un pays
-    cy.SelectCountry1(ParcoursData.re7FO.parcoursIMMO);
+    cy.SelectCountry1(ParcoursData.FO.parcoursIMMO);
 
     // Présence d'un lot dans une résidence de tourisme
-    cy.LotResidenceTourisme(ParcoursData.re7FO.parcoursIMMO);
+    cy.LotResidenceTourisme(ParcoursData.FO.parcoursIMMO);
 
     // Nombre total de lots
-    cy.NbTotalLots(ParcoursData.re7FO.parcoursIMMO);
+    cy.NbTotalLots(ParcoursData.FO.parcoursIMMO);
 
     // Calculer le tarif
     cy.ClickBoutonContenant1("Calculer");
@@ -72,35 +40,35 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // ---------------------
 
     // Civilité
-    cy.SelectCivilite(ParcoursData.re7FO.parcoursIMMO);
+    cy.SelectCivilite(ParcoursData.FO.parcoursIMMO);
 
     // Nom & prénom
-    cy.NomSouscripteur(ParcoursData.re7FO.parcoursIMMO);
-    cy.PrenomSouscripteur(ParcoursData.re7FO.parcoursIMMO);
+    cy.NomSouscripteur(ParcoursData.FO.parcoursIMMO);
+    cy.PrenomSouscripteur(ParcoursData.FO.parcoursIMMO);
 
     // Date de naissance
-    cy.DateNaissance(ParcoursData.re7FO.parcoursIMMO);
+    cy.DateNaissance(ParcoursData.FO.parcoursIMMO);
 
     // Lieu de Naissance
-    cy.LieuNaissance(ParcoursData.re7FO.parcoursIMMO);
+    cy.LieuNaissance(ParcoursData.FO.parcoursIMMO);
 
     // Adresse
-    cy.Adresse(ParcoursData.re7FO.parcoursIMMO);
+    cy.Adresse(ParcoursData.FO.parcoursIMMO);
 
     // Ville
-    cy.Ville(ParcoursData.re7FO.parcoursIMMO);
+    cy.Ville(ParcoursData.FO.parcoursIMMO);
 
     // Code Postal
-    cy.CodePostal(ParcoursData.re7FO.parcoursIMMO);
+    cy.CodePostal(ParcoursData.FO.parcoursIMMO);
 
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
-    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursIMMO);
+    cy.ProceduresJudiciaires(ParcoursData.FO.parcoursIMMO);
 
     // Avez-vous déjà souscrit à une assurance de protection juridique ?
     cy.AssuranceProtecJuri();
 
     // Redacteur devis
-    cy.RedacteurDevis(ParcoursData.re7FO.parcoursIMMO);
+    cy.RedacteurDevis(ParcoursData.FO.parcoursIMMO);
 
     // ---------------------
     // Devis - Récapitulatif du devis en cours
@@ -132,16 +100,16 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // ---------------------
 
     // Lieu de naissance
-    cy.LieuNaissance(ParcoursData.re7FO.parcoursIMMO);
+    cy.LieuNaissance(ParcoursData.FO.parcoursIMMO);
 
     // Date de naissance
-    cy.DateNaissance(ParcoursData.re7FO.parcoursIMMO);
+    cy.DateNaissance(ParcoursData.FO.parcoursIMMO);
 
     // Téléphone
-    cy.Telephone1(ParcoursData.re7FO.parcoursIMMO);
+    cy.Telephone1(ParcoursData.FO.parcoursIMMO);
 
     // Mail
-    cy.Mail1(ParcoursData.re7FO.parcoursIMMO);
+    cy.Mail1(ParcoursData.FO.parcoursIMMO);
 
     // Etape suivante
     cy.ClickBoutonContenant1("Étape suivante");
@@ -149,7 +117,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // ---------------------
     // Contrat - Paiement
     // ---------------------
-    cy.InfosPaiement(ParcoursData.re7FO.parcoursIMMO);
+    cy.InfosPaiement(ParcoursData.FO.parcoursIMMO);
 
     // Check génération des documents
     cy.testBoutonRafraichir();
@@ -158,6 +126,6 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Contrat - Récapitulatif et Signature
     // ---------------------
 
-    cy.SignatureElec(ParcoursData.re7FO.parcoursIMMO);
+    cy.SignatureElec(ParcoursData.FO.parcoursIMMO);
   });
 });
