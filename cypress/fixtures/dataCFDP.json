@@ -334,7 +334,8 @@
       "pays": "France",
       "typeCopro1": "Horizontale",
       "typeCopro2": "Verticale",
-      "typeGestionCopro": "Syndic bénévole ou coopératif"
+      "typeGestionCopro1": "Syndic bénévole ou coopératif",
+      "typeGestionCopro2": "Syndic professionnel"
     }
   }
 }
