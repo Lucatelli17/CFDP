@@ -221,10 +221,12 @@ describe("parcours ASSO SYNDICALE ERROR RE7 FO", () => {
 
     getIframeBody().find('input[id="Type de gestion ASL"]').click();
 
-    getIframeBody()
-      .find('div[role="option"]')
-      .contains(ParcoursData.re7FO.parcoursIMMO.typeASL)
-      .click();
+    // getIframeBody()
+    //   .find('div[role="option"]')
+    //   .contains(ParcoursData.re7FO.parcoursIMMO.typeASL)
+    //   .click();
+    
+      cy.TypeGestionASL(ParcoursData.re7FO.parcoursIMMO.typeASL)
 
     getIframeBody().find("button").contains("Calculer").click();
 

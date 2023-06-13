@@ -40,284 +40,108 @@ describe("parcours ENTREPRISE SIRET FO", () => {
   it("Parcours Entreprise Siret", () => {
     let numeroDevis = "";
 
-    // ---------------------
-    // Sélection prospect & produit
-    // ---------------------
+    //Sélection prospect + produit
+    cy.SelectProduct("Professionnel", "Alsina Entreprise");
 
-    getIframeBody()
-      .find('a[href="/souscription/produits/Professionnel"]')
-      .click();
+    // Sélection date
+    cy.DateEffet();
 
-    getIframeBody()
-      .find('[class="v-card__title"]')
-      .contains("Alsina Entreprise")
-      .click();
+    // Sélection pays
+    cy.SelectCountry1(ParcoursData.re7FO.parcoursENTREPRISE);
 
-    getIframeBody().find("button").contains("Valider").click();
+    // Nom entreprise SIRET
+    cy.NomEntrepriseSiret(ParcoursData.re7FO.parcoursENTREPRISE);
 
-    getIframeBody().find('input[data-cy="select-country"]').click();
-
-    getIframeBody().find('[id="list-item-183-1"]').click();
-
-    getIframeBody()
-      .contains("Retrouver toutes les informations légales par nom")
-      .parent()
-      .find('[class="v-select__selections"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.nomEntreprise);
-
-    getIframeBody()
-      .find('[role="listbox"]')
-      .contains(ParcoursData.re7FO.parcoursENTREPRISE.siret)
-      .click();
-
-    getIframeBody().find("button").contains("Valider").click();
+    cy.ClickBoutonContenant1("Valider");
 
     // Devis réalisé
 
     // Code NAF
-
-    getIframeBody()
-      .find('input[data-cy="42"]')
-      .click()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.codeNAF);
-
-    getIframeBody().find('[role="listbox"]').contains("20.51Z").click();
+    cy.CodeNAF(ParcoursData.re7FO.parcoursENTREPRISE);
 
     //Nombre de salariés
-
-    getIframeBody()
-      .find('[id="Nombre de salariés"]')
-      .clear()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.nbSalaries);
+    cy.NbSalaries(ParcoursData.re7FO.parcoursENTREPRISE);
 
     //Nombre de véhicules terrestres à moteur
-
-    getIframeBody()
-      .find('[id="Nombre de véhicules terrestres à moteur"]')
-      .clear()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.nbVTM);
+    cy.nbVTM(ParcoursData.re7FO.parcoursENTREPRISE);
 
     // Chiffres d'affaires => ^ = commence par ...
-
-    getIframeBody()
-      .find('[id^="Chiffre"]')
-      .clear()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.CA);
+    cy.ChiffreAffaires(ParcoursData.re7FO.parcoursENTREPRISE);
 
     // CALCULER
+    cy.ClickBoutonContenant1("Calculer");
 
-    getIframeBody().find("button").contains("Calculer").click();
-
-    getIframeBody().find("button").contains("Sélectionner").first().click();
-
-    // // Récupération du numéro de devis
-
-    // getIframeBody()
-    //         .find("#app")
-    //         .contains("Numéro de devis")
-    //         .contains("HD")
-    //         .then((numDevis) => {
-    //                 numeroDevis = numDevis.text();
-    //                 cy.wrap(numeroDevis).as("numeroDevis");
-    //         });
+    // Sélection formule
+    cy.ClickBoutonContenant1("Sélectionner");
 
     // Procédures judiciaires
-
-    getIframeBody()
-      .find('[id="nombreProcedures"]')
-      .click()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.nbProcedures);
+    cy.ProceduresJudiciaires(ParcoursData.re7FO.parcoursENTREPRISE);
 
     // Activité précise
-
-    getIframeBody()
-      .find('input[data-cy="activite"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.activite);
+    cy.ActivitePrecise(ParcoursData.re7FO.parcoursENTREPRISE);
 
     // Bouton radio locaux exploitation activité
-
-    getIframeBody()
-      .find('div[id="locauxSciAvecPartsSouscripteur"]')
-      .find('[class="v-input--selection-controls__ripple"]')
-      .last()
-      .click();
+    cy.LocauxExploitationActivite();
 
     // Assurance protection juridique
-
-    getIframeBody()
-      .find('div[id="assuranceDejaSouscrite"]')
-      .find('[class="v-input--selection-controls__ripple"]')
-      .last()
-      .click();
+    cy.AssuranceProtecJuri();
 
     // Redressement judiciaire
-
-    getIframeBody()
-      .find('div[id="redressementJudiciaire"]')
-      .find('[class="v-input--selection-controls__ripple"]')
-      .last()
-      .click();
+    cy.RedressementJudiciaire();
 
     // En qualité de
-
-    getIframeBody()
-      .find('input[data-cy="qualiteProfessionnelle"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.qualiteProfessionnelle);
+    cy.EnQualiteDe(ParcoursData.re7FO.parcoursENTREPRISE);
 
     cy.wait(3000);
 
     // Sélection Civilité
-
-    getIframeBody().find('input[data-cy="civilite"]').click();
-
-    cy.wait(2000);
-
-    getIframeBody().contains("Monsieur").first().click();
+    cy.SelectCivilite(ParcoursData.re7FO.parcoursENTREPRISE);
 
     // Nom & prénom représentant
-
-    getIframeBody()
-      .find('[id="nomRepresentant"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.nom);
-
-    getIframeBody()
-      .find('[id="prenom"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom);
+    cy.NomRepresentant(ParcoursData.re7FO.parcoursENTREPRISE);
+    cy.PrenomRepresentant(ParcoursData.re7FO.parcoursENTREPRISE);
 
     // Redacteur devis
+    cy.RedacteurDevis(ParcoursData.re7FO.parcoursENTREPRISE);
 
-    getIframeBody()
-      .find('input[id="emisPar"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.emisPar);
-
-    cy.wait(5000);
-
-    getIframeBody().find("button").contains("Étape suivante").click();
+    cy.ClickBoutonContenant1("Étape suivante");
 
     cy.wait(5000);
 
     // Variation commission courtier
+    cy.VariationCommissionCourtier();
 
-    getIframeBody()
-      .find('div[class="v-slider__thumb primary"]')
-      .trigger("mousedown", { button: 0 })
-      .trigger("mousemove", { clientX: 0, clientY: 50 })
-      .trigger("mouseup");
-
-    getIframeBody().find("button").contains("Recalculer tarif").click();
+    cy.ClickBoutonContenant1("Recalculer tarif");
 
     // Emettre le devis
-
-    getIframeBody().find("button").contains("Emettre le devis").click();
+    cy.ClickBoutonContenant1("Emettre le devis");
 
     cy.wait(5000);
 
     // Transformer en contrat
-    getIframeBody().contains("Transformer en contrat").click();
+    cy.ClicTransfoContrat();
 
-    // // Checker que le devis existe dans la liste des devis
+    // Saisie date d'effet du contrat
+    cy.DateEffet();
 
-    // cy.get('a[id="dropdown-subscribe"]')
-    //         .click();
+    // Téléphone
+    cy.Telephone1(ParcoursData.re7FO.parcoursENTREPRISE);
 
-    // cy.get(
-    //         'a[href="https://espacepartenaire.re7.cfdp.fr/souscription/devis-etablis"]'
-    // ).click();
+    // Mail
+    cy.Mail1(ParcoursData.re7FO.parcoursENTREPRISE);
 
-    // getIframeBody()
-    //         .get("@numeroDevis")
-    //         .then((numeroDevis) => {
-    //                 getIframeBody().find('input[id="input-26"]')
-    //                         .click()
-    //                         .type(numeroDevis);
+    cy.ClickBoutonContenant1("Étape suivante");
 
-    //                 cy.wait(2000)
-    //         });
+    // Informations de paiement
+    cy.InfosPaiement(ParcoursData.re7FO.parcoursENTREPRISE);
 
-    // getIframeBody()
-    //         .find("button")
-    //         .contains("Rechercher")
-    //         .click({ force: true });
-
-    // getIframeBody()
-    //         .find('[class="devis-list__container"]')
-    //         .should("contain.text", numeroDevis);
-
-    // cy.wait(2000)
-
-    // // Cliquer sur la liste des actions du devis emis
-
-    // getIframeBody().find('button[data-cy="listActions"]')
-    //         .click();
-
-    // getIframeBody()
-    //         .find('div[class="v-list-item__title"]')
-    //         .contains("Transformer en contrat")
-    //         .click();
-
-    getIframeBody().find("button").contains("Valider").click();
-
-    getIframeBody()
-      .find('input[data-cy="telephone1"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone);
-
-    getIframeBody()
-      .find('input[data-cy="mail"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.mail);
-
-    getIframeBody().find("button").contains("Étape suivante").click();
-
-    getIframeBody().find('input[data-cy="fractionnement"]').click();
-
-    getIframeBody()
-      .find('div[class="v-list-item__title"]')
-      .contains(ParcoursData.re7FO.parcoursENTREPRISE.fractionnement)
-      .click();
-
-    getIframeBody()
-      .find('input[data-cy="moyenDePaiement"]')
-      .click()
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.moyenPaiement, {
-        force: true,
-      })
-      .type("{enter}", { force: true });
-
-    getIframeBody().find("button").contains("Enregistrer").click();
-
-    cy.wait(35000);
+    // Check génération des documents
+    cy.testBoutonRafraichir();
 
     // ---------------------
     // Envoi de la signature électronique
     // ---------------------
 
-    getIframeBody().find("button").contains("Signer électroniquement").click();
-
-    getIframeBody()
-      .find('input[data-cy="prenom"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.prenom);
-
-    getIframeBody()
-      .find('input[data-cy="nom"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.nom);
-
-    getIframeBody()
-      .find('input[data-cy="mail"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.mail);
-
-    getIframeBody()
-      .find('input[data-cy="portable"]')
-      .type(ParcoursData.re7FO.parcoursENTREPRISE.telephone);
-
-    getIframeBody()
-      .find('h1[class="title-helios"]')
-      .parent()
-      .find("button")
-      .contains("Valider")
-      .click();
-
-    getIframeBody()
-      .find('div[role="status"]')
-      .and("contain", "Circuit de signature électronique correctement lancé")
-      .should("be.visible");
+    cy.SignatureElec(ParcoursData.re7FO.parcoursENTREPRISE);
   });
 });

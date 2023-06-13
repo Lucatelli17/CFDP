@@ -40,30 +40,19 @@ describe("parcours SYNDICAT COPRO VERTICAL RE7 FO", () => {
   it("Parcours Syndicat Copro Vertical", () => {
     let numeroDevis = "";
 
+    // Sélection prospect + produit
+    cy.SelectProduct("Immobilier", "Alsina Syndicat de Copropriétaires");
+
     // ---------------------
-    // Sélection prospect & produit
+    // Devis - Date d'effet souhaitée
     // ---------------------
+    cy.DateEffet();
 
-    getIframeBody().find('a[href="/souscription/produits/Immobilier"]').click();
+    // Sélection pays
+    cy.SelectCountry1(ParcoursData.re7FO.parcoursIMMO);
 
-    getIframeBody()
-      .find('[class="v-card__title"]')
-      .contains("Alsina Syndicat de Copropriétaires")
-      .click();
-
-    getIframeBody().find("button").contains("Valider").click();
-
-    getIframeBody().find('input[data-cy="select-country"]').click();
-
-    getIframeBody()
-      .find('div[role="option"]')
-      .contains("France")
-      .first()
-      .click();
-
-    getIframeBody().find('div[role="combobox"]').first().click();
-
-    getIframeBody().find('div[role="listbox"]').contains("Verticale").click();
+    // Type de copro
+    cy.TypeCopro2(ParcoursData.re7FO.parcoursIMMO);
 
     getIframeBody().find('div[role="combobox"]').last().click();
 
