@@ -212,8 +212,9 @@ Cypress.Commands.add("ProceduresJudiciaires", (data) => {
 // ------------- TARIFICATION --------------------
 
 Cypress.Commands.add("TarificationAgricole", (data) => {
+  // Selection Pays
   cy.SelectCountry1(data);
-
+  // Activité avec commercialisation directe
   getIframeBody()
     .find('input[id="Activité avec commercialisation directe"]')
     .click();
@@ -221,27 +222,27 @@ Cypress.Commands.add("TarificationAgricole", (data) => {
     .find('div[role="listbox"]')
     .contains(data.commercialisationDirecte)
     .click();
-
-  getIframeBody().find('input[data-cy="8"]').click();
+  // Activité accessoire de diversification agricole
+  getIframeBody().find('input[id^="Activité accessoire"]').click();
+  // Non
   getIframeBody().find('div[role="option"]:visible').first().click();
-
+  // Activité principale
   getIframeBody().find('input[id="Activité principale"]').click();
   getIframeBody()
     .find('div[role="listbox"]')
     .contains(data.activitePrincipale)
     .click();
-
-  getIframeBody().find('input[data-cy="10"]').clear().type(data.CA);
-
-  getIframeBody().find('input[data-cy="39"]').click();
-
+  // Chiffre d'affaires HT
+  getIframeBody().find('input[id^="Chiffre d"]').clear().type(data.CA);
+  // Forme juridique de l'exploitation
+  getIframeBody().find('input[id^="Forme juridique de"]').click();
   getIframeBody()
     .find('div[role="listbox"]')
     .contains(data.formeJuridique)
     .click();
-
+  // Surface d'exploitation
   getIframeBody()
-    .find('input[data-cy="11"]')
+    .find('input[id^="Surface d"]')
     .clear()
     .type(data.surfaceExploitation);
 

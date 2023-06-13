@@ -8,5 +8,5 @@ module.exports = {
     defaultCommandTimeout: 20000,
   },
   retries: { openMode: 0 },
-  watchForFileChanges: true,
+  watchForFileChanges: false,
 };

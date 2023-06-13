@@ -62,7 +62,7 @@ describe("parcours AGRICOLE RE7 FO", () => {
     cy.AssuranceProtecJuri();
 
     // Redressement judiciaire
-    cy.RedressementJuri();
+    cy.RedressementJudiciaire();
 
     // Redacteur devis
     cy.RedacteurDevis(ParcoursData.FO.parcoursAGRICOLE);
