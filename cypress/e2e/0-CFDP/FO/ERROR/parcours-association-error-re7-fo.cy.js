@@ -1,10 +1,11 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
-describe("parcours ASSOCIATION ERROR RE7 FO", () => {
+describe("parcours ASSOCIATION ERROR FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Association Error", () => {

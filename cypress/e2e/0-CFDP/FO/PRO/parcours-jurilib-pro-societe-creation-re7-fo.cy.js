@@ -7,6 +7,7 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Jurilib PRO Societe en creation", () => {
@@ -72,7 +73,7 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     cy.SelectCivilite2(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.FO.parcoursJURILIBPRO);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursJURILIBPRO);
 
     cy.PrenomRepresentant(ParcoursData.FO.parcoursJURILIBPRO);
 
@@ -129,7 +130,7 @@ describe("parcours JURILIB PRO SOCIETE EN CREATION FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursJURILIBPRO);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi signature électronique

@@ -1,10 +1,11 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
-describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR RE7 FO", () => {
+describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Syndicat Copro Vertical Nouveau Prospect Error", () => {

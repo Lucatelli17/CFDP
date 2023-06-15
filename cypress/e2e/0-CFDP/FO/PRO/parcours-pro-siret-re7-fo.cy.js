@@ -1,10 +1,11 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
-describe("parcours PRO SIRET RE7 FO", () => {
+describe("parcours PRO SIRET FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Pro Siret", () => {
@@ -55,7 +56,7 @@ describe("parcours PRO SIRET RE7 FO", () => {
     cy.SelectCivilite(ParcoursData.FO.parcoursPRO);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.FO.parcoursPRO);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursPRO);
     cy.PrenomRepresentant(ParcoursData.FO.parcoursPRO);
 
     // Procédures judiciaires
@@ -110,7 +111,7 @@ describe("parcours PRO SIRET RE7 FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursPRO);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi signature électronique

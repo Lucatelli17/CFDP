@@ -1,10 +1,11 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
-describe("parcours AGRICOLE RE7 FO", () => {
+describe("parcours AGRICOLE FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Agricole", () => {
@@ -48,7 +49,7 @@ describe("parcours AGRICOLE RE7 FO", () => {
 
     // Nom & prénom représentant
 
-    cy.NomRepresentant(ParcoursData.FO.parcoursAGRICOLE);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursAGRICOLE);
 
     cy.PrenomRepresentant(ParcoursData.FO.parcoursAGRICOLE);
 
@@ -105,7 +106,7 @@ describe("parcours AGRICOLE RE7 FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursAGRICOLE);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi de la signature électronique

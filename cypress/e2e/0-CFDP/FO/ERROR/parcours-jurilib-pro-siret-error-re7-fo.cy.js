@@ -5,6 +5,7 @@ describe("parcours JURILIB PRO SIRET ERROR FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Jurilib PRO SIRET Error", () => {

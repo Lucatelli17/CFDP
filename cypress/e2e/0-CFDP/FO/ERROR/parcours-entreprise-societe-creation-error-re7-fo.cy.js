@@ -5,6 +5,7 @@ describe("parcours ENTREPRISE SOCIETE EN CREATION ERROR FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Entreprise Societe en creation Error", () => {

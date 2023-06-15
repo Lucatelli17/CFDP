@@ -5,6 +5,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Patrimoine", () => {
@@ -56,17 +57,17 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     // Adresse
     cy.Adresse(ParcoursData.FO.parcoursIMMO);
 
-    // Ville
-    cy.Ville(ParcoursData.FO.parcoursIMMO);
-
     // Code Postal
     cy.CodePostal(ParcoursData.FO.parcoursIMMO);
 
-    // Attente de la génération du devis
-    cy.wait(5000);
+    // Ville
+    cy.Ville(ParcoursData.FO.parcoursIMMO);
 
     // Combien de procédures judiciaires avez-vous eu depuis les 36 derniers mois ?
     cy.ProceduresJudiciaires(ParcoursData.FO.parcoursIMMO);
+
+    // Attente de la génération du devis
+    cy.wait(5000);
 
     // Avez-vous déjà souscrit à une assurance de protection juridique ?
     cy.AssuranceProtecJuri();
@@ -124,7 +125,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursIMMO);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Contrat - Récapitulatif et Signature

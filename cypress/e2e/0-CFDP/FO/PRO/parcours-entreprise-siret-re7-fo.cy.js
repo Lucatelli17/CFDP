@@ -5,6 +5,7 @@ describe("parcours ENTREPRISE SIRET FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Entreprise Siret", () => {
@@ -66,7 +67,7 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     cy.SelectCivilite(ParcoursData.FO.parcoursENTREPRISE);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.FO.parcoursENTREPRISE);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursENTREPRISE);
     cy.PrenomRepresentant(ParcoursData.FO.parcoursENTREPRISE);
 
     // Redacteur devis
@@ -104,7 +105,7 @@ describe("parcours ENTREPRISE SIRET FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursENTREPRISE);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi de la signature électronique

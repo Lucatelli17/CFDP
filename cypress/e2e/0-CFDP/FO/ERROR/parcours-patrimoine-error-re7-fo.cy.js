@@ -5,6 +5,7 @@ describe("parcours IMMOBILIER Alsina patrimoine immobilier Error FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Patrimoine Error", () => {

@@ -8,6 +8,7 @@
     "cy:runImmo": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER/'",
     "cy:runPro": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/PRO/'",
     "cy:runFO": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/'",
+    "cy:runFOnoError": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER,cypress/e2e/0-CFDP/FO/AGRICOLE/,cypress/e2e/0-CFDP/FO/PRO/,cypress/e2e/0-CFDP/FO/PARTICULIER/,cypress/e2e/0-CFDP/FO/ASSOCIATION/'",
     "cy:runSpecificTest": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/IMMOBILIER/parcours-syndicat-copro-vertical-nouveau-prospect-re7-fo.cy.js'",
     "cy:runParticulier": "npx cypress run --browser chrome --spec 'cypress/e2e/0-CFDP/FO/PARTICULIER'"
   },

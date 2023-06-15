@@ -5,6 +5,7 @@ describe("parcours ENTREPRISE SOCIETE EN CREATION FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Entreprise Societe en creation", () => {
@@ -39,10 +40,10 @@ describe("parcours ENTREPRISE SOCIETE EN CREATION FO", () => {
     cy.FormeJuridique2(ParcoursData.FO.parcoursENTREPRISE);
     // Adresse
     cy.Adresse3(ParcoursData.FO.parcoursENTREPRISE);
-    // Ville
-    cy.Ville2(ParcoursData.FO.parcoursENTREPRISE);
     // Code postal
     cy.CodePostal(ParcoursData.FO.parcoursENTREPRISE);
+    // Ville
+    cy.Ville2(ParcoursData.FO.parcoursENTREPRISE);
     // En qualité de
     cy.EnQualiteDe(ParcoursData.FO.parcoursENTREPRISE);
     // Attente de la génération du devis
@@ -50,7 +51,7 @@ describe("parcours ENTREPRISE SOCIETE EN CREATION FO", () => {
     // Sélection Civilité
     cy.SelectCivilite(ParcoursData.FO.parcoursENTREPRISE);
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.FO.parcoursENTREPRISE);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursENTREPRISE);
     cy.PrenomRepresentant(ParcoursData.FO.parcoursENTREPRISE);
     // Procédures judiciaires
     cy.ProceduresJudiciaires(ParcoursData.FO.parcoursENTREPRISE);
@@ -86,7 +87,7 @@ describe("parcours ENTREPRISE SOCIETE EN CREATION FO", () => {
     // Informations de paiement
     cy.InfosPaiement(ParcoursData.FO.parcoursENTREPRISE);
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
     // ---------------------
     // Envoi de la signature électronique
     // ---------------------

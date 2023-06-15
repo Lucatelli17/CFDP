@@ -1,10 +1,11 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
-describe("parcours SYNDICAT COPRO VERTICAL RE7 FO", () => {
+describe("parcours SYNDICAT COPRO VERTICAL FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Syndicat Copro Vertical", () => {
@@ -60,7 +61,7 @@ describe("parcours SYNDICAT COPRO VERTICAL RE7 FO", () => {
     cy.SelectCivilite(ParcoursData.FO.parcoursIMMO);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.FO.parcoursIMMO);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursIMMO);
 
     cy.PrenomRepresentant(ParcoursData.FO.parcoursIMMO);
 
@@ -133,7 +134,7 @@ describe("parcours SYNDICAT COPRO VERTICAL RE7 FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursIMMO);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi signature électronique

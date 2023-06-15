@@ -5,6 +5,7 @@ describe("parcours JURILIB TPE SOCIETE EN CREATION FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Jurilib TPE Societe en creation", () => {

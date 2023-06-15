@@ -5,6 +5,7 @@ describe("parcours JURILIB TPE SIRET FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Jurilib TPE SIRET", () => {
@@ -55,7 +56,7 @@ describe("parcours JURILIB TPE SIRET FO", () => {
     cy.SelectCivilite(ParcoursData.FO.parcoursJURILIBTPE);
 
     // Nom & prénom représentant
-    cy.NomRepresentant(ParcoursData.FO.parcoursJURILIBTPE);
+    cy.NomRepresentant(envChoisi, ParcoursData.FO.parcoursJURILIBTPE);
 
     cy.PrenomRepresentant(ParcoursData.FO.parcoursJURILIBTPE);
 
@@ -110,7 +111,7 @@ describe("parcours JURILIB TPE SIRET FO", () => {
     cy.InfosPaiement(ParcoursData.FO.parcoursJURILIBTPE);
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi signature électronique

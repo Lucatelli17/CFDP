@@ -1,10 +1,11 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
-describe("parcours PARTICULIER RE7 FO", () => {
+describe("parcours PARTICULIER FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Particulier", () => {
@@ -37,16 +38,16 @@ describe("parcours PARTICULIER RE7 FO", () => {
     // Adresse
     cy.Adresse(ParcoursData.FO.parcoursPARTICULIER);
 
-    // Ville
-    cy.Ville(ParcoursData.FO.parcoursPARTICULIER);
-
     // Code Postal
     cy.CodePostal(ParcoursData.FO.parcoursPARTICULIER);
 
-    cy.wait(5000);
+    // Ville
+    cy.Ville(ParcoursData.FO.parcoursPARTICULIER);
 
     // Procédures judiciaires
     cy.ProceduresJudiciaires(ParcoursData.FO.parcoursPARTICULIER);
+
+    cy.wait(5000);
 
     // Assurance protection juridique
     cy.AssuranceProtecJuri();
@@ -99,7 +100,7 @@ describe("parcours PARTICULIER RE7 FO", () => {
     cy.ClickBoutonContenant1("Enregistrer");
 
     // Check génération des documents
-    cy.testBoutonRafraichir();
+    cy.testBoutonRafraichir(0);
 
     // ---------------------
     // Envoi de la signature électronique

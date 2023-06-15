@@ -1,11 +1,12 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 import { faker } from "@faker-js/faker";
 
-describe("parcours AGRICOLE ERROR RE7 FO", () => {
+describe("parcours AGRICOLE ERROR FO", () => {
   let envChoisi = ParcoursData.environnementChoisi;
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
+    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Agricole error", () => {

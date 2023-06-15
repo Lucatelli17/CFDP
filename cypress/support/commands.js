@@ -51,23 +51,31 @@ const getIframeDocument = () => {
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("testBoutonRafraichir", () => {
+Cypress.Commands.add("testBoutonRafraichir", (cpt) => {
+  cpt += 1;
   getIframeBody()
     .find("button")
     .then(($buttons) => {
-      if ($buttons.text().includes("Rafraîchir") === true) {
+      if ($buttons.text().includes("Rafraîchir") === true && cpt < 10) {
         // Si le bouton rafraichir est affiché, on clique dessus, on attend et on reteste
         getIframeBody().find("button").contains("Rafraîchir").click();
         cy.wait(10000);
-        cy.testBoutonRafraichir();
-      } else if ($buttons.text().includes("Dossier complet") === true) {
-        return;
+        cy.testBoutonRafraichir(cpt);
+      } else if (
+        $buttons.text().includes("Dossier complet") === true &&
+        cpt < 10
+      ) {
         // Dans ce cas les documents sont affichés, on peut passer à la suite
+        return;
+      } else if (cpt > 9) {
+        // Si on a attendu plus de 100 secondes que le dossier apparaisse c'est
+        // bien assez, il y a un soucis. On fait donc échouer le test
+        expect(true).to.equal(false);
       } else {
         // Si ni le bouton rafraichir ni le bouton dossier complet ne sont affichés
         // On attend un peu que les documents chargent et on relance le test
         cy.wait(10000);
-        cy.testBoutonRafraichir();
+        cy.testBoutonRafraichir(cpt);
       }
     });
 });
@@ -111,6 +119,13 @@ Cypress.Commands.add("loginFO", (env, loginData) => {
   cy.get('input[id="password"]').type(loginData.password);
   cy.get('button[id="signin"]').click();
   cy.url().should("eq", loginData[URL]);
+});
+
+Cypress.Commands.add("selectionCodeCourtier", (env, data) => {
+  if (env === "intFO") {
+    getIframeBody().find("input").first().type(data, { force: true });
+    getIframeBody().find("button").contains("Sélectionner").click();
+  }
 });
 
 // -------------------------------------------------------------------------
@@ -291,9 +306,7 @@ Cypress.Commands.add("NbCoproVerticales", (data) => {
 
 // Présence d'un lot dans une résidence de tourisme
 Cypress.Commands.add("LotResidenceTourisme", (data) => {
-  getIframeBody()
-    .find('input[id="Lot situé dans une résidence de tourisme"]')
-    .click();
+  getIframeBody().find('input[id$="dans une résidence de tourisme"]').click();
   getIframeBody()
     .find('div[role="option"]')
     .contains(data.presenceLotResiTou)
@@ -460,7 +473,21 @@ Cypress.Commands.add("NomEntrepriseSiret", (data) => {
 Cypress.Commands.add("CodeNAF", (env, data) => {
   let codeNAF = "codeNAF" + env;
   getIframeBody().find('input[id^="Code NAF"]').click().type(data[codeNAF]);
-  getIframeBody().find('[role="listbox"]').contains(data[codeNAF]).click();
+  getIframeBody()
+    .find('[role="listbox"]')
+    .contains(data[codeNAF])
+    .first()
+    .click();
+});
+// Code NAF de l’activité principale
+Cypress.Commands.add("CodeNAFInfoComplementaires", (data) => {
+  // let codeNaf = "codeNAFintFO";
+  getIframeBody().find('div[title^="Code NAF de"]').type("5").click();
+  // getIframeBody()
+  //   .find('div[role="listbox"]')
+  //   .contains(data[codeNaf])
+  //   .last()
+  //   .click();
 });
 
 // Nombre véhicules terrestres à moteur
@@ -620,8 +647,17 @@ Cypress.Commands.add("SelectCivilite2", (data) => {
 });
 
 // Nom Représenté Par
-Cypress.Commands.add("NomRepresentant", (inputData) => {
-  getIframeBody().find('input[data-cy="nomRepresentant"]').type(inputData.nom);
+Cypress.Commands.add("NomRepresentant", (env, inputData) => {
+  switch (env) {
+    case "re7FO":
+      getIframeBody()
+        .find('input[data-cy="nomRepresentant"]')
+        .type(inputData.nom);
+      break;
+    case "intFO":
+      getIframeBody().find('input[data-cy="nom"]').type(inputData.nom);
+      break;
+  }
 });
 // Prénom Représenté Par
 Cypress.Commands.add("PrenomRepresentant", (inputData) => {
