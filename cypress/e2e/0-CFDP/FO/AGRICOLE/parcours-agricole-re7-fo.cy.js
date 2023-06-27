@@ -5,7 +5,7 @@ describe("parcours AGRICOLE FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
-    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
+    //cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Agricole", () => {

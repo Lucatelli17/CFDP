@@ -5,7 +5,7 @@ describe("parcours SYNDICAT COPRO HORIZONTAL FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
-    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
+    //cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Syndicat Copro Horizontal", () => {
@@ -69,7 +69,7 @@ describe("parcours SYNDICAT COPRO HORIZONTAL FO", () => {
     // En qualité de
     cy.EnQualiteDe(ParcoursData.FO.parcoursIMMO);
 
-    cy.wait(8000);
+    cy.wait(5000);
 
     // Nom de la copro
     cy.nomCopro(ParcoursData.FO.parcoursIMMO);

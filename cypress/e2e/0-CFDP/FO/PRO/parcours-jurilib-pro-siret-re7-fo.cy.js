@@ -1,13 +1,13 @@
 import ParcoursData from "../../../../fixtures/dataCFDP.json";
 
 describe("parcours JURILIB PRO SIRET FO", () => {
-  // let envChoisi = ParcoursData.environnementChoisi;
+  let envChoisi = ParcoursData.environnementChoisi;
   // Le produit Jurilib Pro n'existe pas sur Int
-  let envChoisi = "re7FO";
+  // let envChoisi = "re7FO";
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
-    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
+    //cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Jurilib PRO SIRET", () => {

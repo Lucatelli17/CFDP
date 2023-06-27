@@ -5,7 +5,7 @@ describe("parcours SYNDICAT COPRO VERTICAL NOUVEAU PROSPECT ERROR FO", () => {
 
   beforeEach(() => {
     cy.loginFO(envChoisi, ParcoursData.FO.login);
-    cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
+    //cy.selectionCodeCourtier(envChoisi, ParcoursData.FO.login.codeIA);
   });
 
   it("Parcours Syndicat Copro Vertical Nouveau Prospect Error", () => {
